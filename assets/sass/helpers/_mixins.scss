@@ -1,0 +1,103 @@
+//===========================================
+// -Mixins start
+//===========================================
+
+// conver px to rem
+@function rem($pixels, $context: 16) {
+  @return ($pixels / $context) * 1rem;
+}
+
+$breakpoints: (
+    "phone":        400px,
+    "phone-wide":   480px,
+    "phablet":      560px,
+    "tablet-small": 640px,
+    "tablet":       768px,
+    "boot-md":      992px,
+    "tablet-wide":  1024px,
+    "desktop":      1248px,
+    "desktop-wide": 1440px
+);
+@mixin mq($width, $type: min) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}
+
+@mixin mq-only($min-width, $max-width) {
+  @if map_has_key($grid-breakpoints, $min-width) and
+    map_has_key($grid-breakpoints, $max-width)
+  {
+    // define value to relevant$grid-breakpoints
+    $min-width: map_get($grid-breakpoints, $min-width);
+    $max-width: map_get($grid-breakpoints, $max-width) - 1px;
+
+    @media (min-width: $min-width) and (max-width: $max-width) {
+      @content;
+    }
+  } @else {
+    @error "Please Define correct media query breakpoint";
+  }
+}
+
+@mixin font-face($family, $path, $name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: "#{$family}";
+    src: url("#{$path}/#{$name}.ttf") format("truetype"),
+      url("#{$path}/#{$name}.woff") format("woff"),
+      url("#{$path}/#{$name}.svg##{$name}") format("svg");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+@mixin center($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin circle($size) {
+  @include square($size);
+  border-radius: 50%;
+}
+
+@mixin is-parent($parent-selector) {
+  $current-sequences: &;
+  $new-sequences: ();
+
+  @each $sequence in $current-sequences {
+    $current-selector: nth($sequence, -1);
+    $prepended-selector: join($parent-selector, $current-selector);
+    $new-sequence: set-nth($sequence, -1, $prepended-selector);
+    $new-sequences: append($new-sequences, $new-sequence, comma);
+  }
+
+  @at-root #{$new-sequences} {
+    @content;
+  }
+}
+
+//===========================================
+// -Mixins end
+//===========================================

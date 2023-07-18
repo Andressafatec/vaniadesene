@@ -1,0 +1,47 @@
+//===========================================
+// -Variables start
+//===========================================
+
+// Colors start
+
+// define your vars or override bootstrap vars
+/*$default: red;
+$primary: green;
+$secondary: blue;
+$alternate: cyan;*/
+
+// Typography Family
+
+
+$circular_problack: "circular_air_problack";
+$circular_probold: "circular_air_probold";
+$circular_probook: "circular_air_probook";
+$circular_prolight_italic: "circular_air_prolight_italic";
+$circular_prolight: "circular_air_prolight";
+$yapar_bold:  "yaparibold";
+$yapar_light:  "yapari_trialextra_light";
+$yapar_medium:  "yapari_trialmedium";
+$yapar_regular:  "yapariregular";
+
+
+$font-default: $circular_probook, sans-serif;
+$font-primary: $circular_probook, sans-serif;
+$font-secondary: $yapar_regular, sans-serif;
+
+$font-path: "../fonts";
+
+// define your Break Points or override bootstrap Break Points
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+// ===========================================
+// -Variables end
+// ===========================================
+
+$rosa: #fa2f93;
+$text-color:#474747;

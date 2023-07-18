@@ -1,0 +1,361 @@
+.conteudo{
+    display: flex;
+    flex-wrap: wrap;
+}
+.conteudo-right{
+    width: 50%;
+    margin-top: -30px;
+    z-index: 999;
+
+    .card-detalhes{
+        background-color: #fff;
+        width: 70%;
+        padding: 15px;
+        background: #fff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+        border-radius: 3px !important;
+        cursor: pointer;
+        margin: 0;
+        margin-left: calc(50% - 35%);
+
+        .titulo_card{
+            font-size: 20px;
+            color:#eb9839;
+            font-weight: 600;
+
+        }
+        p{
+            font-size: 14px;
+            color:#0D3F85;
+            font-weight: 500; 
+        }
+        .detalhes-input {
+            position: relative;
+            margin-bottom: 0;
+            label{
+                font-size: 12px;
+                color:#0D3F85;
+                font-weight: 600;
+            }
+            input {
+                width: 100%;
+                background: #fff;
+                border-radius: 6px;
+                border: none;
+                padding: 0 25px;
+                padding-right: 0;
+                height: 40px;
+                font-size: 15px;
+                border: 1px solid #cacaca;
+
+                &::placeholder{
+                    color: #9b9a9a;
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+            }
+        }
+        .bot_laranja{
+            width: 100%;
+            padding: 10px;
+            margin-top: 30px;
+            background-color: #EB9839;
+            text-align: center;
+            border-radius: 3px;
+            box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 500 !important;
+            border: none;
+        }
+        img{
+            height: auto;
+            width: 100%;
+            border-radius: 50%;
+            border: 2px solid #0D3F85;
+        }
+        .texto-card{
+            font-size: 14px;
+            color: #000;
+            font-weight: 400;
+
+            .color{
+                color:#EB9839;
+                text-transform: uppercase;
+            }
+
+            .bot_azul{
+                width: 45%;
+                padding: 10px;
+                margin-top: 0.5rem;
+                background-color: #0D3F85;
+                text-align: center;
+                border-radius: 3px;
+                box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+                color: #fff;
+                text-transform: uppercase;
+                font-size: 10px;
+                font-weight: 500 !important;
+                border: none;
+            }
+        }
+    }
+    .info{
+        font-size: 12px;
+        color: #000;
+        font-weight: 500;
+        text-align: center;
+        width: 50%;
+        margin-left: calc(50% - 25%);
+
+        .laranja{
+            color:#EB9839;
+        }
+        .azul{
+            color: #0D3F85;
+            padding-top: 1rem;
+        }
+        a{
+            color:#EB9839;
+            text-decoration: underline;
+            font-size: 12px;
+        }
+    }
+}
+
+.conteudo-left{
+    width: 50%;
+
+    .botoes-laranja{
+        width: 100px;
+        padding: 10px;
+        border: 1px solid #eb9839;
+        border-radius: 4px;
+        color: #000;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        margin-right: 1rem;
+
+        i{
+            font-size: 18px;
+            padding-right: 0.5rem;
+            color:#eb9839;
+        }
+
+        &:hover{
+            background-color: #eb9839;
+            color: #fff;
+
+            i{
+                color: #fff;
+            }
+        }
+    }
+
+    .titulo-left{
+        font-size: 25px;
+        color: #0D3F85;
+        font-weight: 600;
+        width: 85%;
+    }
+
+    .texto1-left{
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .textolaranja-left{
+        font-size: 20px;
+        font-weight: 600;
+        color:#eb9839;
+        padding-top: 1rem;
+    }
+    .texto2-left{
+        font-size: 24px;
+        font-weight: 600;
+        color: #000;
+    }
+    .texto3-left{
+        font-size: 16px;
+        font-weight: 400;
+        position: relative;
+        padding-bottom: 20px;
+
+        &::after{
+            content: "";
+            position: absolute;
+            width: 25%;
+            height: 100%;
+            background: transparent;
+            bottom: 0;
+            left: 0;
+            border-bottom: 2px solid #0d3f85;
+        }
+    }
+    .quadro1{
+        border: 2px solid #eb9839;
+        border-radius: 4px;
+        padding: 10px;
+        margin-top: 2rem;
+
+        .icones-quadro{
+            display: flex;
+            .icone{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #cacaca;
+                font-size: 14px;
+                font-weight: 600;
+                color: #0D3F85;
+
+                img{
+                    width: 40px;
+                    height: auto;
+                    object-fit: cover; 
+                }
+            }
+
+            .col-dormitorio{
+                width: 25%;
+                margin-left: 0.5rem;
+                padding: 0;
+            }
+            .col-area{
+                width: 15%;
+                margin-left: 0;
+                padding: 0;
+            }
+            .col-suites{
+                width: 17%;
+                margin-left: 0.5rem;
+                padding: 0;
+            }
+            .col-banheiro{
+                width: 22%;
+                margin-left: 0.5rem;
+                padding: 0;
+            }
+        }
+        .texto-quadro{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+
+            .col-dorm{
+                width: 25%;
+                margin-left: 0.5rem;
+                padding: 0;
+                text-align: center;
+            }
+            .col-ar{
+                width: 15%;
+                margin-left: 0;
+                padding: 0;
+                text-align: center;
+            }
+            .col-suit{
+                width: 17%;
+                margin-left: 0.5rem;
+                padding: 0;
+                text-align: center;
+            }
+            .col-banh{
+                width: 22%;
+                margin-left: 0.5rem;
+                padding: 0;
+                text-align: center;
+            }
+        }
+        
+    }
+    .titulo-azul{
+        font-size: 20px;
+        color:#0D3F85;
+        font-weight: 700;
+        margin-top: 2rem;
+    }
+    .texto4-left{
+        p{
+            font-size: 16px;
+            color: #474747;
+            font-weight: 500;
+            text-align: justify;
+            margin-bottom: 0.5rem;
+        }
+        a{
+            color:#eb9839;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: revert;
+        }
+    }
+    .quadro2{
+        border: 2px solid #eb9839;
+        border-radius: 4px;
+        padding: 15px 30px;
+        margin-top: 1rem;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        flex-wrap: wrap;
+
+        i{
+            font-size: 5px;
+            color: #0D3F85;
+        }
+        p{
+            font-size: 14px;
+            font-weight: 400;
+            color: #cacaca;
+            margin-bottom: 0;
+            float: right;
+        }
+        a{
+            color:#eb9839;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: revert;
+            margin-top: 1rem;
+        }
+
+        .titulo-quadro{
+            font-size: 18px;
+            color:#0D3F85;
+            font-weight: 600;
+
+            i{
+                color: #eb9839;
+                font-size: 18px;
+                padding-right: 0.5rem;
+            }
+        }
+    }
+}
+
+#quartobanner{
+    width: 100%;
+    background: url('../images/mapa.png');
+    background-size: cover;
+    background-position: bottom center;
+    height: calc(100vh - 200px);
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.titulo-laranja{
+    font-size: 24px;
+    color:#eb9839;
+    font-weight: 700;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.detalhes{
+    margin: 0.70rem !important;
+    width: 23% !important;
+}
