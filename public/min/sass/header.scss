@@ -1,0 +1,217 @@
+.header {
+  background: linear-gradient(0, $primary-color 50%, #fff 50%);
+  height: 110px;
+  font-family: $font-family;
+
+  &__container {
+    height: 100%;
+  }
+
+  &__double-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+
+    &__top,
+    &__bottom {
+      display: flex;
+      height: 50%;
+      text-decoration: none;
+      list-style: none;
+
+      & ul {
+        display: flex;
+        align-items: center;
+        margin: 0;
+      }
+
+      & li {
+        list-style: none;
+        margin-right: 2.25rem;
+      }
+    }
+
+    &__top {
+      & .--active {
+        border-bottom: 2px solid $danger-color;
+      }
+
+      & li {
+        font-size: 14px;
+        margin-right: 1rem;
+        font-weight: 700;
+        color: $primary-color;
+
+        & a {
+          color: $primary-color;
+
+          &:hover {
+            border-bottom: 2px solid $danger-color;
+          }
+        }
+      }
+
+      &--last {
+        margin-right: 0 !important;
+      }
+
+      &--link {
+        background-color: $danger-color;
+        color: #fff !important;
+        padding: 0.2rem 0.5rem;
+        border-radius: $border-radius;
+
+        &:hover {
+          color: #fff;
+          border-bottom: 0 !important;
+        }
+      }
+    }
+
+    &__bottom {
+      padding: 0 !important;
+
+      &__search {
+        background-color: $accent-color !important;
+        border-radius: 0;
+        border: 0;
+
+        &--dropdown-menu {
+          margin-left: -22.5rem !important;
+          border: 0;
+          border-radius: 0;
+          box-shadow: 0 1px 2px rgb(0 0 0 / 16%) !important;
+          padding: 1rem;
+          width: 25rem;
+          background-color: $accent-color !important;
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+
+          & div {
+            background-color: transparent !important;
+          }
+
+          & input {
+            border: 0;
+          }
+
+          & button {
+            border: none;
+            background-color: $primary-color;
+            color: #fff;
+          }
+        }
+
+        & img {
+          width: 1rem;
+          height: 1rem;
+        }
+
+        &::after {
+          content: none !important;
+        }
+
+        &:focus {
+          box-shadow: none !important;
+        }
+      }
+      & a {
+        color: #fff;
+
+        &::after {
+          content: none !important;
+        }
+
+        &:focus {
+          color: #fff;
+        }
+
+        &:hover {
+          background-color: inherit !important;
+          color: #fff !important;
+        }
+      }
+
+      & div {
+        background-color: $primary-color;
+        border-top: 0;
+      }
+    }
+
+    &__divider {
+      display: flex;
+      width: 5px;
+      height: 5px;
+      border-radius: 5px;
+      background-color: $accent-color !important;
+      margin-left: -2rem !important;
+      margin-right: 0.5rem !important;
+    }
+  }
+
+  &__secondary {
+    height: 7rem;
+    border-bottom: 1px solid #bebebe;
+
+    &__items {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+
+      & .active {
+        border-bottom: 1px solid $danger-color;
+      }
+    }
+
+    &__item {
+      display: flex;
+      padding-right: 1rem;
+      color: $primary-color;
+      font-weight: bold;
+
+      &--associate {
+        background-color: $danger-color;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        color: #fff !important;
+
+        &:hover {
+          border: none !important;
+          color: #fff;
+        }
+      }
+
+      &:nth-last-child(-n + 3) {
+        padding-right: 0;
+        margin-left: 1rem;
+      }
+    }
+
+    &__search {
+      margin-left: 5rem;
+      border-bottom: 1px solid #818181;
+      max-width: 10rem;
+
+      & input {
+        padding: 0;
+        border: none;
+      }
+
+      & button {
+        border: none;
+      }
+    }
+
+    & a {
+      color: $primary-color;
+
+      &:hover {
+        border-bottom: 1px solid $danger-color;
+        color: $primary-color;
+      }
+    }
+  }
+}
