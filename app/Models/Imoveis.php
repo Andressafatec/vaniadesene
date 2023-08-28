@@ -10,8 +10,6 @@ class Imoveis extends Model
 {
     use HasFactory;
 
-    protected $table = 'vaniadesene_rw940.imoveis';
-
     protected $fillable = [
 		'anuncio',
 		'titulo',

@@ -9,8 +9,6 @@ class Caracteristica extends Model
 {
     use HasFactory;
 
-	protected $table = 'vaniadesene_rw940.caracteristicas';
-
     protected $fillable = [
 		'imovel_id',
 		'pref',

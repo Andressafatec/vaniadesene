@@ -193,6 +193,7 @@ Route::prefix('/')->middleware(['web'])->name('admin.')->group(function () {
     Route::prefix('locacao')->name('locacao.')->group(function () {
         Route::get('/', [LocacaoController::class, 'index'])->name('index');
         Route::get('/detalhes/{id}', [LocacaoController::class, 'detalhes'])->name('detalhes');
+        Route::get('/filtrar', [LocacaoController::class, 'index'])->name('filtrar');
     });
 
     Route::prefix('venda')->name('venda.')->group(function () {

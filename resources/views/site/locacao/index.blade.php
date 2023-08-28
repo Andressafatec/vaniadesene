@@ -15,13 +15,13 @@ ini_set('memory_limit', '256M');
         </div>
         <div class="container">
             <div class="row mt-5">
-                <div class="col_categoria_1">
+                <form action="{{ route('admin.locacao.filtrar')}}" method="GET" class="col_categoria_1">
                     <div class="category-sidebar">
                         <!-- Start Single Widget -->
                         <div class="single-widget">
                             <div class="search">
-                                <form action="#">
-                                    <input type="text" placeholder="Buscar por código">
+                                <form action="">
+                                    <input type="text" placeholder="Buscar por código" name="codigo">
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
@@ -34,58 +34,16 @@ ini_set('memory_limit', '256M');
                             <div class="collapse" id="collapsetipo">
                                 <div class="col-12">
                                     <div class="row">
+                                        @foreach ($tipoimovel as $tipoimoveis)
                                         <div class="tipo">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                                <input class="form-check-input" name="tipo" value="{{ $tipoimoveis->tipo }}" type="checkbox" id="flexCheckDefault1">
                                                 <label class="form-check-label" for="flexCheckDefault1">
-                                                    Apartamento
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                                                <label class="form-check-label" for="flexCheckDefault2">
-                                                    Casa
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                                <label class="form-check-label" for="flexCheckDefault3">
-                                                    Casa em condomínio
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                                <label class="form-check-label" for="flexCheckDefault3">
-                                                    Chácara
+                                                {{ ucfirst(strtolower($tipoimoveis->tipo)) }}
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="tipo">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                                <label class="form-check-label" for="flexCheckDefault3">
-                                                    Cobertura
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                                <label class="form-check-label" for="flexCheckDefault3">
-                                                    Loja
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                                <label class="form-check-label" for="flexCheckDefault3">
-                                                    Ponto comercial
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                                <label class="form-check-label" for="flexCheckDefault3">
-                                                    Terreno
-                                                </label>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -96,6 +54,24 @@ ini_set('memory_limit', '256M');
                                     <i class="fas fa-chevron-down icon"></i>
                                 </a>
                             </p>
+                            <div class="collapse" id="collapsefinalidade">
+                                <div class="col-12">
+                                    <div class="row">
+                                        @foreach ($finalidadeimovel as $finalidadeimoveis)
+                                        <div class="tipo">
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="finalidade" value="{{ $finalidadeimoveis->finalidade }}" type="checkbox" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    {{ ucfirst(strtolower($finalidadeimoveis->finalidade)) }}
+
+                                                    <!--{{ $finalidadeimoveis->finalidade }}-->
+                                                </label>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsecidade" role="button" aria-expanded="false" aria-controls="collapsecidade">
@@ -103,6 +79,20 @@ ini_set('memory_limit', '256M');
                                     <i class="fas fa-chevron-down icon"></i>
                                 </a>
                             </p>
+                            <div class="collapse" id="collapsecidade">
+                                <div class="col-12 tipo" style="max-width:100%">
+                                        @foreach ($cidadeimovel as $cidadeimoveis)
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="cidade" value="{{ $cidadeimoveis->cidade }}" type="checkbox" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    {{ ucfirst(strtolower($cidadeimoveis->cidade)) }}
+
+                                                    <!--{{ $finalidadeimoveis->finalidade }}-->
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                </div>
+                            </div>
                             <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsebairro" role="button" aria-expanded="false" aria-controls="collapsebairro">
@@ -110,6 +100,16 @@ ini_set('memory_limit', '256M');
                                     <i class="fas fa-chevron-down icon"></i>
                                 </a>
                             </p>
+                            <div class="collapse" id="collapsebairro">
+                                <div class="col-12 tipo" style="max-width:100%">
+                                    <select name="bairro" class="form-control">
+                                        <option value=""> Nenhum </option>
+                                        @foreach ($bairroimovel as $bairroimoveis)
+                                            <option value="{{ $bairroimoveis->bairro }}"> {{ ucfirst(strtolower($bairroimoveis->bairro)) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsevalor" role="button" aria-expanded="false" aria-controls="collapsevalor">
@@ -122,11 +122,11 @@ ini_set('memory_limit', '256M');
                                     <div class="row">
                                         <div class="valor mr-2">
                                             <label for="">Mínimo</label>
-                                            <input type="text" placeholder="">
+                                            <input type="text" placeholder="" name='valormin' style="padding: 0; padding-right:0">
                                         </div>
                                         <div class="valor">
                                             <label for="">Máximo</label>
-                                            <input type="text" placeholder="">
+                                            <input type="text" placeholder="" name='valormax' style="padding: 0; padding-right:0">
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +143,7 @@ ini_set('memory_limit', '256M');
                                     <div class="row">
                                         <div class="quartos mr-2">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[DOR]" value="1" id="flexCheckDefault1">
                                                 <label class="form-check-label" for="flexCheckDefault1">
                                                     1
                                                 </label>
@@ -217,9 +217,9 @@ ini_set('memory_limit', '256M');
                                 </div>
                             </div>
                         </div>
-                        <a href="" class="botao_filtro">Aplicar filtro</a>
+                        <button type="submit" class="botao_filtro">Aplicar filtro</button>
                     </div>
-                </div>
+                </form>
                 <div class="col_categoria_2">
                     <div class="category-grid-topbar">
                         <div class="row align-items-center">
@@ -246,7 +246,7 @@ ini_set('memory_limit', '256M');
                                     @endif
                                 @endif
                                 @endforeach
-                              <div class="caixa"> {{ $imovel->valor }}</div>
+                              <div class="caixa"> R${{number_format($imovel->valor, 2, ',','.')}} </div>
                               <div class="texto-laranja">{{ $imovel->tipo }}</div>
                               <div class="texto-preto">{{ $imovel->bairro }}</div>
                               <p>{{ $imovel->cidade }}</p>
@@ -288,12 +288,12 @@ ini_set('memory_limit', '256M');
                                   <div class="leg">{{ $caracteristicas->valor }}</div>
                                 </div>
                                 @php
-                                      $dormitorio = true;
-                                      @endphp
+                                  $Dormitorio = true;
+                                @endphp
                                 @endif
                               @endif
                               @endforeach
-                              @if (!isset($dormitorio) || !$dormitorio)
+                              @if (!isset($Dormitorio) || !$Dormitorio)
                                 <div class="icone col-3">
                                   <img src="{{asset('images/icone-03.svg')}}" alt="">
                                   <div class="leg">-</div>
@@ -327,7 +327,7 @@ ini_set('memory_limit', '256M');
                                 @if($caracteristicas->pref == 'GAR')
                                 <div class="icone col-3">
                                   <img src="{{asset('images/icone-05.svg')}}" alt="">
-                                  <div class="leg">1</div>
+                                  <div class="leg">{{ $caracteristicas->valor }}</div>
                                 </div>
                                 @php
                                   $garagem = true;

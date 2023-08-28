@@ -9,8 +9,6 @@ class Fotos extends Model
 {
     use HasFactory;
 
-	protected $table = 'vaniadesene_rw940.fotos';
-
     protected $fillable = [
 		'imovel_id',
 		'ordem',

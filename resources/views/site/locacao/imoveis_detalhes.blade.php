@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+<!--<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
         @foreach ($fotos as $foto)
@@ -21,33 +21,37 @@
         <i class="fal fa-chevron-right"></i>
     </span>
   </a>
-</div>
-<!--<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+</div>-->
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active slides">
-        <img src="{{asset('images/apartamento.jpg')}}" class="col-slides px-0">
-        <img src="{{asset('images/casa.jpg')}}" class="col-slides px-0">
-        <img src="{{asset('images/casa_condominio.jpg')}}" class="col-slides px-0">
-    </div>
-    <div class="carousel-item slides">
-        <img src="{{asset('images/apartamento.jpg')}}" class="col-slides px-0">
-        <img src="{{asset('images/casa.jpg')}}" class="col-slides px-0">
-        <img src="{{asset('images/casa_condominio.jpg')}}" class="col-slides px-0">
-    </div>
+    @php 
+      $cont = 0; 
+    @endphp
+    @foreach ($fotos as $foto)
+      @if ($cont % 3 === 0)
+        <div class="carousel-item @if($cont === 0) active @endif">
+      @endif
+          <img src="{{asset($foto->url)}}" class="col-slides px-0">
+      @php 
+        $cont++;
+      @endphp
+      @if ($cont % 3 === 0 || $cont === count($fotos))
+        </div>
+      @endif
+    @endforeach
+  </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true">
-        <i class="fal fa-chevron-left"></i>
+      <i class="fal fa-chevron-left"></i>
     </span>
-    <span class="sr-only">Previous</span>
   </a>
   <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"> 
-        <i class="fal fa-chevron-right"></i>
+      <i class="fal fa-chevron-right"></i>
     </span>
-    <span class="sr-only">Next</span>
   </a>
-</div>-->
-
+</div>
     <div class="container">
         <div class="conteudo">
             <div class="conteudo-left">
@@ -57,12 +61,12 @@
                     <div class="botoes-laranja"><a href=""><i class="fal fa-map-marker-alt"></i>Rua</a></div>
                 </div>
                 <hr>
-                {{$imoveis->id}}
                 <div class="titulo-left">
                   {{preg_replace('/Ref:\d{2}/', '', $imoveis->titulo)}}
                 </div>
                 <div class="texto1-left">Endereço: 
-                {{($imoveis->bairro)}}, {{$imoveis->cidade}}, {{$imoveis->uf}}</div>
+                {{ ucfirst(strtolower($imoveis->bairro)) }}, 
+                {{ ucfirst(strtolower($imoveis->cidade)) }}, {{$imoveis->uf}}</div>
                 <div class="textolaranja-left">{{$imoveis->contrato}}</div>
                 <div class="texto2-left">R${{number_format($imoveis->valor, 2, ',','.')}} 
                 @if($imoveis->contrato == 'Locação')
@@ -91,33 +95,88 @@
                         </div>
                     </div>
                     <div class="texto-quadro pt-2">
+                      @php
+                        $area = false;
+                        $Dormitorio = false;
+                        $lavabo = false;
+                        $garagem = false;
+                        $suite = false;
+                      @endphp
                       @foreach ($caracteristicas as $caracteristica)
                         @if($caracteristica->pref == 'ARU')
                         <div class="col-ar">
                           {{$caracteristica->valor}} m²
                         </div>
+                        @php
+                          $area = true;
+                        @endphp
                         @endif
+                      @endforeach
+                      @if (!isset($area) || !$area)
+                        <div class="col-ar">
+                          - m²
+                        </div>
+                      @endif
+                      @foreach ($caracteristicas as $caracteristica)
                         @if($caracteristica->pref == 'DOR')
                         <div class="col-dorm">
                           {{$caracteristica->valor}}
                         </div>
+                        @php
+                          $Dormitorio = true;
+                        @endphp
                         @endif
+                      @endforeach
+                      @if (!isset($Dormitorio) || !$Dormitorio)
+                        <div class="col-dorm">
+                          -
+                        </div>
+                      @endif
+                      @foreach ($caracteristicas as $caracteristica)
                         @if($caracteristica->pref == 'DOP')
                         <div class="col-suit">
                           {{$caracteristica->valor}}
                         </div>
-                        @endif
-                        @if($caracteristica->pref == 'FAC')
-                        <div class="col-banh">
-                          {{$caracteristica->valor}}
-                        </div>
-                        @endif
-                        @if($caracteristica->pref == 'GAR')
-                        <div class="col-suit">
-                          {{$caracteristica->valor}}
-                        </div>
+                        @php
+                          $suite = true;
+                        @endphp
                         @endif
                       @endforeach
+                      @if (!isset($suite) || !$suite)
+                        <div class="col-suit">
+                          -
+                        </div>
+                      @endif
+                      @foreach ($caracteristicas as $caracteristica)
+                        @if($caracteristica->pref == 'FAC')
+                          <div class="col-banh">
+                            {{$caracteristica->valor}}
+                          </div>
+                          @php
+                            $lavabo = true;
+                          @endphp
+                        @endif
+                      @endforeach
+                      @if (!isset($lavabo) || !$lavabo)
+                        <div class="col-banh">
+                          -
+                        </div>
+                      @endif
+                      @foreach ($caracteristicas as $caracteristica)
+                        @if($caracteristica->pref == 'GAR')
+                          <div class="col-suit">
+                            {{$caracteristica->valor}}
+                          </div>
+                          @php
+                            $garagem = true;
+                          @endphp
+                        @endif
+                      @endforeach
+                      @if (!isset($garagem) || !$garagem)
+                        <div class="col-suit">
+                          -
+                        </div>
+                      @endif
                     </div>
                 </div>
                 <div class="titulo-azul">Sobre o imóvel</div>
@@ -208,13 +267,17 @@
                     </div>
                     <div class="col-12 d-flex mt-3">
                         <div class="col-4">
+                          @if ($corretor->foto === NULL)
                             <img src="https://via.placeholder.com/200x200" alt="#" class="mt-3">
+                          @else
+                            <img src="{{asset($corretor->foto)}}" alt="#" class="mt-3">
+                          @endif
                         </div>
                         <div class="col-8">
                             <div class="texto-card">
                                 <div class="color">Corretor</div>
-                                <strong>Nome e Sobrenome</strong><br>
-                                Creci 000000
+                                <strong>{{$corretor->nome}}</strong><br>
+                                {{$corretor->creci}}
                                 <div class="d-flex">
                                     <button class="bot_azul mr-2">veja mais</button>
                                     <button class="bot_azul">contato</button>

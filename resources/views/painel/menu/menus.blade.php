@@ -149,7 +149,7 @@
           <select name="id_conteudo" id="" class="form-control select">
             <option value="">Selecione</option>
           @foreach($categorias as $key => $categorie)        
-                <optgroup label="{{$categorie->section->title}} - {{$categorie->title}}"> 
+                <optgroup label="{{$categorie->title}} - {{$categorie->title}}"> 
                 @foreach($categorie->conteudos as $key => $content)  
                  
                   <option value="{{$content->content->id}}" 
