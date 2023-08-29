@@ -21,36 +21,42 @@ class LocacaoController extends Controller
         $bairroimovel = Imoveis::select('bairro')->distinct()->get();
         $imoveis = Imoveis::with(['caracteristica', 'fotos'])->where('contrato', 'Locacao');
 
-        //if ($request->has('codigo')) {
-            /*$imoveis->whereLike(['referencial'], $request->input('codigo'));
-        }*/
+        if ($request->filled('codigo')) {
+            $imoveis->where('referencia', $request->input('codigo'));
+        }
 
-        if ($request->has('tipo','finalidade','cidade', 'bairro')) {
+        if ($request->filled('tipo','finalidade','cidade', 'bairro')) {
             $imoveis->whereLike(['tipo','finalidade','cidade', 'bairro'], $request->input('tipo','finalidade','cidade', 'bairro'));
         }
-        if ($request->has('valormin', 'valormax')) {
+        if ($request->filled('valormin', 'valormax')) {
 
-
-
-            $valormin = str_replace(',', '', $request->input('valormin'));
-            $valormax = str_replace(',', '', $request->input('valormax'));
-
-            $valormin = floatval(str_replace('.', '', $valormin));
-            $valormax = floatval(str_replace('.', '', $valormax));
+            $valormin = floatval(str_replace(['.', ','], '',$request->input('valormin')));
+            $valormax = floatval(str_replace(['.', ','], '', $request->input('valormax')));
         
             $imoveis->whereBetween('valor', [$valormin, $valormax])->get();
         }
-        if($request->has('caracteristicas')) {
-            $imoveis->whereHas('caracteristica',function($q) use($request){
-                foreach($request->input('caracteristicas') as $k => $v){
-                    return $q->where('pref',$k)->where('valor',$v);
+        if ($request->filled('caracteristicas')) {
+            $imoveis->whereHas('caracteristica', function($q) use ($request) {
+
+               $pref = [];
+               $valor = [];
+                foreach ($request->input('caracteristicas') as $k => $v) {
+                    /*$q->whereI('pref', $k);
+                    if ($v == 4) {
+                        $q->where('valor', '>=', $v);
+                    } else {
+                        $q->where('valor', $v);
+                    }*/
+
+                    $pref[] = $k;
+                    $valor[] = $v;
                 }
-                
+                $q->where('pref',$pref)->whereIn('valor',$valor);
             });
         }
-        
-        $imoveis = $imoveis->get();
 
+        //dd($imoveis->toSql());
+        $imoveis = $imoveis->get();
         return view("site.locacao.index", compact('imoveis', 'tipoimovel', 'finalidadeimovel', 'cidadeimovel', 'bairroimovel'));
     }
     public function detalhes($id)

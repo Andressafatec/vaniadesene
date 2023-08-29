@@ -15,16 +15,17 @@ ini_set('memory_limit', '256M');
         </div>
         <div class="container">
             <div class="row mt-5">
-                <form action="{{ route('admin.locacao.filtrar')}}" method="GET" class="col_categoria_1">
+                <div class="col_categoria_1">
                     <div class="category-sidebar">
                         <!-- Start Single Widget -->
                         <div class="single-widget">
                             <div class="search">
-                                <form action="">
+                                <form action="{{ route('admin.locacao.filtrar')}}">
                                     <input type="text" placeholder="Buscar por código" name="codigo">
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
+                        <form action="{{ route('admin.locacao.filtrar')}}" method="GET">
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsetipo" role="button" aria-expanded="false" aria-controls="collapsetipo">
                                     Tipo
@@ -151,7 +152,7 @@ ini_set('memory_limit', '256M');
                                         </div>
                                         <div class="quartos mr-2">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[DOR]" value="2" id="flexCheckDefault1">
                                                 <label class="form-check-label" for="flexCheckDefault1">
                                                     2
                                                 </label>
@@ -159,7 +160,7 @@ ini_set('memory_limit', '256M');
                                         </div>
                                         <div class="quartos mr-2">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[DOR]" value="3" id="flexCheckDefault1">
                                                 <label class="form-check-label" for="flexCheckDefault1">
                                                     3
                                                 </label>
@@ -167,7 +168,7 @@ ini_set('memory_limit', '256M');
                                         </div>
                                         <div class="quartos mr-2">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[DOR]" value="4" id="flexCheckDefault1">
                                                 <label class="form-check-label" for="flexCheckDefault1">
                                                     4+
                                                 </label>
@@ -183,6 +184,44 @@ ini_set('memory_limit', '256M');
                                     <i class="fas fa-chevron-down icon"></i>
                                 </a>
                             </p>
+                            <div class="collapse" id="collapsesuites">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[DOP]" value="1" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    1
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[DOP]" value="2" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    2
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[DOP]" value="3" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    3
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[DOP]" value="4" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    4+
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsevagas" role="button" aria-expanded="false" aria-controls="collapsevagas">
@@ -190,6 +229,44 @@ ini_set('memory_limit', '256M');
                                     <i class="fas fa-chevron-down icon"></i>
                                 </a>
                             </p>
+                            <div class="collapse" id="collapsevagas">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[GAR]" value="1" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    1
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[GAR]" value="2" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    2
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[GAR]" value="3" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    3
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[GAR]" value="4" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    4+
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsebanheiros" role="button" aria-expanded="false" aria-controls="collapsebanheiros">
@@ -197,6 +274,44 @@ ini_set('memory_limit', '256M');
                                     <i class="fas fa-chevron-down icon"></i>
                                 </a>
                             </p>
+                            <div class="collapse" id="collapsebanheiros">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[FAC]" value="1" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    1
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[FAC]" value="2" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    2
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[FAC]" value="3" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    3
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="quartos mr-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="caracteristicas[FAC]" value="4" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                    4+
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsearea" role="button" aria-expanded="false" aria-controls="collapsearea">
@@ -219,7 +334,8 @@ ini_set('memory_limit', '256M');
                         </div>
                         <button type="submit" class="botao_filtro">Aplicar filtro</button>
                     </div>
-                </form>
+                    </form>
+                </div>
                 <div class="col_categoria_2">
                     <div class="category-grid-topbar">
                         <div class="row align-items-center">
@@ -414,24 +530,6 @@ ini_set('memory_limit', '256M');
       valorRange.innerText = valor;
     });
 
-    /*window.onload = function() {
-            var imoveisVisiveis = 6;
-            var imoveisExibidos = document.querySelectorAll('.locacao');
-            var imoveisTotais = imoveisExibidos.length;
-
-            document.getElementById('carregarMais').addEventListener('click', function(){
-                for (var i = imoveisVisiveis; i < imoveisVisiveis + 6 && i < imoveisTotais; i++) {
-                    imoveisExibidos[i].style.display = 'block';
-                }
-
-                imoveisVisiveis += 6;
-
-                if (imoveisVisiveis >= imoveisTotais) {
-                    document.getElementById('carregarMais').style.display = 'none';
-                }
-            });
-        };*/
-
         window.onload = function() {
             var imoveisVisiveis = 6;
 var imoveisExibidos = document.querySelectorAll('.locacao');
@@ -537,11 +635,11 @@ carregarMaisBtn.addEventListener('click', function() {
 gerarLinksPagina(grupoAtual);
 atualizarPaginacao();
 
-// Exiba os primeiros itens
 exibirItensPagina(0);
 
 
 };
+
 </script>
 
 @endsection
