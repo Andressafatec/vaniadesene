@@ -65,8 +65,8 @@
                   {{preg_replace('/Ref:\d{2}/', '', $imoveis->titulo)}}
                 </div>
                 <div class="texto1-left">Endereço: 
-                {{ ucfirst(strtolower($imoveis->bairro)) }}, 
-                {{ ucfirst(strtolower($imoveis->cidade)) }}, {{$imoveis->uf}}</div>
+                {{ ucfirst(mb_strtolower($imoveis->bairro)) }}, 
+                {{ ucfirst(mb_strtolower($imoveis->cidade)) }}, {{$imoveis->uf}}</div>
                 <div class="textolaranja-left">{{$imoveis->contrato}}</div>
                 <div class="texto2-left">R${{number_format($imoveis->valor, 2, ',','.')}} 
                 @if($imoveis->contrato == 'Locação')

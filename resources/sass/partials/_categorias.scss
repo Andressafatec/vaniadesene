@@ -267,6 +267,15 @@
     margin: 0.5rem !important;
 }
 }
+.imoveis{
+    margin: 0.75rem !important;
+    width: 23% !important;
+    padding: 0;
+  @include mq(boot-md,max){
+    width: 90% !important;
+    margin: 0.5rem !important;
+}
+}
 
 /* Pagination CSS */
 .pagination {

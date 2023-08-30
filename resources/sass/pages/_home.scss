@@ -38,19 +38,37 @@
 
     .search-input {
         position: relative;
+        a {
+            width: 100%;
+            display: block;
+            background: #fff;
+            position: relative;
+            color: #0D3F85;
+            padding-left: 25px;
+            height: 55px;
+            padding-top: 15px;
+            appearance: none;
+            font-size: 18px;
+            text-decoration: none;
+            text-align: left;
+        }
+
         input {
             width: 100%;
+            display: block;
             background: #fff;
-            border-radius: 6px;
-            border: none;
-            padding: 0 25px;
-            padding-right: 45px;
+            position: relative;
+            color: #0D3F85;
+            padding-left: 25px;
             height: 55px;
-            font-size: 15px;
-            border: 1px solid #eee;
+            appearance: none;
+            font-size: 18px;
+            text-decoration: none;
+            text-align: left;
+            border: none;
 
-            &:focus {
-                outline: none !important;
+            &::placeholder{
+                color:#0D3F85;
             }
         }
 
@@ -65,8 +83,9 @@
         select {
             width: 100%;
             background: #fff;
+            position: relative;
             color: #0D3F85;
-            padding: 0 25px;
+            padding-left: 25px;
             height: 55px;
             appearance: none;
             font-size: 18px;
@@ -81,6 +100,21 @@
             height: 55px;
             appearance: none;
             font-size: 18px;
+        }
+
+        &::after{
+            content: "\f078";
+            position: absolute;
+            font-family: "Font Awesome 5 Pro";
+            font-size: 20px;
+            width: 20%;
+            height: 100%;
+            background: transparent;
+            top: 0;
+            color:#EB9839;
+            padding-top: 15px;
+            right: calc(50% - 45%);
+            display: inline;
         }
 
 
@@ -129,10 +163,40 @@
         font-size: 16px;
         margin-left: 1.5rem !important;
         margin-right: 1.5rem !important;
+        text-align: center;
+        text-decoration: none;
         @include mq(boot-md,max){
             width: 50%;
             margin-left: 0;
             padding: 0;
+        }
+
+        &:hover{
+            background: #EB9839;
+            border: 1px solid #EB9839;
+        }
+    }
+    .botao2{
+        width: 28%;
+        background: transparent;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        color: #fff;
+        padding: 1rem !important;
+        height: 55px;
+        appearance: none;
+        font-size: 16px;
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+        text-align: center;
+        @include mq(boot-md,max){
+            width: 50%;
+            margin-left: 0;
+            padding: 0;
+        }
+
+        &::placeholder{
+            color:#fff;
         }
     }
 }
@@ -163,5 +227,20 @@
         @include mq(boot-md,max){
             border-bottom: none;
         }
+    }
+}
+
+.textotitle2{
+    position: relative;
+    font-size: 35px;
+    color: #0d3f85;
+    font-weight: 600;
+    padding-top: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+
+    .cor{
+        color: #EB9839;
+        padding-left: 0.5rem;
     }
 }

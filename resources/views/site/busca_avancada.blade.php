@@ -1,16 +1,13 @@
 @extends('layouts.site')
 
 @section('head')
-<!--<script>
-ini_set('memory_limit', '256M');
-</script>-->
 @endsection
 
 @section('content')
 <section id="imoveis">
         <div class="container">
-          <div class="textotitle">
-            Imóveis para <div class="cor">locação</div>
+          <div class="textotitle2">
+            Imóveis
           </div>
         </div>
         <div class="container">
@@ -20,12 +17,35 @@ ini_set('memory_limit', '256M');
                         <!-- Start Single Widget -->
                         <div class="single-widget">
                             <div class="search">
-                                <form action="{{ route('admin.locacao.filtrar')}}">
+                                <form action="{{ route('admin.busca_avancada')}}">
                                     <input type="text" placeholder="Buscar por código" name="codigo">
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
-                        <form action="{{ route('admin.locacao.filtrar')}}" method="GET">
+                        <form action="{{ route('admin.busca_avancada')}}" method="GET">
+                            <p style="text-align: left;">
+                                <a class="categorias" data-toggle="collapse" href="#collapsecontrato" role="button" aria-expanded="false" aria-controls="collapsecontrato">
+                                    Contrato
+                                    <i class="fas fa-chevron-down icon"></i>
+                                </a>
+                            </p>
+                            <div class="collapse" id="collapsecontrato">
+                                <div class="col-12">
+                                    <div class="row">
+                                        @foreach ($contratoimovel as $contratoimoveis)
+                                        <div class="tipo">
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="contrato" value="{{ $contratoimoveis->contrato }}" type="checkbox" id="flexCheckDefault1">
+                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                {{ ucfirst(mb_strtolower($contratoimoveis->contrato)) }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsetipo" role="button" aria-expanded="false" aria-controls="collapsetipo">
                                     Tipo
@@ -64,8 +84,6 @@ ini_set('memory_limit', '256M');
                                                 <input class="form-check-input" name="finalidade" value="{{ $finalidadeimoveis->finalidade }}" type="checkbox" id="flexCheckDefault1">
                                                 <label class="form-check-label" for="flexCheckDefault1">
                                                     {{ ucfirst(mb_strtolower($finalidadeimoveis->finalidade)) }}
-
-                                                    <!--{{ $finalidadeimoveis->finalidade }}-->
                                                 </label>
                                             </div>
                                         </div>

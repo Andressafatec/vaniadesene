@@ -189,6 +189,8 @@ Route::prefix('/')->middleware(['web'])->name('admin.')->group(function () {
     Route::get('/contato', [\App\Http\Controllers\Site\IndexController::class, 'contato'])->name('contato');
     Route::get('/quem-somos', [\App\Http\Controllers\Site\IndexController::class, 'quem_somos'])->name('quem_somos');
     Route::get('/cadastre-seu-imovel', [\App\Http\Controllers\Site\IndexController::class, 'cadastro_imoveis'])->name('cadastro_imoveis');
+    Route::get('/pesquisa', [\App\Http\Controllers\Site\IndexController::class, 'pesquisa'])->name('pesquisa');
+    Route::get('/busca_avancada', [\App\Http\Controllers\Site\IndexController::class, 'busca_avancada'])->name('busca_avancada');
 
     Route::prefix('locacao')->name('locacao.')->group(function () {
         Route::get('/', [LocacaoController::class, 'index'])->name('index');
@@ -199,6 +201,7 @@ Route::prefix('/')->middleware(['web'])->name('admin.')->group(function () {
     Route::prefix('venda')->name('venda.')->group(function () {
         Route::get('/', [VendaController::class, 'index'])->name('index');
         Route::get('/detalhes/{id}', [VendaController::class, 'detalhes'])->name('detalhes');
+        Route::get('/filtrar', [VendaController::class, 'index'])->name('filtrar');
     });
 
     /*Route::get('/contato', [ContatoController::class, 'index'])->name('index');

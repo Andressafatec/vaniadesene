@@ -1,57 +1,81 @@
 @extends('layouts.site')
-
+@section('head')
+<style>
+  .modal-dialog{
+    margin: 0;
+    padding:0;
+    max-width: 100%; 
+  }
+  .modalBusca{
+    background-color:#EB9839; 
+    height:100vh;
+    padding: 0 200px;
+  }
+</style>
+@endsection
 @section('content')
 <section id="banner">
        <div class="fundo">
         <div class="texto">
           Encontre <div class="cor">seu imóvel</div>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Launch demo modal
+        </button>
         </div>
-          <!-- Start Search Form -->
+        <form action="{{ route('admin.pesquisa')}}" method="GET">
           <div class="search-form wow fadeInUp" data-wow-delay=".7s">
             <div class="row">
                 <div class="col-sm col-12 p-0">
                     <div class="search-input">
-                      <label for="compras"><i class="fas fa-chevron-down"></i></label>
-                      <select class="compras">
-                          <option value="none" selected disabled>Compras</option>
+                      <select name="contrato"> 
+                          <option value="" style="padding: 0 25px;"> Compras</option>
+                          @foreach ($contratoimovel as $contratoimoveis)
+                              <option value="{{ $contratoimoveis->contrato }}"> {{ ucfirst(mb_strtolower($contratoimoveis->contrato)) }}</option>
+                          @endforeach
                       </select>
                     </div>
                 </div>
                 <div class="col-sm col-12 p-0">
                     <div class="search-input">
-                        <label for="imovel"><i class="fas fa-chevron-down"></i></label>
-                        <select name="imovel" id="imovel">
-                            <option value="none" selected disabled>Tipo do Imóvel</option>
-                        </select>
+                      <select name="tipo">
+                          <option value="">Tipo Imóvel </option>
+                          @foreach ($tipoimovel as $tipoimoveis)
+                              <option value="{{ $tipoimoveis->tipo }}"> {{ ucfirst(mb_strtolower($tipoimoveis->tipo)) }}</option>
+                          @endforeach
+                      </select>
                     </div>
                 </div>
                 <div class="col-sm col-12 p-0">
                     <div class="search-input">
-                        <label for="location"><i class="fas fa-chevron-down"></i></label>
-                        <select name="location" id="location">
-                            <option value="none" selected disabled>Localização</option>
-                        </select>
+                      <select name="bairro">
+                          <option value=""> Localização <i class="fas fa-chevron-down"></i></option>
+                          @foreach ($cidadeimovel as $cidadeimoveis)
+                          <optgroup name="cidade" label="{{ ucfirst(mb_strtolower($cidadeimoveis->cidade)) }}">
+                            @foreach ($bairroimovel[$cidadeimoveis->cidade] as $bairroimoveis)
+                                <option name="bairro" value="{{ $bairroimoveis->bairro }}"> {{ ucfirst(mb_strtolower($bairroimoveis->bairro)) }}</option>
+                            @endforeach
+                          </optgroup>
+                          @endforeach
+                      </select>
                     </div>
                 </div>
                 <div class="col-sm col-12 p-0">
                   <div class="search-input">
-                      <label for="valor"><i class="fas fa-chevron-down"></i></label>
-                      <select name="valor" id="valor">
-                          <option value="none" selected disabled>Valor Máximo</option>
-                      </select>
+                    <input type="text" name="valor" placeholder="Digite o valor">
                   </div>
               </div>
                 <div class="col-sm col-12 p-0">
                     <div class="search-btn button">
-                        <button class="btn">BUSCAR</button>
+                        <button type="submit" class="btn">BUSCAR</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Search Form -->
         <div class="botoes">
-            <button class="botao1">Código</button>
-            <button class="botao1">Busca avançada</button>
+            <input type="text" name="codigo" class="botao2" placeholder="Insira o código">
+            </form>
+            <a class="botao1" href="{{route('admin.busca_avancada')}}">Busca avançada</a>
         </div>
         
        </div>
@@ -68,112 +92,48 @@
             <div class="slider-content-locacao">
               <div class="card-wrapper swiper-wrapper">
               @foreach ($venda as $key => $vendas)
-                      <div class="card swiper-slide">
+                      <div class="card swiper-slide"  style="{{$key >= 6 ? 'display:none;': ''}}">
                           <a href="{{route('admin.locacao.detalhes',[$vendas->id])}}" class="text-decoration-none">
                             <div class="card">
-                            @foreach ($vendas->fotos as $foto)
-                              @if($foto->imovel_id == $vendas->id)
-                                @if($foto->ordem == 1)
-                                  <img src="{{asset($foto->url)}}"/>
+                                @php
+                                    $caracteristicas = [];
+                                    foreach ($vendas->caracteristica as $caracteristica) {
+                                        $caracteristicas[$caracteristica->pref] = $caracteristica->valor;
+                                    }
+                                @endphp
+                                @foreach ($vendas->fotos as $foto)
+                                @if($foto->imovel_id == $vendas->id)
+                                    @if($foto->ordem == 1)
+                                    <img src="{{asset($foto->url)}}"/>
+                                    @endif
                                 @endif
-                              @endif
-                            @endforeach
-                              <div class="caixa"> {{ $vendas->valor }}</div>
+                                @endforeach
+                              <div class="caixa"> R${{number_format($vendas->valor, 2, ',','.')}} </div>
                               <div class="texto-laranja">{{ $vendas->tipo }}</div>
                               <div class="texto-preto">{{ $vendas->bairro }}</div>
                               <p>{{ $vendas->cidade }}</p>
 
                               <div class="d-flex flex-wrap col justify-content-between" style="max-height: 60px">
                               <!-- area -->
-                              @php
-                                  $area = false;
-                                  $Dormitorio = false;
-                                  $lavabo = false;
-                                  $garagem = false;
-                                @endphp
-                              @foreach ($vendas->caracteristica as $caracteristicas)
-                              @if($caracteristicas->imovel_id == $vendas->id)
-                                @if($caracteristicas->pref == 'ARU')
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-02.svg')}}" alt="">
-                                  <div class="leg">{{ $caracteristicas->valor }} m²</div>
+                              <div class="icone col-3">
+                                    <img src="{{ asset('images/icone-02.svg') }}" alt="">
+                                    <div class="leg">{{ $caracteristicas['ARU'] ?? '-' }} m²</div>
                                 </div>
-                                @php
-                                      $area = true;
-                                      @endphp
-                                @endif
-                              @endif
-                              @endforeach
-                              @if (!isset($area) || !$area)
+                                <!-- dormitorio -->
                                 <div class="icone col-3">
-                                  <img src="{{asset('images/icone-02.svg')}}" alt="">
-                                  <div class="leg">- m²</div>
+                                    <img src="{{ asset('images/icone-03.svg') }}" alt="">
+                                    <div class="leg">{{ $caracteristicas['DOR'] ?? '-' }}</div>
                                 </div>
-                              @endif
-                              <!-- end area -->
-                              <!-- dormitorio -->
-                              @foreach ($vendas->caracteristica as $caracteristicas)
-                              @if($caracteristicas->imovel_id == $vendas->id)
-                                @if($caracteristicas->pref == 'DOR')
+                                <!-- lavabo -->
                                 <div class="icone col-3">
-                                  <img src="{{asset('images/icone-03.svg')}}" alt="">
-                                  <div class="leg">{{ $caracteristicas->valor }}</div>
+                                    <img src="{{ asset('images/icone-04.svg') }}" alt="">
+                                    <div class="leg">{{ $caracteristicas['FAC'] ?? '-' }}</div>
                                 </div>
-                                @php
-                                      $dormitorio = true;
-                                      @endphp
-                                @endif
-                              @endif
-                              @endforeach
-                              @if (!isset($dormitorio) || !$dormitorio)
+                                <!-- garagem -->
                                 <div class="icone col-3">
-                                  <img src="{{asset('images/icone-03.svg')}}" alt="">
-                                  <div class="leg">-</div>
+                                    <img src="{{ asset('images/icone-05.svg') }}" alt="">
+                                    <div class="leg">{{ $caracteristicas['GAR'] ?? '-' }}</div>
                                 </div>
-                              @endif
-                              <!-- end dormitorio -->
-                              <!-- lavabo -->
-                              @foreach ($vendas->caracteristica as $caracteristicas)
-                              @if($caracteristicas->imovel_id == $vendas->id)
-                                @if($caracteristicas->pref == 'FAC')
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-04.svg')}}" alt="">
-                                  <div class="leg">{{ $caracteristicas->valor }}</div>
-                                </div>
-                                @php
-                                  $lavabo = true;
-                                @endphp
-                                @endif
-                              @endif
-                              @endforeach
-                              @if (!isset($lavabo) || !$lavabo)
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-04.svg')}}" alt="">
-                                  <div class="leg">-</div>
-                                </div>
-                              @endif
-                              <!-- end lavabo -->
-                              <!-- garagem -->
-                              @foreach ($vendas->caracteristica as $caracteristicas)
-                              @if($caracteristicas->imovel_id == $vendas->id)
-                                @if($caracteristicas->pref == 'GAR')
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-05.svg')}}" alt="">
-                                  <div class="leg">1</div>
-                                </div>
-                                @php
-                                  $garagem = true;
-                                @endphp
-                                @endif
-                              @endif
-                              @endforeach
-                              @if (!isset($garagem) || !$garagem)
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-05.svg')}}" alt="">
-                                  <div class="leg">-</div>
-                                </div>
-                              @endif
-                              <!-- end garagem -->
                               </div>
                               <div class="p1">
                                 <strong>CÓDIGO:</strong> {{ $vendas->referencia }}
@@ -188,119 +148,55 @@
             <div class="swiper-button-prev-locacao swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
           </div>
           <div class="container">
-            <button class="botao_laranja">ver mais imóveis</button>
+            <button class="botao_laranja" id="venda">ver mais imóveis</button>
             <div class="meio">locação</div>
           </div>
           <div class="slider-container swiper">
             <div class="slider-content-venda">
               <div class="card-wrapper swiper-wrapper">
-                @foreach ($imoveis as $key => $imovel)
-                      <div class="card swiper-slide">
+              @foreach ($imoveis as $key => $imovel)
+                      <div class="card swiper-slide"  style="{{$key >= 6 ? 'display:none;': ''}}">
                           <a href="{{route('admin.locacao.detalhes',[$imovel->id])}}" class="text-decoration-none">
                             <div class="card">
-                            @foreach ($imovel->fotos as $foto)
-                              @if($foto->imovel_id == $imovel->id)
-                                @if($foto->ordem == 1)
-                                  <img src="{{asset($foto->url)}}"/>
+                                @php
+                                    $caracteristicas = [];
+                                    foreach ($imovel->caracteristica as $caracteristica) {
+                                        $caracteristicas[$caracteristica->pref] = $caracteristica->valor;
+                                    }
+                                @endphp
+                                @foreach ($imovel->fotos as $foto)
+                                @if($foto->imovel_id == $imovel->id)
+                                    @if($foto->ordem == 1)
+                                    <img src="{{asset($foto->url)}}"/>
+                                    @endif
                                 @endif
-                              @endif
-                            @endforeach
-                              <div class="caixa"> {{ $imovel->valor }}</div>
+                                @endforeach
+                              <div class="caixa"> R${{number_format($imovel->valor, 2, ',','.')}} </div>
                               <div class="texto-laranja">{{ $imovel->tipo }}</div>
                               <div class="texto-preto">{{ $imovel->bairro }}</div>
                               <p>{{ $imovel->cidade }}</p>
 
                               <div class="d-flex flex-wrap col justify-content-between" style="max-height: 60px">
                               <!-- area -->
-                              @php
-                                  $area = false;
-                                  $Dormitorio = false;
-                                  $lavabo = false;
-                                  $garagem = false;
-                                @endphp
-                              @foreach ($imovel->caracteristica as $caracteristicas)
-                              @if($caracteristicas->imovel_id == $imovel->id)
-                                @if($caracteristicas->pref == 'ARU')
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-02.svg')}}" alt="">
-                                  <div class="leg">{{ $caracteristicas->valor }} m²</div>
+                              <div class="icone col-3">
+                                    <img src="{{ asset('images/icone-02.svg') }}" alt="">
+                                    <div class="leg">{{ $caracteristicas['ARU'] ?? '-' }} m²</div>
                                 </div>
-                                @php
-                                      $area = true;
-                                      @endphp
-                                @endif
-                              @endif
-                              @endforeach
-                              @if (!isset($area) || !$area)
+                                <!-- dormitorio -->
                                 <div class="icone col-3">
-                                  <img src="{{asset('images/icone-02.svg')}}" alt="">
-                                  <div class="leg">- m²</div>
+                                    <img src="{{ asset('images/icone-03.svg') }}" alt="">
+                                    <div class="leg">{{ $caracteristicas['DOR'] ?? '-' }}</div>
                                 </div>
-                              @endif
-                              <!-- end area -->
-                              <!-- dormitorio -->
-                              @foreach ($imovel->caracteristica as $caracteristicas)
-                              @if($caracteristicas->imovel_id == $imovel->id)
-                                @if($caracteristicas->pref == 'DOR')
+                                <!-- lavabo -->
                                 <div class="icone col-3">
-                                  <img src="{{asset('images/icone-03.svg')}}" alt="">
-                                  <div class="leg">{{ $caracteristicas->valor }}</div>
+                                    <img src="{{ asset('images/icone-04.svg') }}" alt="">
+                                    <div class="leg">{{ $caracteristicas['FAC'] ?? '-' }}</div>
                                 </div>
-                                @php
-                                      $dormitorio = true;
-                                      @endphp
-                                @endif
-                              @endif
-                              @endforeach
-                              @if (!isset($dormitorio) || !$dormitorio)
+                                <!-- garagem -->
                                 <div class="icone col-3">
-                                  <img src="{{asset('images/icone-03.svg')}}" alt="">
-                                  <div class="leg">-</div>
+                                    <img src="{{ asset('images/icone-05.svg') }}" alt="">
+                                    <div class="leg">{{ $caracteristicas['GAR'] ?? '-' }}</div>
                                 </div>
-                              @endif
-                              <!-- end dormitorio -->
-                              <!-- lavabo -->
-                              @foreach ($imovel->caracteristica as $caracteristicas)
-                              @if($caracteristicas->imovel_id == $imovel->id)
-                                @if($caracteristicas->pref == 'FAC')
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-04.svg')}}" alt="">
-                                  <div class="leg">{{ $caracteristicas->valor }}</div>
-                                </div>
-                                @php
-                                  $lavabo = true;
-                                @endphp
-                                @endif
-                              @endif
-                              @endforeach
-                              @if (!isset($lavabo) || !$lavabo)
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-04.svg')}}" alt="">
-                                  <div class="leg">-</div>
-                                </div>
-                              @endif
-                              <!-- end lavabo -->
-                              <!-- garagem -->
-                              @foreach ($imovel->caracteristica as $caracteristicas)
-                              @if($caracteristicas->imovel_id == $imovel->id)
-                                @if($caracteristicas->pref == 'GAR')
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-05.svg')}}" alt="">
-                                  <div class="leg">1</div>
-                                </div>
-                                @php
-                                  $garagem = true;
-                                @endphp
-                                @endif
-                              @endif
-                              @endforeach
-                              @if (!isset($garagem) || !$garagem)
-                                <div class="icone col-3">
-                                  <img src="{{asset('images/icone-05.svg')}}" alt="">
-                                  <div class="leg">-</div>
-                                </div>
-                              @endif
-                              <!-- end garagem -->
                               </div>
                               <div class="p1">
                                 <strong>CÓDIGO:</strong> {{ $imovel->referencia }}
@@ -554,12 +450,42 @@
           <div class="swiper-button-prev swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
         </div>
       </section>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modalBusca">
+            <div class="modal-header" style="border-bottom:none">
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <input type="text" placeholder="Pesquisar">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 @endsection
 
 @section('pos-script')
 <script>
-  document.getElementById("locacao").addEventListener("click", function() {
-      window.location.href = "{{route('admin.locacao.index')}}";
+
+  var botaoVenda = document.getElementById("venda");
+
+  botaoVenda.addEventListener("click", function() {
+    window.location.href = "{{route('admin.venda.index')}}";
+  });
+
+  var botaoLocacao = document.getElementById("locacao");
+
+  botaoLocacao.addEventListener("click", function() {
+    window.location.href = "{{route('admin.locacao.index')}}";
   });
 </script>
 @endsection
