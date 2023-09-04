@@ -1,5 +1,8 @@
 <x-mail::message>
-# Introduction
+# mensagem {{$data['nome']}}
+
+<p>telefone {{$data['telefone']}}</p>
+<p>mensagem: {{$data['mensagem']}}</p>
 
 The body of your message.
 
