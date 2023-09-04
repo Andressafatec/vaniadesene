@@ -26,7 +26,7 @@ class MailController extends Controller
 
         Mail::to($email)->send($mail);
 
-        dd(aaaa);
+        //dd(aaaa);
 
     }
 }

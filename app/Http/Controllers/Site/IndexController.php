@@ -48,6 +48,10 @@ class IndexController extends Controller
     {
         return view("site.cadastro_imoveis");
     }
+    public function mail()
+    {
+        return view("site.mail");
+    }
 
     public function busca_avancada(Request $request)
     {

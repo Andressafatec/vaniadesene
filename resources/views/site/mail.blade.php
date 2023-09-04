@@ -1,4 +1,4 @@
-<form action="{{ route('admin.sendMail')}}" method="post">
+<form action="{{ route('admin.sendMail')}}" method="POST" class="row">
                         @csrf
                         <div class="col-sm-4 col-xs-12">
                             <div class="form-group ">
