@@ -23,7 +23,7 @@
                         <div class="col-sm-12 col-xs-12 mt-3">
                             <div class="form-group ">
                                 <label for="exampleFormControlTextarea1">Mensagem</label>
-                                <textarea class="form-control" name="mensagem" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 col-xs-12 text-center mt-4">

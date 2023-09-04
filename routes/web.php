@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Painel\BannerController;
 use App\Http\Controllers\Painel\CategoriasController;
@@ -204,8 +205,8 @@ Route::prefix('/')->middleware(['web'])->name('admin.')->group(function () {
         Route::get('/filtrar', [VendaController::class, 'index'])->name('filtrar');
     });
 
-    Route::get('/mail', [\App\Http\Controllers\Site\IndexController::class, 'mail'])->name('mail');
-    Route::post('/sendmail', [MailController::class, 'store'])->name('sendmail');
+    Route::get('/mail', [MailController::class, 'index'])->name('mail');
+    Route::post('/sendMail', [MailController::class, 'store'])->name('sendMail');
 
     Route::get('/{slug}', ['as'=>'paginas','uses'=>'\App\Http\Controllers\Site\ContentsController@content']);
 

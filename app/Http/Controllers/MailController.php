@@ -1,27 +1,32 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Mail\SendMail;
 use Illuminate\Http\Request;
-use App\Mail;
+use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
+    public function index(){
+        return view("site.mail");
+    }
     public function store(Request $request){
         $name = $request->name;
         $tel = $request->tel;
-        $email = $request->email;
-        $mensagem = $request->mensagem;
+        $email= $request->email;
+        $message = $request->message;
 
         $data = [
-            $name,
-            $tel,
-            $mensagem
-
+            'nome' => $name,
+            'telefone' => $tel,
+            'mensagem' => $message
         ];
 
-        Mail::to($email)->send(new Mail($data));
+        $mail = new SendMail($data);
 
-        dd(aaaaa);
+        Mail::to($email)->send($mail);
+
+        //dd(aaaa);
+
     }
 }
