@@ -30,8 +30,20 @@ class IndexController extends Controller
             $bairroimovel[$cidade->cidade] = $bairros;
         }
 
+        $bairros_sjc = Imoveis::select('bairro')
+        ->distinct()
+        ->where('cidade', 'SAO JOSE DOS CAMPOS')
+        ->get();
 
-        return view("site.index", compact('imoveis', 'venda', 'contratoimovel', 'tipoimovel','bairroimovel', 'cidadeimovel'));
+        $imoveis_por_bairro = [];
+        foreach ($bairros_sjc as $bairro) {
+            $numero_imoveis = Imoveis::where('cidade', 'SAO JOSE DOS CAMPOS')
+                ->where('bairro', $bairro->bairro)
+                ->count();
+
+            $imoveis_por_bairro[$bairro->bairro] = $numero_imoveis;
+        }
+        return view("site.index", compact('imoveis', 'venda', 'contratoimovel', 'tipoimovel','bairroimovel', 'cidadeimovel', 'imoveis_por_bairro'));
     }
 
     public function contato()
@@ -136,11 +148,22 @@ class IndexController extends Controller
         if ($request->filled('bairro')) {
             $imoveis->where('bairro', $request->input('bairro'));
         }
+
+        if ($request->filled('cidade')) {
+            $imoveis->where('cidade', $request->input('cidade'));
+        }
         
         if ($request->filled('valor')) {
             $valor = str_replace(',', '.', str_replace('.', '', $request->input('valor')));
 
             $imoveis->where('valor', '>=', $request->input('valor'));
+        }
+
+        if ($request->filled('valormin') && $request->filled('valormax')) {
+            $valormin = str_replace(',', '.', str_replace('.', '', $request->input('valormin')));
+            $valormax = str_replace(',', '.', str_replace('.', '', $request->input('valormax')));
+
+            $imoveis->whereBetween('valor', [$valormin, $valormax]);
         }
         
         $imoveis = $imoveis->get();

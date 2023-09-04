@@ -265,6 +265,7 @@
                             <button class="bot_laranja">enviar dados</button>
                         </div>
                     </div>
+                    @if ($corretor)
                     <div class="col-12 d-flex mt-3">
                         <div class="col-4">
                           @if ($corretor->foto === NULL)
@@ -285,6 +286,9 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                    <p class="mt-4 text-center">Esse Imóvel não possui um corretor específico!</p>
+                    @endif
                 </div>
                 <div class="col-12 mt-3">
                     <div class="info">

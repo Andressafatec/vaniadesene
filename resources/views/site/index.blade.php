@@ -1,17 +1,6 @@
 @extends('layouts.site')
 @section('head')
-<style>
-  .modal-dialog{
-    margin: 0;
-    padding:0;
-    max-width: 100%; 
-  }
-  .modalBusca{
-    background-color:#EB9839; 
-    height:100vh;
-    padding: 0 200px;
-  }
-</style>
+
 @endsection
 @section('content')
 <section id="banner">
@@ -91,7 +80,7 @@
               <div class="card-wrapper swiper-wrapper">
               @foreach ($venda as $key => $vendas)
                       <div class="card swiper-slide"  style="{{$key >= 6 ? 'display:none;': ''}}">
-                          <a href="{{route('admin.locacao.detalhes',[$vendas->id])}}" class="text-decoration-none">
+                          <a href="{{route('admin.venda.detalhes',[$vendas->id])}}" class="text-decoration-none">
                             <div class="card">
                                 @php
                                     $caracteristicas = [];
@@ -283,7 +272,7 @@
                   <div class="texto-laranja">Anuncie um imóvel</div>
                   <p>Quer vender ou alugar seu imóvel? <strong>Anuncie Conosco!</strong> É rápido, ágil e gratuito.</p>
                 </div>
-                <div class="botao_services"><a href="#" target="blank">Anunciar</a></div>
+                <div class="botao_services"><a href="{{route('admin.cadastro_imoveis')}}" target="blank">Anunciar</a></div>
               </div>
               <div class="services">
                 <div class="card_serv">
@@ -291,7 +280,7 @@
                   <div class="texto-laranja">Encontre um imóvel</div>
                   <p>Confira os imóveis disponíveis e encontre a <strong>melhor opção</strong> para locação ou compra.</p>
                 </div>
-                <div class="botao_services"><a href="#" target="blank">buscar</a></div>
+                <div class="botao_services"><a href="{{route('admin.busca_avancada')}}" target="blank">buscar</a></div>
               </div>
               <div class="services">
                 <div class="card_serv">
@@ -299,7 +288,7 @@
                   <div class="texto-laranja">Fale Conosco</div>
                   <p>Não encontrou o imóvel que procura ou precisa de algum auxílio? <strong>Fale com a nossa equipe.</strong></p>
                 </div>
-                <div class="botao_services"><a href="#" target="blank">Fale conosco</a></div>
+                <div class="botao_services"><a href="{{route('admin.contato')}}" target="blank">Fale conosco</a></div>
               </div>
             </div>
         </div>
@@ -309,138 +298,19 @@
         <div class="slider-container swiper">
           <div class="slider-content-locais" style="margin-bottom: 20px;">
             <div class="card-wrapper swiper-wrapper">
+            @foreach ($imoveis_por_bairro as $bairro => $numero_imoveis)
               <div class="locais swiper-slide">
                   <div class="card_locais">
                     <div class="couteudo-locais">
-                      <div class="texto-laranja">Jardim Aquarius</div>
+                      <div class="texto-laranja">{{$bairro}}</div>
                       <div class="icone col-12">
                         <div class="icones"></div>
-                        <div class="text-icone">00 imóvel</div>
+                        <div class="text-icone">{{$numero_imoveis}} imóvel</div>
                       </div>
                     </div>
                   </div>
               </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Jardim Satélite</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Centro</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Vila Ema</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                  <div class="card_locais">
-                    <div class="couteudo-locais">
-                      <div class="texto-laranja">Jardim Aquarius</div>
-                      <div class="icone col-12">
-                        <div class="icones"></div>
-                        <div class="text-icone">00 imóvel</div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Jardim Satélite</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Centro</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Vila Ema</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Jardim Aquarius</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Jardim Satélite</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Centro</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="locais swiper-slide">
-                <div class="card_locais">
-                  <div class="couteudo-locais">
-                    <div class="texto-laranja">Vila Ema</div>
-                    <div class="icone col-12">
-                      <div class="icones"></div>
-                      <div class="text-icone">00 imóvel</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            @endforeach
             </div>
           </div>
           <div class="swiper-pagination"></div>

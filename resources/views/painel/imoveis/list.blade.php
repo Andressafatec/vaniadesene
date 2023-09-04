@@ -90,10 +90,10 @@
                     <p>{{$imoveis->tipo}}</p>
                 </td>
                 <td class="text-right">
-                    <a href="" class="btn btn-danger btn-xs btn-flat p-all-sm btn-destroy">
+                    <a href="{{route('admin.imoveis.delete', $imoveis->id)}}" class="btn btn-danger btn-xs btn-flat p-all-sm btn-destroy">
                         <i class="fa fa-trash"></i>
                     </a>
-                    <a href="" class="btn btn-primary btn-xs btn-flat p-all-sm">
+                    <a href="{{route('admin.imoveis.edit', $imoveis->id)}}" class="btn btn-primary btn-xs btn-flat p-all-sm">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                 </td>

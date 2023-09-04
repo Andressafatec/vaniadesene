@@ -93,7 +93,7 @@ header{
 #segundobanner{
     width: 100%;
     background: url('../../../public/images/casal.jpg');
-    height: 75vh;
+    height: 80vh;
     position: relative;
     margin-top: 40px;
     background-size: cover;
@@ -427,3 +427,22 @@ header{
         }
     }
 }
+
+.selectSearch {
+    position: relative;
+
+    &::after {
+        content: "\f078";
+        position: absolute;
+        font-family: "Font Awesome 5 Pro";
+        font-size: 20px;
+        width: 15%;
+        height: 100%;
+        background: transparent;
+        top: 0;
+        color: #EB9839;
+        padding-top: 8px;
+        right: 0;
+        display: inline;
+    }
+  }

@@ -353,7 +353,7 @@ ini_set('memory_limit', '256M');
                     <div class="row ml-2">
                     @foreach ($imoveis as $key => $imovel)
                       <div class="locacao"  style="{{$key >= 6 ? 'display:none;': ''}}">
-                          <a href="{{route('admin.locacao.detalhes',[$imovel->id])}}" class="text-decoration-none">
+                          <a href="{{route('admin.venda.detalhes',[$imovel->id])}}" class="text-decoration-none">
                             <div class="card">
                                 @php
                                     $caracteristicas = [];
