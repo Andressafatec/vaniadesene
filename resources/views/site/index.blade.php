@@ -18,8 +18,6 @@
        <div class="fundo">
         <div class="texto">
           Encontre <div class="cor">seu imóvel</div>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          Launch demo modal
         </button>
         </div>
         <form action="{{ route('admin.pesquisa')}}" method="GET">
@@ -450,26 +448,6 @@
           <div class="swiper-button-prev swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
         </div>
       </section>
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modalBusca">
-            <div class="modal-header" style="border-bottom:none">
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <input type="text" placeholder="Pesquisar">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
 @endsection
 
