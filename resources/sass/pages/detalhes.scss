@@ -254,21 +254,33 @@
                 width: 25%;
                 margin-left: 0.5rem;
                 padding: 0;
+                @include mq(boot-md,max){
+                    width: 20%;
+                }
             }
             .col-area{
                 width: 15%;
                 margin-left: 0;
                 padding: 0;
+                @include mq(boot-md,max){
+                    width: 20%;
+                }
             }
             .col-suites{
                 width: 17%;
                 margin-left: 0.5rem;
                 padding: 0;
+                @include mq(boot-md,max){
+                    width: 20%;
+                }
             }
             .col-banheiro{
                 width: 22%;
                 margin-left: 0.5rem;
                 padding: 0;
+                @include mq(boot-md,max){
+                    width: 20%;
+                }
             }
         }
         .texto-quadro{

@@ -67,7 +67,7 @@ header{
     height: 70vh;
     position: relative;
     @include mq(boot-md,max){
-        height: calc(100vh - 0px);
+        height: 120vh;
     }
     .fundo{
         position: absolute;
@@ -102,7 +102,7 @@ header{
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     @include mq(boot-md,max){
-        height: 110vh;
+        height: 150vh;
     }
 
     &::after {
@@ -125,7 +125,7 @@ header{
         max-width: 1280px;
         padding-top: 8rem;
         @include mq(boot-md,max){
-            padding-top: 0.5rem;
+            padding-top: 2.5rem;
         }
 
         .conteudo-left{

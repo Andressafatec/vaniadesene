@@ -142,7 +142,7 @@
   margin: 1rem !important;
   width: 30.5% !important;
   @include mq(boot-md,max){
-    width: 95% !important;
+    width: 90% !important;
   }
 }
   
@@ -155,7 +155,7 @@
     }
   
     .swiper-navBtn {
-      display: none;
+      font-size: 20px;
     }
   }
 

@@ -43,6 +43,9 @@
                     background-size: 100%;
                     width: 25%;
                     height: 50px;
+                    @include mq(boot-md,max){
+                        height: 40px;
+                    }
                 }
                 .text-icone{
                     font-size: 18px;

@@ -166,9 +166,10 @@
         text-align: center;
         text-decoration: none;
         @include mq(boot-md,max){
-            width: 50%;
+            width: 70%;
             margin-left: 0;
-            padding: 0;
+            padding: 0 !important;
+            padding-top: 2px !important;
         }
 
         &:hover{

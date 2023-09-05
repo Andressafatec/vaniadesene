@@ -14,7 +14,7 @@ ini_set('memory_limit', '256M');
           </div>
         </div>
         <div class="container">
-            <div class="row mt-5">
+            <div class="row mt-sm-5 mt-2">
                 <div class="col_categoria_1">
                     <div class="category-sidebar">
                         <!-- Start Single Widget -->

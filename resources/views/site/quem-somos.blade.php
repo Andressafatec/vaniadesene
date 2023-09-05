@@ -4,9 +4,9 @@
 @endsection
 @section('content')
 <div class="terceirobanner">
-    <div class="color-left">
+    <div class="color-left d-sm-block d-none">
         <div class="container">
-                <div class="banner_texto">
+                <div class="banner_texto d-sm-flex d-none">
                     <div class="texto">Especialistas em</div>
                     <div class="texto_laranja">assesoria imobiliária</div>
                     <div class="texto">de excelência</div>
@@ -14,6 +14,11 @@
         </div>
     </div>
     <div class="foto-right">
+            <div class="banner_texto d-sm-none">
+                <div class="texto">Especialistas em</div>
+                <div class="texto_laranja">Assesoria Imobiliária</div>
+                <div class="texto">de excelência</div>
+            </div>
     </div>
 </div>
     <div class="container">

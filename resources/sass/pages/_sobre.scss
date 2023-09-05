@@ -37,6 +37,32 @@
         height: 70vh;
         position: relative;
         object-fit: cover; 
+        @include mq(boot-md,max){
+            width: 100%;
+        }
+
+        .banner_texto{
+            padding-top: 50px;
+            position: relative;
+            z-index: 222;
+            text-align: center;
+            margin-left: 10px !important;
+            .texto {
+                font-size: 40px;
+                color: #fff;
+                margin-left: 0;
+                font-weight: 600 !important;
+                width: 100%;
+                
+            }
+            .texto_laranja {
+                font-size: 40px;
+                color: #EB9839;
+                margin-left: 0;
+                font-weight: 600 !important;
+                width: 100%;
+            } 
+        }
 
     }
 
@@ -52,6 +78,10 @@
         pointer-events: none;
         z-index: 999;
         opacity: 0.7;
+
+        @include mq(boot-md,max){
+            z-index:111;
+        }
     }
 
 }

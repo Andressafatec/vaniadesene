@@ -19,6 +19,9 @@ footer{
         background: url('../../../public/images/logo-branco-09.svg');
         width: 100%;
         height: 80px;
+        @include mq(boot-md,max){
+            height: 70px;
+        }
     }
 
     .email{
