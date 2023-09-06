@@ -36,4 +36,11 @@ class Imoveis extends Model
 	public function fotos(){
         return $this->hasMany(Fotos::class, 'imovel_id');
     }
+    public function miniatura(){
+    	if($this->fotos->count() > 0){
+    		return $this->fotos->where('ordem',1)->first()->url;
+    	}else{
+			return asset('min/img/default.jpg');
+		}
+    }
 }

@@ -7,10 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-  <link rel="stylesheet" href="vendor/magnific-popup/dist/magnific-popup.css">
+  <link rel="stylesheet" href="{{asset('vendor/magnific-popup/dist/magnific-popup.css')}}">
+  <link rel="stylesheet" href="{{asset('build/assets/app-34aed2f1.css')}}">
+  <link rel="stylesheet" href="{{asset('build/assets/app-32394273.css')}}">
   <title>VANIA DE SENE - @yield('title')</title>
 
-  @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
+ 
 
   @yield('head')
 

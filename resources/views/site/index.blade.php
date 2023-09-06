@@ -88,13 +88,9 @@
                                         $caracteristicas[$caracteristica->pref] = $caracteristica->valor;
                                     }
                                 @endphp
-                                @foreach ($vendas->fotos as $foto)
-                                @if($foto->imovel_id == $vendas->id)
-                                    @if($foto->ordem == 1)
-                                    <img src="{{asset($foto->url)}}"/>
-                                    @endif
-                                @endif
-                                @endforeach
+                              
+                                    <img src="{{asset($vendas->miniatura())}}"/>
+                                  
                               <div class="caixa"> R${{number_format($vendas->valor, 2, ',','.')}} </div>
                               <div class="texto-laranja">{{ $vendas->tipo }}</div>
                               <div class="texto-preto">{{ $vendas->bairro }}</div>
@@ -151,13 +147,7 @@
                                         $caracteristicas[$caracteristica->pref] = $caracteristica->valor;
                                     }
                                 @endphp
-                                @foreach ($imovel->fotos as $foto)
-                                @if($foto->imovel_id == $imovel->id)
-                                    @if($foto->ordem == 1)
-                                    <img src="{{asset($foto->url)}}"/>
-                                    @endif
-                                @endif
-                                @endforeach
+                                <img src="{{asset($imovel->miniatura())}}"/>
                               <div class="caixa"> R${{number_format($imovel->valor, 2, ',','.')}} </div>
                               <div class="texto-laranja">{{ $imovel->tipo }}</div>
                               <div class="texto-preto">{{ $imovel->bairro }}</div>

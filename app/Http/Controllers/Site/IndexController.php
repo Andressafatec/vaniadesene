@@ -10,8 +10,8 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $imoveis = Imoveis::with(['caracteristica', 'fotos'])->where('contrato', 'Locacao')->limit(10)->get();
-        $venda = Imoveis::with(['caracteristica', 'fotos'])->where('contrato', 'Venda')->limit(10)->get();
+        $imoveis = Imoveis::with(['caracteristica', 'fotos'])->where('contrato', 'Locacao')->orderByRaw('RAND()')->limit(10)->get();
+        $venda = Imoveis::with(['caracteristica', 'fotos'])->where('contrato', 'Venda')->orderByRaw('RAND()')->limit(10)->get();
         $tipoimovel = Imoveis::select('tipo')->distinct()->get();
         $contratoimovel = Imoveis::select('contrato')->distinct()->get();
 
