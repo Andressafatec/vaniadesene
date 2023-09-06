@@ -9,7 +9,7 @@ class Corretor extends Model
 {
     use HasFactory;
 
-    protected $table = 'vaniadesene.corretor';
+    protected $table = 'corretor';
 
     protected $fillable = [
 		'nome',
