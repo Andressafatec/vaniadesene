@@ -21,9 +21,9 @@ class ImoveisController extends Controller
     public function novo()
     {
         $labelcar = Caracteristica::select('label')->distinct()->get();
-        $pref = Caracteristica::select('pref')->distinct()->get();
         $prefcar = Caracteristica::select('pref')->distinct()->get();
-        return view("painel.imoveis.novo", compact('labelcar', 'prefcar'));
+        $contrato = Imoveis::select('contrato')->distinct()->get();
+        return view("painel.imoveis.novo", compact('labelcar', 'prefcar', 'contrato'));
     }
 
     public function upload(Request $request){
@@ -121,15 +121,17 @@ class ImoveisController extends Controller
     {
         $data = $request->except('_token', '_method');
         
-        $imovel = Imoveis::findOrFail($id);
+        $imoveis = Imoveis::findOrFail($id);
         
-        $imovel->update($data);
+        $imoveis->update($data);
+
+        $imoveis->caracteristicas()->delete();
 
         $caracteristica = $request->input('caracteristica');
 
         foreach ($caracteristica['label'] as $index => $label) {
             $caracteristicas = new Caracteristica();
-            $caracteristicas->imovel_id = $imovel->id;
+            $caracteristicas->imovel_id = $imoveis->id;
             $caracteristicas->pref = $caracteristica['pref'][$index];
             $caracteristicas->label = $label;
             $caracteristicas->valor = $caracteristica['valor'][$index];
@@ -137,11 +139,13 @@ class ImoveisController extends Controller
             $caracteristicas->save();
         }
 
+        $imoveis->fotos()->delete();
+
         $foto = $request->input('foto');
 
         foreach ($foto['descricao'] as $index => $descricao) {
             $fotos = new Fotos();
-            $fotos->imovel_id = $imovel->id;
+            $fotos->imovel_id = $imoveis->id;
             $fotos->descricao = $descricao;
             $fotos->url = $foto['url'][$index];
             $fotos->arquivo = $foto['arquivo'][$index];
@@ -149,6 +153,25 @@ class ImoveisController extends Controller
             $fotos->save();
         }
 
+        return response()->json(['status' => 'ok']);
+    }
+
+    public function edit(Request $request,$id)
+    {
+        $imoveis = Imoveis::find($id);
+        $labelcar = Caracteristica::select('label')->distinct()->get();
+        $prefcar = Caracteristica::select('pref')->distinct()->get();
+        $contrato = Imoveis::select('contrato')->distinct()->get();
+        $finalidade = Imoveis::select('finalidade')->distinct()->get();
+        $caracteristicas = Caracteristica::where('imovel_id', $id)->get();
+        $fotoimoveis = Fotos::where('imovel_id', $id)->get();
+        return view('painel.imoveis.editar',compact('imoveis', 'prefcar', 'labelcar','contrato', 'finalidade', 'caracteristicas', 'fotoimoveis'));
+    }
+
+    public function delete($id)
+    {
+        $imoveis = Imoveis::find($id);
+        $imoveis->delete();
         return response()->json(['status' => 'ok']);
     }
 

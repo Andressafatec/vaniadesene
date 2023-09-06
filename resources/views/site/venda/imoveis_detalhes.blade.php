@@ -72,26 +72,41 @@
                 @if($imoveis->contrato == 'Locação')
                 total/mês @endif</div>
                 <div class="texto3-left"> 
-                    <strong>Aluguel</strong> R$ 0.000
                     <strong>Condomínio</strong> R$ 0.000
                     <strong>IPTU</strong> R$ 000
                 </div>
                 <div class="quadro1">
                     <div class="icones-quadro">
-                        <div class="icone col-area">
+                    <div class="icone col-area d-sm-block d-none">
                             <img src="{{asset('images/icone-02.svg')}}" alt="">Área
                         </div>
-                        <div class="icone col-dormitorio">
+                        <div class="icone col-dormitorio d-sm-block d-none">
                             <img src="{{asset('images/icone-03.svg')}}" alt="">Dormitórios
                         </div>
-                        <div class="icone col-suites">
-                            <img src="{{asset('images/icone-08.svg')}}" alt="">Suítes
+                        <div class="icone col-suites d-sm-block d-none">
+                            <img src="{{asset('images/icone-04.svg')}}" alt="">Suítes
                         </div>
-                        <div class="icone col-banheiro">
-                            <img src="{{asset('images/icone-04.svg')}}" alt="">Banheiros
+                        <div class="icone col-banheiro d-sm-block d-none">
+                            <img src="{{asset('images/chuveiro-08.svg')}}" alt="" style="width:35px; padding-bottom:15px; padding-right:5px">Banheiros
                         </div>
-                        <div class="icone col-suites">
+                        <div class="icone col-suites d-sm-block d-none">
                             <img src="{{asset('images/icone-05.svg')}}" alt="">Vagas
+                        </div>
+                        <!-- Mobile -->
+                        <div class="icone col-area d-sm-none">
+                            <img src="{{asset('images/icone-02.svg')}}" alt="">
+                        </div>
+                        <div class="icone col-dormitorio d-sm-none">
+                            <img src="{{asset('images/icone-03.svg')}}" alt="">
+                        </div>
+                        <div class="icone col-suites d-sm-none">
+                            <img src="{{asset('images/icone-04.svg')}}" alt="">
+                        </div>
+                        <div class="icone col-banheiro d-sm-none">
+                            <img src="{{asset('images/chuveiro-08.svg')}}" alt="" style="width:30px; padding-bottom:10px;">
+                        </div>
+                        <div class="icone col-suites d-sm-none">
+                            <img src="{{asset('images/icone-05.svg')}}" alt="">
                         </div>
                     </div>
                     <div class="texto-quadro pt-2">
@@ -265,6 +280,7 @@
                             <button class="bot_laranja">enviar dados</button>
                         </div>
                     </div>
+                    @if ($corretor)
                     <div class="col-12 d-flex mt-3">
                         <div class="col-4">
                           @if ($corretor->foto === NULL)
@@ -285,6 +301,9 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                    <p class="mt-4 text-center">Esse Imóvel não possui um corretor específico!</p>
+                    @endif
                 </div>
                 <div class="col-12 mt-3">
                     <div class="info">

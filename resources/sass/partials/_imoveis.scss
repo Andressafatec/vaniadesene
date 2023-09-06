@@ -12,6 +12,7 @@
         width: 40%;
         @include mq(boot-md,max){
             margin-left: 0;
+            display: block;
             width: 100%;
         }
 

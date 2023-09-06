@@ -67,7 +67,7 @@ header{
     height: 70vh;
     position: relative;
     @include mq(boot-md,max){
-        height: calc(100vh - 0px);
+        height: 120vh;
     }
     .fundo{
         position: absolute;
@@ -93,7 +93,7 @@ header{
 #segundobanner{
     width: 100%;
     background: url('../../../public/images/casal.jpg');
-    height: 75vh;
+    height: 80vh;
     position: relative;
     margin-top: 40px;
     background-size: cover;
@@ -102,7 +102,7 @@ header{
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     @include mq(boot-md,max){
-        height: 110vh;
+        height: 150vh;
     }
 
     &::after {
@@ -125,7 +125,7 @@ header{
         max-width: 1280px;
         padding-top: 8rem;
         @include mq(boot-md,max){
-            padding-top: 0.5rem;
+            padding-top: 2.5rem;
         }
 
         .conteudo-left{
@@ -427,3 +427,22 @@ header{
         }
     }
 }
+
+.selectSearch {
+    position: relative;
+
+    &::after {
+        content: "\f078";
+        position: absolute;
+        font-family: "Font Awesome 5 Pro";
+        font-size: 20px;
+        width: 15%;
+        height: 100%;
+        background: transparent;
+        top: 0;
+        color: #EB9839;
+        padding-top: 8px;
+        right: 0;
+        display: inline;
+    }
+  }

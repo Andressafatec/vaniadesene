@@ -11,57 +11,59 @@
 <section class="content-header m-bottom-lg">
 <div class="clearfix"></div>
 </section>
-<form action="{{ route('admin.imoveis.store') }}" id="formStore" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.imoveis.update',$imoveis->id) }}" id="formStore" method="POST" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
     <section class="col-8 center-form">
         <div class="card p-5">
             <div class="row">
                 <div class="col-12">
                     <div class="form-group ">
                         {!! Form::label('anuncio','Anúncio:') !!}
-                        {!! Form::text('anuncio',null,['class'=>'form-control', 'required'=>'true']) !!}
+                        <input class="form-control" required="true" name="anuncio" type="text" id="anuncio" value="{{$imoveis->anuncio}}">
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
                         {!! Form::label('titulo','Título:') !!}
-                        {!! Form::text('titulo',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="titulo" type="text" id="titulo" value="{{$imoveis->titulo}}">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group">
                         {!! Form::label('tipoanuncio','Tipo Anúncio:') !!}
-                        {!! Form::text('tipoanuncio',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="tipoanuncio" type="text" id="tipoanuncio" value="{{$imoveis->tipoanuncio}}">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group">
                         {!! Form::label('valor','Valor:') !!}
-                        {!! Form::text('valor',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="valor" type="text" id="valor" value="{{$imoveis->valor}}">
                     </div>
                 </div>
                 <div class="col-5">
                     <div class="form-group">
                         {!! Form::label('bairro','Bairro:') !!}
-                        {!! Form::text('bairro',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="bairro" type="text" id="bairro" value="{{$imoveis->bairro}}">
                     </div>
                 </div>
                 <div class="col-5">
                     <div class="form-group">
                         {!! Form::label('cidade','Cidade:') !!}
-                        {!! Form::text('cidade',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="cidade" type="text" id="cidade" value="{{$imoveis->cidade}}">
                     </div>
                 </div>
                 <div class="col-2">
                     <div class="form-group">
                         {!! Form::label('uf','UF:') !!}
-                        {!! Form::text('uf',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="uf" type="text" id="if" value="{{$imoveis->uf}}">
                     </div>
                 </div>
                 <div class="col-2">
                     <div class="form-group">
                         {!! Form::label('contrato','Contrato:') !!}
                         <select name="contrato" class="form-control">
+                            <option selected>{{$imoveis->contrato}}</option>
                             @foreach ($contrato as $contratos)
                                 <option value="{{ $contratos->contrato }}">{{ $contratos->contrato }}</option>
                             @endforeach
@@ -71,70 +73,93 @@
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('regiao','Região:') !!}
-                        {!! Form::text('regiao',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="regiao" type="text" id="regiao" value="{{$imoveis->regiao}}">
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('empresa','Empresa:') !!}
-                        {!! Form::text('empresa',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="empresa" type="text" id="empresa" value="{{$imoveis->empresa}}">
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('finalidade','Finalidade:') !!}
-                        {!! Form::text('finalidade',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <select name="contrato" class="form-control">
+                            <option selected>{{$imoveis->finalidade}}</option>
+                            @foreach ($finalidade as $finalidades)
+                                <option value="{{ $finalidades->finalidade }}">{{ $finalidades->finalidade }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-
-                <!--<div class="col-sm-3">
-                    {!! Form::label('finalidade','Finalidade:') !!}
-                    <select class="form-select" aria-label="" data-name="finalidade[]" style="width: 100%; padding: 0.375rem 0.75rem">
-                        <option selected name="finalidade[]" value="Comercial">Comercial</option>
-                        <option name="finalidade[]" value="Res/Com">Res/Com</option>
-                        <option name="finalidade[]" value="Residencial">Residencial</option>
-                    </select>
-                </div>-->
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('grupo','Grupo:') !!}
-                        {!! Form::text('grupo',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="grupo" type="text" id="grupo" value="{{$imoveis->grupo}}">
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('referencia','Referência:') !!}
-                        {!! Form::text('referencia',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="referencia" type="text" id="referencia" value="{{$imoveis->referencia}}">
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('referencia_original','Referência Original:') !!}
-                        {!! Form::text('referencia_original',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="referencia_original" type="text" id="referencia_original" value="{{$imoveis->referencia_original}}">
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('tipo','Tipo:') !!}
-                        {!! Form::text('tipo',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="tipo" type="text" id="tipo" value="{{$imoveis->tipo}}">
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
                         {!! Form::label('detalhes','Detalhes:') !!}
-                        {!! Form::text('detalhes',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <input class="form-control" required="true" name="detalhes" type="text" id="detalhes" value="{{$imoveis->detalhes}}">
                     </div>
                 </div>
-                <!--<div class="col-12">
-                    <div class="form-group">
-                    {!! Form::label('detalhes','Detalhes:') !!}
-                    {!! Form::textarea('value',null,['class'=>'form-control', 'required'=>'true', 'rows'=>'5']) !!}
-                    </div>
-                </div>-->
                 <div class="col-12">
                     <div class="form-group">
                         {!! Form::label('caracteristicas','Características:') !!}
                         <div style="max-height: 350px; overflow-y: auto; overflow-x: hidden;">
+                        @if(count($caracteristicas) > 0)
+                        @foreach ($caracteristicas as $caracteristica)
+                            <ul class="pl-0" style="list-style: none;">
+                                <li class="mb-3  catCaracteristica itemOrdenar" id="caracteristica">
+                                    <div class="col-2 px-0 d-inline-block">
+                                        <select name="caracteristica[pref][]" class="form-control">
+                                            <option selected>{{$caracteristica->pref}}</option>
+                                            @foreach ($prefcar as $pref)
+                                                <option value="{{ $pref->pref }}">{{ $pref->pref }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-5 px-0 d-inline-block">
+                                        <select name="caracteristica[label][]" class="form-control">
+                                            <option selected>{{$caracteristica->label}}</option>
+                                            @foreach ($labelcar as $label)
+                                                <option value="{{ $label->label }}">{{ $label->label }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-3 px-0 d-inline-block">
+                                        <input type="text" name="caracteristica[valor][]" placeholder="Valor" class="form-control" value="{{$caracteristica->valor}}">
+                                    </div>
+                                    <div class="d-inline-block ml-5">
+                                        <button type="button" class="btn btn-icon btn-dark btn-xs ml-3 removeDefault icon" data-tooltip-arquivar="Excluir">
+                                            <i class="fas fa-trash pr-0"></i>
+                                            <span class="tooltip">Excluir</span>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        @endforeach
+                        @else
                             <ul class="pl-0" style="list-style: none;">
                                 <li class="mb-3  catCaracteristica itemOrdenar" id="caracteristica">
                                     <div class="col-2 px-0 d-inline-block">
@@ -152,7 +177,7 @@
                                         </select>
                                     </div>
                                     <div class="col-3 px-0 d-inline-block">
-                                        <input type="text" name="caracteristica[valor][]" required placeholder="Valor" class="form-control">
+                                        <input type="text" name="caracteristica[valor][]" placeholder="Valor" class="form-control">
                                     </div>
                                     <div class="d-inline-block ml-5">
                                         <button type="button" class="btn btn-icon btn-dark btn-xs ml-3 removeDefault icon" data-tooltip-arquivar="Excluir">
@@ -162,6 +187,7 @@
                                     </div>
                                 </li>
                             </ul>
+                        @endif
                             <div class="mt-5 pb-3">
                                 <a href="" class="w-115px btn btn-primary btn-xs addCaracteristica">
                                     <i class="fas fa-plus p-1"></i> Características
@@ -174,6 +200,33 @@
                     <div class="form-group">
                         {!! Form::label('foto','Foto:') !!}
                         <div style="max-height: 350px; overflow-y: auto; overflow-x: hidden;">
+                        @if (count($fotoimoveis)>0)
+                        @foreach ($fotoimoveis as $foto)
+                            <ul class="pl-0" style="list-style: none;">
+                                <li class="mb-3 catfoto d-flex" id="foto_2">
+                                        <div class="containerUpload col-5">
+                                        <img src="{{ asset($foto->url) }}" alt="">
+                                            <input type="file" name="foto" id="arquivo" class="uploadArquivos">
+                                            <input type="hidden" name="foto[url][]" value="{{$foto->url}}" />
+                                            <input type="hidden" name="foto[arquivo][]" value="{{$foto->arquivo}}" />
+                                        </div>
+                                        <div id="preview_2"></div>
+                                    <div class="col-2">
+                                        <input type="text" name="foto[ordem][]" class="form-control" value="{{$foto->ordem}}" style="height: 30px"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="text" name="foto[descricao][]" class="form-control" value="{{$foto->descricao}}" placeholder="Descrição" style="height: 30px"/>
+                                    </div>
+                                    <div class="d-inline-block ml-5">
+                                        <button type="button" class="btn btn-icon btn-dark btn-xs ml-3 removefoto icon" data-tooltip-arquivar="Excluir">
+                                            <i class="fas fa-trash pr-0"></i>
+                                            <span class="tooltip">Excluir</span>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        @endforeach
+                        @else
                             <ul class="pl-0" style="list-style: none;">
                                 <li class="mb-3 catfoto d-flex" id="foto_2">
                                         <div class="containerUpload col-5">
@@ -194,6 +247,7 @@
                                     </div>
                                 </li>
                             </ul>
+                        @endif
                             <div class="mt-5 pb-3">
                                 <a href="" class="w-115px btn btn-primary btn-xs addfoto">
                                     <i class="fas fa-plus p-1"></i> Fotos
@@ -220,40 +274,6 @@
 <script src="{{asset('/img/flags/country-codes-case-lower.json')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
- $("#formStore").submit(function(e) {
-        e.preventDefault();
-        $("span.error").remove()
-        $.ajax({
-            type: "POST",
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(data) {
-                console.log(data);
-                swal({
-                title: "Parábens",
-                text: "Cadastro realizado com sucesso!.",
-                icon: "success",
-                });
-                $("#formStore")[0].reset();
-                $(".disabled").remove()
-            },
-            error: function(err) {
-                console.log(err);
-               
-                if (err.status == 422) { // when status code is 422, it's a validation issue
-                    console.log(err.responseJSON);
-                    $('#success_message').fadeIn().html(err.responseJSON.message);
-                    // you can loop through the errors object and show it to the user
-                    console.warn(err.responseJSON.errors);
-                    // display errors on each form field
-                    $.each(err.responseJSON.errors, function(i, error) {
-                        var el = $(document).find('[name="' + i + '"]');
-                        el.after($('<span class="error" style="color: red;">' + error[0] + '</span>'));
-                    });
-                }
-            }
-        })
-    })
     $("body").on('click','.addCaracteristica',function(e){
         e.preventDefault();
      

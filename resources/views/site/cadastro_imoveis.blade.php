@@ -24,6 +24,18 @@
         font-size: 18px;
         font-weight: 500 !important;
     }
+
+    @media (max-width: 768px) {
+        .card-form{
+            padding: 10px;
+            width: 90%;
+            margin-left: calc(50% - 45%);
+        }
+        form .botao_laranja{
+            margin-top: 0;
+        }
+
+    }
 </style>
 @endsection
 

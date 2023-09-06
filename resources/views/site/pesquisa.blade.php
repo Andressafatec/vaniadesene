@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="container">
-            <div class="row mt-5">
+            <div class="row mt-sm-5 mt-2">
                 <div class="col_12">
                     <div class="category-grid-topbar">
                         <div class="row align-items-center">

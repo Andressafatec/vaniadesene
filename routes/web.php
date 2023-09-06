@@ -120,6 +120,9 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
         Route::post('store', [ImoveisController::class, 'store'])->name('store');
         Route::post('upload', [ImoveisController::class, 'upload'])->name('upload');
         Route::get('deleteImg', [ImoveisController::class, 'deleteImg'])->name('deleteImg');
+        Route::get('edit/{id}', [ImoveisController::class, 'edit'])->name('edit');
+        Route::put('update/{id}', [ImoveisController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [ImoveisController::class, 'delete'])->name('delete');
     });
     Route::prefix('corretor')->name('corretor.')->group(function () {
         Route::get('/', [CorretorController::class, 'list'])->name('list');

@@ -71,7 +71,10 @@ class LocacaoController extends Controller
         $imoveis = Imoveis::find($id);
         $caracteristicas = Caracteristica::where('imovel_id', $id)->get();
         $fotos = Fotos::where('imovel_id', $id)->get();
-        $corretor = Corretor::find($imoveis->corretor_id);
+        $corretor = null;
+        if ($imoveis) {
+            $corretor = Corretor::find($imoveis->corretor_id);
+        }
         return view("site.locacao.imoveis_detalhes", compact('imoveis', 'caracteristicas', 'fotos', 'corretor'));
     }
 }

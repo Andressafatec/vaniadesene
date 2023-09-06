@@ -78,20 +78,36 @@
                 </div>
                 <div class="quadro1">
                     <div class="icones-quadro">
-                        <div class="icone col-area">
+                        <div class="icone col-area d-sm-block d-none">
                             <img src="{{asset('images/icone-02.svg')}}" alt="">Área
                         </div>
-                        <div class="icone col-dormitorio">
+                        <div class="icone col-dormitorio d-sm-block d-none">
                             <img src="{{asset('images/icone-03.svg')}}" alt="">Dormitórios
                         </div>
-                        <div class="icone col-suites">
-                            <img src="{{asset('images/icone-08.svg')}}" alt="">Suítes
+                        <div class="icone col-suites d-sm-block d-none">
+                            <img src="{{asset('images/icone-04.svg')}}" alt="">Suítes
                         </div>
-                        <div class="icone col-banheiro">
-                            <img src="{{asset('images/icone-04.svg')}}" alt="">Banheiros
+                        <div class="icone col-banheiro d-sm-block d-none">
+                            <<img src="{{asset('images/chuveiro-08.svg')}}" alt="" style="width:35px; padding-bottom:15px; padding-right:5px">Banheiros
                         </div>
-                        <div class="icone col-suites">
+                        <div class="icone col-suites d-sm-block d-none">
                             <img src="{{asset('images/icone-05.svg')}}" alt="">Vagas
+                        </div>
+                        <!-- Mobile -->
+                        <div class="icone col-area d-sm-none">
+                            <img src="{{asset('images/icone-02.svg')}}" alt="">
+                        </div>
+                        <div class="icone col-dormitorio d-sm-none">
+                            <img src="{{asset('images/icone-03.svg')}}" alt="">
+                        </div>
+                        <div class="icone col-suites d-sm-none">
+                            <img src="{{asset('images/icone-04.svg')}}" alt="">
+                        </div>
+                        <div class="icone col-banheiro d-sm-none">
+                            <img src="{{asset('images/chuveiro-08.svg')}}" alt="" style="width:30px; padding-bottom:10px;">
+                        </div>
+                        <div class="icone col-suites d-sm-none">
+                            <img src="{{asset('images/icone-05.svg')}}" alt="">
                         </div>
                     </div>
                     <div class="texto-quadro pt-2">
@@ -265,15 +281,16 @@
                             <button class="bot_laranja">enviar dados</button>
                         </div>
                     </div>
-                    <div class="col-12 d-flex mt-3">
-                        <div class="col-4">
+                    @if ($corretor)
+                    <div class="col-sm-12 d-flex mt-3">
+                        <div class="col-sm-4 col-5">
                           @if ($corretor->foto === NULL)
                             <img src="https://via.placeholder.com/200x200" alt="#" class="mt-3">
                           @else
                             <img src="{{asset($corretor->foto)}}" alt="#" class="mt-3">
                           @endif
                         </div>
-                        <div class="col-8">
+                        <div class="col-sm-8 col-9">
                             <div class="texto-card">
                                 <div class="color">Corretor</div>
                                 <strong>{{$corretor->nome}}</strong><br>
@@ -285,6 +302,9 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                    <p class="mt-4 text-center">Esse Imóvel não possui um corretor específico!</p>
+                    @endif
                 </div>
                 <div class="col-12 mt-3">
                     <div class="info">
