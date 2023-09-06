@@ -6,7 +6,7 @@
 <div class="terceirobanner">
     <div class="color-left d-sm-block d-none">
         <div class="container">
-                <div class="banner_texto d-sm-flex d-none">
+                <div class="banner_texto d-sm-block d-none">
                     <div class="texto">Especialistas em</div>
                     <div class="texto_laranja">assesoria imobiliária</div>
                     <div class="texto">de excelência</div>
