@@ -9,7 +9,7 @@
           Encontre <div class="cor">seu imóvel</div>
         </button>
         </div>
-        <form action="{{ route('admin.pesquisa')}}" method="GET">
+        <form action="{{ route('site.imoveis.index')}}" method="GET">
           <div class="search-form wow fadeInUp" data-wow-delay=".7s">
             <div class="row">
                 <div class="col-sm col-12 p-0">
@@ -17,7 +17,7 @@
                       <select name="contrato"> 
                           <option value="" style="padding: 0 25px;"> Compras</option>
                           @foreach ($contratoimovel as $contratoimoveis)
-                              <option value="{{ $contratoimoveis->contrato }}"> {{ ucfirst(mb_strtolower($contratoimoveis->contrato)) }}</option>
+                              <option value="{{ $contratoimoveis }}"> {{ ucfirst(mb_strtolower($contratoimoveis)) }}</option>
                           @endforeach
                       </select>
                     </div>
@@ -26,20 +26,20 @@
                     <div class="search-input">
                       <select name="tipo">
                           <option value="">Tipo Imóvel </option>
-                          @foreach ($tipoimovel as $tipoimoveis)
-                              <option value="{{ $tipoimoveis->tipo }}"> {{ ucfirst(mb_strtolower($tipoimoveis->tipo)) }}</option>
-                          @endforeach
+                         
                       </select>
                     </div>
                 </div>
                 <div class="col-sm col-12 p-0">
                     <div class="search-input">
+                 
                       <select name="bairro">
                           <option value=""> Localização <i class="fas fa-chevron-down"></i></option>
-                          @foreach ($cidadeimovel as $cidadeimoveis)
-                          <optgroup name="cidade" label="{{ ucfirst(mb_strtolower($cidadeimoveis->cidade)) }}">
-                            @foreach ($bairroimovel[$cidadeimoveis->cidade] as $bairroimoveis)
-                                <option name="bairro" value="{{ $bairroimoveis->bairro }}"> {{ ucfirst(mb_strtolower($bairroimoveis->bairro)) }}</option>
+                          @foreach ($bairros as $cidade => $itemBairros)
+                          <optgroup name="cidade" label="{{ ucfirst(mb_strtolower($cidade)) }}">
+                            @foreach ($itemBairros as $itemBairro)
+                           
+                                <option name="bairro" value="{{ $itemBairro['bairro'] }}"> {{ ucfirst(mb_strtolower($itemBairro['bairro'])) }}</option>
                             @endforeach
                           </optgroup>
                           @endforeach
@@ -58,13 +58,14 @@
                 </div>
             </div>
         </div>
+    
         <!-- End Search Form -->
         <div class="botoes">
             <input type="text" name="codigo" class="botao2" placeholder="Insira o código">
-            </form>
-            <a class="botao1" href="{{route('admin.busca_avancada')}}">Busca avançada</a>
+           
+            <a class="botao1" href="{{route('site.imoveis.index')}}">Busca avançada</a>
         </div>
-        
+        </form>
        </div>
        <a href="#personalize" class="down"><i class="fas fa-chevron-down"></i></a>
       </section>
@@ -78,109 +79,27 @@
           <div class="slider-container swiper">
             <div class="slider-content-locacao">
               <div class="card-wrapper swiper-wrapper">
-              @foreach ($venda as $key => $vendas)
-                      <div class="card swiper-slide"  style="{{$key >= 6 ? 'display:none;': ''}}">
-                          <a href="{{route('admin.venda.detalhes',[$vendas->id])}}" class="text-decoration-none">
-                            <div class="card">
-                                @php
-                                    $caracteristicas = [];
-                                    foreach ($vendas->caracteristica as $caracteristica) {
-                                        $caracteristicas[$caracteristica->pref] = $caracteristica->valor;
-                                    }
-                                @endphp
-                              
-                                    <img src="{{asset($vendas->miniatura())}}"/>
-                                  
-                              <div class="caixa"> R${{number_format($vendas->valor, 2, ',','.')}} </div>
-                              <div class="texto-laranja">{{ $vendas->tipo }}</div>
-                              <div class="texto-preto">{{ $vendas->bairro }}</div>
-                              <p>{{ $vendas->cidade }}</p>
-
-                              <div class="d-flex flex-wrap col justify-content-between" style="max-height: 60px">
-                              <!-- area -->
-                              <div class="icone col-3">
-                                    <img src="{{ asset('images/icone-02.svg') }}" alt="">
-                                    <div class="leg">{{ $caracteristicas['ARU'] ?? '-' }} m²</div>
-                                </div>
-                                <!-- dormitorio -->
-                                <div class="icone col-3">
-                                    <img src="{{ asset('images/icone-03.svg') }}" alt="">
-                                    <div class="leg">{{ $caracteristicas['DOR'] ?? '-' }}</div>
-                                </div>
-                                <!-- lavabo -->
-                                <div class="icone col-3">
-                                    <img src="{{ asset('images/icone-04.svg') }}" alt="">
-                                    <div class="leg">{{ $caracteristicas['FAC'] ?? '-' }}</div>
-                                </div>
-                                <!-- garagem -->
-                                <div class="icone col-3">
-                                    <img src="{{ asset('images/icone-05.svg') }}" alt="">
-                                    <div class="leg">{{ $caracteristicas['GAR'] ?? '-' }}</div>
-                                </div>
-                              </div>
-                              <div class="p1">
-                                <strong>CÓDIGO:</strong> {{ $vendas->referencia }}
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-                    @endforeach
+              @foreach ($vendas as $key => $imovel)
+             <div class="swiper-slide">
+                  @include('site.imoveis._card_imovel')
+                  </div>
+              @endforeach
               </div>
             </div>
             <div class="swiper-button-next-locacao swiper-navBtn"> <i class="fal fa-chevron-right"></i></div>
             <div class="swiper-button-prev-locacao swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
           </div>
           <div class="container">
-            <button class="botao_laranja" id="venda">ver mais imóveis</button>
+            <a href="{{route('site.imoveis.index',['contrato'=>'venda'])}}"  class="botao_laranja" id="venda">ver mais imóveis</a>
             <div class="meio">locação</div>
           </div>
           <div class="slider-container swiper">
             <div class="slider-content-venda">
               <div class="card-wrapper swiper-wrapper">
-              @foreach ($imoveis as $key => $imovel)
-                      <div class="card swiper-slide"  style="{{$key >= 6 ? 'display:none;': ''}}">
-                          <a href="{{route('admin.locacao.detalhes',[$imovel->id])}}" class="text-decoration-none">
-                            <div class="card">
-                                @php
-                                    $caracteristicas = [];
-                                    foreach ($imovel->caracteristica as $caracteristica) {
-                                        $caracteristicas[$caracteristica->pref] = $caracteristica->valor;
-                                    }
-                                @endphp
-                                <img src="{{asset($imovel->miniatura())}}"/>
-                              <div class="caixa"> R${{number_format($imovel->valor, 2, ',','.')}} </div>
-                              <div class="texto-laranja">{{ $imovel->tipo }}</div>
-                              <div class="texto-preto">{{ $imovel->bairro }}</div>
-                              <p>{{ $imovel->cidade }}</p>
-
-                              <div class="d-flex flex-wrap col justify-content-between" style="max-height: 60px">
-                              <!-- area -->
-                              <div class="icone col-3">
-                                    <img src="{{ asset('images/icone-02.svg') }}" alt="">
-                                    <div class="leg">{{ $caracteristicas['ARU'] ?? '-' }} m²</div>
-                                </div>
-                                <!-- dormitorio -->
-                                <div class="icone col-3">
-                                    <img src="{{ asset('images/icone-03.svg') }}" alt="">
-                                    <div class="leg">{{ $caracteristicas['DOR'] ?? '-' }}</div>
-                                </div>
-                                <!-- lavabo -->
-                                <div class="icone col-3">
-                                    <img src="{{ asset('images/icone-04.svg') }}" alt="">
-                                    <div class="leg">{{ $caracteristicas['FAC'] ?? '-' }}</div>
-                                </div>
-                                <!-- garagem -->
-                                <div class="icone col-3">
-                                    <img src="{{ asset('images/icone-05.svg') }}" alt="">
-                                    <div class="leg">{{ $caracteristicas['GAR'] ?? '-' }}</div>
-                                </div>
-                              </div>
-                              <div class="p1">
-                                <strong>CÓDIGO:</strong> {{ $imovel->referencia }}
-                              </div>
-                            </div>
-                          </a>
-                        </div>
+              @foreach ($locacoes as $key => $imovel)
+              <div class="swiper-slide">
+                  @include('site.imoveis._card_imovel')
+                  </div>
                     @endforeach
               </div>
             </div>
@@ -188,7 +107,7 @@
             <div class="swiper-button-prev-venda swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
           </div>
           <div class="container">
-            <button class="botao_laranja" id="locacao">ver mais imóveis</button>
+            <a href="{{route('site.imoveis.index',['contrato'=>'locacao'])}}" class="botao_laranja" id="locacao">ver mais imóveis</a>
           </div>
       </section>
       <section id="segundobanner">
@@ -262,7 +181,7 @@
                   <div class="texto-laranja">Anuncie um imóvel</div>
                   <p>Quer vender ou alugar seu imóvel? <strong>Anuncie Conosco!</strong> É rápido, ágil e gratuito.</p>
                 </div>
-                <div class="botao_services"><a href="{{route('admin.cadastro_imoveis')}}" target="blank">Anunciar</a></div>
+                <div class="botao_services"><a href="{{route('site.cadastro_imoveis')}}" target="blank">Anunciar</a></div>
               </div>
               <div class="services">
                 <div class="card_serv">
@@ -270,7 +189,7 @@
                   <div class="texto-laranja">Encontre um imóvel</div>
                   <p>Confira os imóveis disponíveis e encontre a <strong>melhor opção</strong> para locação ou compra.</p>
                 </div>
-                <div class="botao_services"><a href="{{route('admin.busca_avancada')}}" target="blank">buscar</a></div>
+                <div class="botao_services"><a href="{{route('site.imoveis.index')}}" target="blank">buscar</a></div>
               </div>
               <div class="services">
                 <div class="card_serv">
@@ -278,7 +197,7 @@
                   <div class="texto-laranja">Fale Conosco</div>
                   <p>Não encontrou o imóvel que procura ou precisa de algum auxílio? <strong>Fale com a nossa equipe.</strong></p>
                 </div>
-                <div class="botao_services"><a href="{{route('admin.contato')}}" target="blank">Fale conosco</a></div>
+                <div class="botao_services"><a href="{{route('site.contato')}}" target="blank">Fale conosco</a></div>
               </div>
             </div>
         </div>
@@ -288,9 +207,10 @@
         <div class="slider-container swiper">
           <div class="slider-content-locais" style="margin-bottom: 20px;">
             <div class="card-wrapper swiper-wrapper">
-            @foreach ($imoveis_por_bairro as $bairro => $numero_imoveis)
+              
+            @foreach ($imoveis_por_bairro['SAO JOSE DOS CAMPOS'] as $bairro => $numero_imoveis)
               <div class="locais swiper-slide">
-                  <div class="card_locais">
+                  <a href="{{route('site.imoveis.index',['bairro'=>$bairro])}}" class="card_locais">
                     <div class="couteudo-locais">
                       <div class="texto-laranja">{{$bairro}}</div>
                       <div class="icone col-12">
@@ -298,7 +218,7 @@
                         <div class="text-icone">{{$numero_imoveis}} imóvel</div>
                       </div>
                     </div>
-                  </div>
+                                  </a>
               </div>
             @endforeach
             </div>
@@ -317,13 +237,16 @@
   var botaoVenda = document.getElementById("venda");
 
   botaoVenda.addEventListener("click", function() {
-    window.location.href = "{{route('admin.venda.index')}}";
+    window.location.href = "{{route('site.imoveis.index')}}";
   });
 
   var botaoLocacao = document.getElementById("locacao");
 
   botaoLocacao.addEventListener("click", function() {
-    window.location.href = "{{route('admin.locacao.index')}}";
+    window.location.href = "{{route('site.imoveis.index')}}";
   });
+
+ 
+
 </script>
 @endsection

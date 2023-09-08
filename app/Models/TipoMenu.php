@@ -158,7 +158,7 @@ class TipoMenu extends Model
 
       $html .= '</li>';
     }
-    $html .= '<div class="col-1 d-sm-block d-none"><button type="button" class="iconSearch" style="border: none; background: transparent;" data-toggle="modal" data-target="#SearchModal"><i class="fa fa-search"></i></button></div>';
+    $html .= '<div class="col-1 d-sm-block d-none"><button type="button" class="iconSearch btnSearch" style="border: none; background: transparent;"><i class="fa fa-search"></i></button></div>';
     
     $html .= "</ul>";
 

@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Imoveis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
-    public function index()
+    /*public function index()
     {
         $imoveis = Imoveis::with(['caracteristica', 'fotos'])->where('contrato', 'Locacao')->orderByRaw('RAND()')->limit(10)->get();
         $venda = Imoveis::with(['caracteristica', 'fotos'])->where('contrato', 'Venda')->orderByRaw('RAND()')->limit(10)->get();
-        $tipoimovel = Imoveis::select('tipo')->distinct()->get();
+     
         $contratoimovel = Imoveis::select('contrato')->distinct()->get();
 
         $cidadeimovel = Imoveis::select('cidade')
@@ -44,8 +45,29 @@ class IndexController extends Controller
             $imoveis_por_bairro[$bairro->bairro] = $numero_imoveis;
         }
         return view("site.index", compact('imoveis', 'venda', 'contratoimovel', 'tipoimovel','bairroimovel', 'cidadeimovel', 'imoveis_por_bairro'));
+    }*/
+    public function index()
+    {
+        $locacoes = Imoveis::where('contrato', 'Locacao')->orderByRaw('RAND()')->limit(10)->get();
+        $vendas = Imoveis::where('contrato', 'Venda')->orderByRaw('RAND()')->limit(10)->get();
+        
+      
+        $cidades = Imoveis::get()->groupBy(function($q){
+            return $q->cidade;
+        });
+        $imoveis_por_bairro = [];
+        foreach($cidades as $kCidade => $itensCidade){
+           foreach($itensCidade->groupBY('bairro') as $kBairro =>$imovel){
+            
+            $imoveis_por_bairro[$kCidade][$kBairro] = $imovel->count();
+           };
+        }
+       
+       
+        
+       
+        return view("site.index", compact('locacoes', 'vendas','imoveis_por_bairro'));
     }
-
     public function contato()
     {
         return view("site.contato");

@@ -188,25 +188,22 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     });
 });
 
-Route::prefix('/')->middleware(['web'])->name('admin.')->group(function () {
+Route::prefix('/')->middleware(['web'])->name('site.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Site\IndexController::class, 'index'])->name('index');
     Route::get('/contato', [\App\Http\Controllers\Site\IndexController::class, 'contato'])->name('contato');
     Route::get('/quem-somos', [\App\Http\Controllers\Site\IndexController::class, 'quem_somos'])->name('quem_somos');
     Route::get('/cadastre-seu-imovel', [\App\Http\Controllers\Site\IndexController::class, 'cadastro_imoveis'])->name('cadastro_imoveis');
-    Route::get('/pesquisa', [\App\Http\Controllers\Site\IndexController::class, 'pesquisa'])->name('pesquisa');
+  
+    Route::prefix('imoveis')->name('imoveis.')->group(function () {
+        Route::get('/{contrato?}', [\App\Http\Controllers\Site\ImoveisController::class, 'index'])->name('index');
+        Route::get('/detalhes/{referencia}', [\App\Http\Controllers\Site\ImoveisController::class, 'detalhes'])->name('detalhes');
+    });
+
     Route::get('/busca_avancada', [\App\Http\Controllers\Site\IndexController::class, 'busca_avancada'])->name('busca_avancada');
 
-    Route::prefix('locacao')->name('locacao.')->group(function () {
-        Route::get('/', [LocacaoController::class, 'index'])->name('index');
-        Route::get('/detalhes/{id}', [LocacaoController::class, 'detalhes'])->name('detalhes');
-        Route::get('/filtrar', [LocacaoController::class, 'index'])->name('filtrar');
-    });
 
-    Route::prefix('venda')->name('venda.')->group(function () {
-        Route::get('/', [VendaController::class, 'index'])->name('index');
-        Route::get('/detalhes/{id}', [VendaController::class, 'detalhes'])->name('detalhes');
-        Route::get('/filtrar', [VendaController::class, 'index'])->name('filtrar');
-    });
+
+
 
     Route::get('/mail', [MailController::class, 'index'])->name('mail');
     Route::post('/sendMail', [MailController::class, 'store'])->name('sendMail');

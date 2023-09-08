@@ -23,7 +23,7 @@
                     <div class="row ml-2">
                     @foreach ($imoveis as $key => $imovel)
                       <div class="imoveis"  style="{{$key >= 8 ? 'display:none;': ''}}">
-                          <a href="{{route('admin.locacao.detalhes',[$imovel->id])}}" class="text-decoration-none">
+                          <a href="{{route('site.imoveis.detalhes',[$imovel->id])}}" class="text-decoration-none">
                             <div class="card">
                                 @php
                                     $caracteristicas = [];

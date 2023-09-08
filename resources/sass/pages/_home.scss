@@ -149,28 +149,27 @@
     display: flex;
     @include mq(boot-md,max){
         margin-left: 0;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .botao1{
-        width: 28%;
+        
         background: transparent;
         border: 1px solid #fff;
         border-radius: 5px;
-        color: #fff;
-        padding: 1rem !important;
+        color: #fff !important;
+       padding: 0 30px;
         height: 55px;
+        line-height: 55px;
+        vertical-align: middle;
         appearance: none;
         font-size: 16px;
         margin-left: 1.5rem !important;
         margin-right: 1.5rem !important;
         text-align: center;
         text-decoration: none;
-        @include mq(boot-md,max){
-            width: 70%;
-            margin-left: 0;
-            padding: 0 !important;
-            padding-top: 2px !important;
-        }
+      
 
         &:hover{
             background: #EB9839;
@@ -178,24 +177,19 @@
         }
     }
     .botao2{
-        width: 28%;
+       
         background: transparent;
         border: 1px solid #fff;
         border-radius: 5px;
-        color: #fff;
-        padding: 1rem !important;
+        color: #fff  !important;
+       
         height: 55px;
         appearance: none;
         font-size: 16px;
         margin-left: 1.5rem !important;
         margin-right: 1.5rem !important;
         text-align: center;
-        @include mq(boot-md,max){
-            width: 50%;
-            margin-left: 0;
-            padding: 0;
-        }
-
+       
         &::placeholder{
             color:#fff;
         }

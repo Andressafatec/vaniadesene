@@ -26,15 +26,28 @@ class Imoveis extends Model
 		'referencia',
         'referencia_original',
 		'regiao',
-		'tipo'
+		'tipo',
+		'corretor_id'
     ];
   
-    public function caracteristica(){
+    public function caracteristicas(){
         return $this->hasMany(Caracteristica::class, 'imovel_id');
+    }
+	public function caracteristicasPrincipais($pref = null){
+		
+        $query = $this->caracteristicas->where('pref',$pref)->first();
+	
+		return $query;
+    }
+	public function edificio(){
+        return $this->hasMany(Edificio::class, 'imovel_id');
+    }
+    public function corretor(){
+        return $this->hasOne(Corretor::class, 'id','corretor_id');
     }
 
 	public function fotos(){
-        return $this->hasMany(Fotos::class, 'imovel_id');
+        return $this->hasMany(Fotos::class, 'imovel_id')->orderBy('ordem','asc');
     }
     public function miniatura(){
     	if($this->fotos->count() > 0){

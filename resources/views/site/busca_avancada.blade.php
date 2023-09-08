@@ -17,12 +17,12 @@
                         <!-- Start Single Widget -->
                         <div class="single-widget">
                             <div class="search">
-                                <form action="{{ route('admin.busca_avancada')}}">
+                                <form action="{{ route('site.busca_avancada')}}">
                                     <input type="text" placeholder="Buscar por código" name="codigo">
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
-                        <form action="{{ route('admin.busca_avancada')}}" method="GET">
+                        <form action="{{ route('site.busca_avancada')}}" method="GET">
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsecontrato" role="button" aria-expanded="false" aria-controls="collapsecontrato">
                                     Contrato
@@ -371,7 +371,7 @@
                     <div class="row ml-2">
                     @foreach ($imoveis as $key => $imovel)
                       <div class="locacao"  style="{{$key >= 6 ? 'display:none;': ''}}">
-                          <a href="{{route('admin.locacao.detalhes',[$imovel->id])}}" class="text-decoration-none">
+                          <a href="{{route('site.imoveis.detalhes',[$imovel->id])}}" class="text-decoration-none">
                             <div class="card">
                                 @php
                                     $caracteristicas = [];

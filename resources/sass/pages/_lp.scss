@@ -10,6 +10,7 @@ header{
         width: 350px;
         padding-right: 15px;
         padding-left: 15px;
+        z-index: 10;
         @include mq(boot-md,max){
             position: relative;
             top:0;
@@ -71,9 +72,12 @@ header{
     }
     .fundo{
         position: absolute;
-        width: 75%;
+        @include mq(boot-md,min){
+            width: 75%;
+            left: calc(50% - 37.5%);
+        }
         margin-top: 5rem;
-        left: calc(50% - 37.5%);
+       
         text-align: center;
         color:#fff
 

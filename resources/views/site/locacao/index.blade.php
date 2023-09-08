@@ -20,12 +20,12 @@ ini_set('memory_limit', '256M');
                         <!-- Start Single Widget -->
                         <div class="single-widget">
                             <div class="search">
-                                <form action="{{ route('admin.locacao.filtrar')}}">
+                                <form action="{{ route('site.imoveis.filtrar')}}">
                                     <input type="text" placeholder="Buscar por código" name="codigo">
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
-                        <form action="{{ route('admin.locacao.filtrar')}}" method="GET">
+                        <form action="{{ route('site.imoveis.filtrar')}}" method="GET">
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsetipo" role="button" aria-expanded="false" aria-controls="collapsetipo">
                                     Tipo
@@ -353,7 +353,7 @@ ini_set('memory_limit', '256M');
                     <div class="row ml-2">
                     @foreach ($imoveis as $key => $imovel)
                       <div class="locacao"  style="{{$key >= 6 ? 'display:none;': ''}}">
-                          <a href="{{route('admin.locacao.detalhes',[$imovel->id])}}" class="text-decoration-none">
+                          <a href="{{route('site.imoveis.detalhes',[$imovel->id])}}" class="text-decoration-none">
                             <div class="card">
                                 @php
                                     $caracteristicas = [];

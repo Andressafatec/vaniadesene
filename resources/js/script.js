@@ -209,3 +209,26 @@ $('.menu-btn').click(function(){
   // the DOM will be available here
   app.init();
 })();
+
+
+$("body").on('click','.btnSearch',function(e){
+  e.preventDefault();
+
+  $("#modalSearch").css('display','flex');
+  $("#modalSearch").animate({
+    top: 0,
+  },500,function(){
+    $("#modalSearch .btnClose").fadeIn('fast')
+  })
+})
+$("body").on('click','.btnClose',function(e){
+  e.preventDefault();
+  $("#modalSearch .btnClose").fadeOut('fast')
+  $("#modalSearch").animate({
+    top: '100%',
+  },500,function(){
+   
+    $("#modalSearch").css('display','none')
+  });
+ 
+})

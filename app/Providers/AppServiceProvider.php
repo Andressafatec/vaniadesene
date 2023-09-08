@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Imoveis;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Locale;
@@ -34,14 +35,30 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Request $request)
     {
+    
         date_default_timezone_set('America/Sao_Paulo');
-setlocale(LC_ALL, 'pt_BR.utf-8', 'ptb', 'pt_BR', 'portuguese-brazil', 'portuguese-brazilian', 'bra', 'brazil', 'br');
-setlocale(LC_TIME, 'pt_BR.utf-8', 'ptb', 'pt_BR', 'portuguese-brazil', 'portuguese-brazilian', 'bra', 'brazil', 'br');
+        setlocale(LC_ALL, 'pt_BR.utf-8', 'ptb', 'pt_BR', 'portuguese-brazil', 'portuguese-brazilian', 'bra', 'brazil', 'br');
+        setlocale(LC_TIME, 'pt_BR.utf-8', 'ptb', 'pt_BR', 'portuguese-brazil', 'portuguese-brazilian', 'bra', 'brazil', 'br');
 
-
-        Paginator::useBootstrap();
+        $bairros = Imoveis::select('bairro','cidade')->distinct('bairro')->orderBy('bairro','asc')->get()->groupBy(function($q){
+            return $q->cidade;
+        })->toArray();
+        $tipos = Imoveis::select('tipo')->distinct('tipo')->orderBy('tipo','asc')->get()->pluck('tipo')->toArray();
+        $contratoimovel = Imoveis::select('contrato')->distinct('contrato')->orderBy('contrato','asc')->get()->pluck('contrato')->toArray();
+        $finalidadeimovel = Imoveis::select('finalidade')->distinct()->get();
+        View::share('bairros', $bairros);
+        View::share('tipos', $tipos);
+        View::share('contratoimovel', $contratoimovel);
+        View::share('finalidadeimovel', $finalidadeimovel);
+        $maiorValor = Imoveis::select('valor')->orderBy('valor','desc')->first()->valor;
+        $menorValor = Imoveis::select('valor')->orderBy('valor','asc')->first()->valor;
+        
+        Paginator::useBootstrapFive();
         $locales = Locale::all();
         View::share('locales', $locales);
+
+        View::share('maiorValor', $maiorValor);
+        View::share('menorValor', $menorValor);
 
 
 

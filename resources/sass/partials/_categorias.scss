@@ -58,65 +58,7 @@
             margin-bottom: 25px;
         }
 
-        .range {
-            input {
-                color: #000;
-                cursor: pointer;
-            }
-
-
-
-            ::placeholder {
-                /* Chrome, Firefox, Opera, Safari 10.1+ */
-                color: #000;
-                opacity: 1;
-                /* Firefox */
-            }
-
-            :-ms-input-placeholder {
-                /* Internet Explorer 10-11 */
-                color: #000;
-            }
-
-            ::-ms-input-placeholder {
-                /* Microsoft Edge */
-                color: #000;
-            }
-
-            .range-inner {
-                position: relative;
-                padding-left: 15px;
-            }
-
-            label {
-                color: #000;
-                display: inline-block;
-                position: absolute;
-                left: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                font-size: 15px;
-            }
-
-            #rangePrimary {
-                display: inline-block;
-                border: none;
-            }
-
-            input[type="range"] {
-                &::-webkit-slider-thumb {
-                    background: #888 !important;
-                }
-
-                &::-moz-range-thumb {
-                    background: #888 !important;
-                }
-
-                &::-ms-thumb {
-                    background: #888 !important;
-                }
-            }
-        }
+       
 
         .tipo {
             max-width: 50%;
@@ -275,47 +217,4 @@
     width: 90% !important;
     margin: 0.5rem !important;
 }
-}
-
-/* Pagination CSS */
-.pagination {
-    text-align: left;
-    margin: 30px 0 0 0;
-    display: block;
-}
-
-.pagination.left {
-    text-align: center;
-    justify-content: center;
-
-    .pagination-list {
-        display: inline-block;
-        overflow: hidden;
-        padding: 0;
-    
-        li {
-            padding: 15px;
-            display: inline-block;
-
-        
-            a{
-                font-size: 20px;
-                color: #0D3F85;
-                text-decoration: none;
-                font-weight: 600;
-            }
-
-            .li_icone{
-                color: #EB9839;
-            }
-
-            &.active{
-                color:#EB9839;
-            }
-
-            :hover{
-                color:#EB9839;
-            }
-        }
-    }
 }
