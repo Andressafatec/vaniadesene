@@ -3,6 +3,7 @@
     position: relative;
     .color-left{
         background-color: #676767;
+        width: 40.5%;
         .banner_texto{
             z-index: 9999 !important;
             padding-top: 90px;
@@ -31,7 +32,7 @@
     }
     .foto-right{
         width: 80%;
-        background: url('../../../public/images/fundo-1.png') no-repeat;
+        background: url('../../images/fundo-1.png') no-repeat;
         background-size: 100% 100%;
         background-position: bottom center;
         height: 70vh;

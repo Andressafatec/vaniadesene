@@ -258,27 +258,32 @@
                     <div class="titulo_card">Fale com o Corretor</div>
                     <p>Preencha os campos abaixo com seus dados a nosso corretor entrará em contato.</p>
                     <div class="row">
+                    <form action="{{ route('admin.sendMail')}}" method="POST" class="row">
+                    @csrf
+                      <input type="hidden" name="imoveis_id" id="" value="{{$imoveis->referencia}}">
+                      <input type="hidden" name="imoveis_titulo" id="" value="{{$imoveis->titulo}}">
                         <div class="col-12">
                             <div class="detalhes-input">
                                 <label for="">Nome:</label>
-                                <input type="text" name="keyword" id="keyword" placeholder="Digite seu nome">
+                                <input type="text" name="name" placeholder="Digite seu nome">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="detalhes-input">
                                 <label for="">E-mail:</label>
-                                <input type="text" name="keyword" id="keyword" placeholder="Digite seu e-mail">
+                                <input type="email" name="email" placeholder="Digite seu e-mail">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="detalhes-input">
                                 <label for="">Telefone:</label>
-                                <input type="text" name="keyword" id="keyword" placeholder="(XX) XXXXX-XXXX">
+                                <input type="tel" name="tel" placeholder="(XX) XXXXX-XXXX">
                             </div>
                         </div>
                         <div class="col-12">
-                            <button class="bot_laranja">enviar dados</button>
+                            <button type="submit" class="bot_laranja">enviar dados</button>
                         </div>
+                        </form>
                     </div>
                     @if ($corretor)
                     <div class="col-12 d-flex mt-3">

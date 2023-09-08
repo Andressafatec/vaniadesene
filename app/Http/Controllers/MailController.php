@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\SendMail;
+use Mail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
@@ -11,22 +10,15 @@ class MailController extends Controller
         return view("site.mail");
     }
     public function store(Request $request){
-        $name = $request->name;
-        $tel = $request->tel;
-        $email= $request->email;
-        $message = $request->message;
+        $data = $request->all();
 
-        $data = [
-            'nome' => $name,
-            'telefone' => $tel,
-            'mensagem' => $message
-        ];
+        Mail::send('emails.corretor', $data, function ($m) use ($data) {
+            $m->from($data['email'], env('SITE_NAME'));
+           // $m->to($data['sendMail'], env('SITE_NAME'))->subject('Ficha de Financiamento');
+            $m->to('andressa@dvelopers.com.br', 'Andressa')->subject('teste corretor');
+        });
 
-        $mail = new SendMail($data);
-
-        Mail::to($email)->send($mail);
-
-        //dd(aaaa);
+        return 'enviado';
 
     }
 }
