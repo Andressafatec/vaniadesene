@@ -1,6 +1,21 @@
 @extends('layouts.site')
 @section('head')
-
+<style>
+  .slider-content-locacao{
+    padding-bottom: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .slider-content-venda{
+    padding-bottom: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .swiper-pagination{
+    position: relative;
+    margin-top: 10px;
+  }
+</style>
 @endsection
 @section('content')
 <section id="banner">
@@ -77,7 +92,7 @@
             <div class="meio">venda</div>
           </div>
           <div class="slider-container swiper">
-            <div class="slider-content-locacao">
+            <div class="slider-content-venda">
               <div class="card-wrapper swiper-wrapper">
               @foreach ($vendas as $key => $imovel)
              <div class="swiper-slide">
@@ -86,25 +101,25 @@
               @endforeach
               </div>
             </div>
-            <div class="swiper-button-next-locacao swiper-navBtn"> <i class="fal fa-chevron-right"></i></div>
-            <div class="swiper-button-prev-locacao swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
+            <div class="swiper-button-next-venda swiper-navBtn"> <i class="fal fa-chevron-right"></i></div>
+            <div class="swiper-button-prev-venda swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
           </div>
           <div class="container">
             <a href="{{route('site.imoveis.index',['contrato'=>'venda'])}}"  class="botao_laranja" id="venda">ver mais imóveis</a>
             <div class="meio">locação</div>
           </div>
           <div class="slider-container swiper">
-            <div class="slider-content-venda">
+            <div class="slider-content-locacao">
               <div class="card-wrapper swiper-wrapper">
               @foreach ($locacoes as $key => $imovel)
-              <div class="swiper-slide">
+             <div class="swiper-slide">
                   @include('site.imoveis._card_imovel')
                   </div>
-                    @endforeach
+              @endforeach
               </div>
             </div>
-            <div class="swiper-button-next-venda swiper-navBtn"> <i class="fal fa-chevron-right"></i></div>
-            <div class="swiper-button-prev-venda swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
+            <div class="swiper-button-next-locacao swiper-navBtn"> <i class="fal fa-chevron-right"></i></div>
+            <div class="swiper-button-prev-locacao swiper-navBtn"> <i class="fal fa-chevron-left"></i></div>
           </div>
           <div class="container">
             <a href="{{route('site.imoveis.index',['contrato'=>'locacao'])}}" class="botao_laranja" id="locacao">ver mais imóveis</a>
@@ -205,9 +220,8 @@
       <div class="midle">Encontre seu imóvel nos <div class="cor">bairros mais procurados</div>de São José dos Campos</div>
       <section id="locais" class="container-fluid">
         <div class="slider-container swiper">
-          <div class="slider-content-locais" style="margin-bottom: 20px;">
+          <div class="slider-content-locais">
             <div class="card-wrapper swiper-wrapper">
-              
             @foreach ($imoveis_por_bairro['SAO JOSE DOS CAMPOS'] as $bairro => $numero_imoveis)
               <div class="locais swiper-slide">
                   <a href="{{route('site.imoveis.index',['bairro'=>$bairro])}}" class="card_locais">
@@ -218,7 +232,7 @@
                         <div class="text-icone">{{$numero_imoveis}} imóvel</div>
                       </div>
                     </div>
-                                  </a>
+                  </a>
               </div>
             @endforeach
             </div>

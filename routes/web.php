@@ -201,9 +201,12 @@ Route::prefix('/')->middleware(['web'])->name('site.')->group(function () {
 
     Route::get('/busca_avancada', [\App\Http\Controllers\Site\IndexController::class, 'busca_avancada'])->name('busca_avancada');
 
-
-
-
+    Route::prefix('locacao')->name('locacao.')->group(function () {
+        Route::get('/', [LocacaoController::class, 'index'])->name('index');
+    });
+    Route::prefix('venda')->name('venda.')->group(function () {
+        Route::get('/', [VendaController::class, 'index'])->name('index');
+    });
 
     Route::get('/mail', [MailController::class, 'index'])->name('mail');
     Route::post('/sendMail', [MailController::class, 'store'])->name('sendMail');

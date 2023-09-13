@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Fotos;
+use App\Models\Videos;
 use App\Models\Imoveis;
 use App\Models\Corretor;
 use App\Models\Caracteristica;

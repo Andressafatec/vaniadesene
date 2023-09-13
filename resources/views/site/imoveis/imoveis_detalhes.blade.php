@@ -12,6 +12,15 @@
 <div id="carrocelFotosImoveis" class="carousel slide" data-ride="carousel">
   <div class="swiper-container">
   <div class="swiper-wrapper">
+  @foreach ($imovel->videos as $k => $video)
+    <div class="swiper-slide @if($k === 0) active @endif">
+        <a href="{{$video->url}}" class="popup-link">
+                        <img src="{{$video->url}}" >
+                    </a>
+            
+    </div>
+   
+    @endforeach
     @foreach ($imovel->fotos as $k => $foto)
     <div class="swiper-slide @if($k === 0) active @endif">
     <a href="{{$foto->url}}" class="popup-link">
