@@ -8,7 +8,10 @@
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="{{asset('vendor/magnific-popup/dist/magnific-popup.css')}}">
- 
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+/>
   <title>VANIA DE SENE - @yield('title')</title>
   <link rel="apple-touch-icon" sizes="57x57" href="{{asset('min/img/favicon/apple-icon-57x57.png')}}">
   <link rel="apple-touch-icon" sizes="60x60" href="{{asset('min/img/favicon/apple-icon-60x60.png')}}">
@@ -29,8 +32,9 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="{{ asset('build/assets/app-408f3d12.css')}}">
-  <link rel="stylesheet" href="{{ asset('build/assets/app-e3d6e151.css')}}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-fb635d16.css')}}">
 
+  @vite( 'resources/sass/app.scss')
   @yield('head')
 
   <style>
@@ -164,16 +168,48 @@
 
    @include('layouts._modalSearch')
 
-  <script src="{{asset('build/assets/app-1bc24b34.js')}}"></script>
+  <script src="{{asset('build/assets/app-ea37bd58.js')}}"></script>
    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="{{asset('vendor/swiper-bundle.min.js')}}"></script>
+
 
   @yield('pos-script')
 
   <script>
+
+var swiper = new Swiper(".slider-content-locacao", {
+  slidesPerView: 3,
+  spaceBetween: 15,
+  loop: "true",
+  centerSlide: "true",
+  fade: "true",
+  grabCursor: "true",
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: "true",
+    dynamicBullets: "true",
+  },
+  navigation: {
+    nextEl: ".swiper-button-next-locacao",
+    prevEl: ".swiper-button-prev-locacao",
+  },
+
+  breakpoints: {
+    0: {
+      slidesPerView: 1,
+    },
+    520: {
+      slidesPerView: 2,
+    },
+    950: {
+      slidesPerView: 3,
+    },
+  },
+});
 
     $('.preloader').fadeOut('fast');
 
