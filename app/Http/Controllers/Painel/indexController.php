@@ -8,7 +8,7 @@ use App\Models\Reservas;
 use App\Models\Sections;
 use Carbon\Carbon;
 use \utilphp\util;
-class indexController extends Controller
+class IndexController extends Controller
 {
     /**
      * Display a listing of the resource.

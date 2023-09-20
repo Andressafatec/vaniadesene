@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Fotos;
+use App\Models\Videos;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -55,6 +56,9 @@ class Imoveis extends Model
 
 	public function fotos(){
         return $this->hasMany(Fotos::class, 'imovel_id')->orderBy('ordem','asc');
+    }
+	public function videos(){
+        return $this->hasMany(Videos::class, 'imovel_id')->orderBy('ordem','asc');
     }
     public function miniatura(){
     	if($this->fotos->count() > 0){

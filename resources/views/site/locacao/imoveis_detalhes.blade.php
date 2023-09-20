@@ -261,7 +261,7 @@
                     <div class="row">
                     <form action="{{ route('admin.sendMail')}}" method="POST" class="row">
                     @csrf
-                      <input type="hidden" name="imoveis_id" id="" value="{{$imoveis->referencia}}">
+                      <input type="hidden" name="imoveis_id" id="" value="{{$imoveis->referencia_original}}">
                       <input type="hidden" name="imoveis_titulo" id="" value="{{$imoveis->titulo}}">
                         <div class="col-12">
                             <div class="detalhes-input">
@@ -316,7 +316,7 @@
                         <div class="laranja">Este é um ambiente seguro!</div>
                         Trabalhamos constantemente para proteger sua segurança e privacidade 
                         <a href="">Saiba mais</a>
-                        <div class="azul">Código do imóvel: {{ $imoveis->referencia }}</div>
+                        <div class="azul">Código do imóvel: {{ $imoveis->referencia_original }}</div>
                     </div>
                 </div>
             </div>

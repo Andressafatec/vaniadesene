@@ -34,7 +34,7 @@ header{
 <div class="clearfix"></div>
 </header>
 
-<p>Cliente <strong>{{$name}}</strong> quer entrar em contato para falar sobre o imóvel com valor de referência<strong> {{$imoveis_id}}</strong> de título <strong>{{$imoveis_titulo}}</strong></p> <br>
-<p>Entre em contato pelo número de telefone <strong>{{$tel}}</strong></p>
+<p>Cliente <strong>{{$name}}</strong> quer entrar em contato para falar sobre o imóvel com valor de referência<strong> {{$imovel_id}}</strong> de título <strong>{{$imovel_titulo}}</strong></p> <br>
+<p>Entre em contato pelo número de telefone <strong>{{$tel}}</strong> ou pelo email <strong>{{$email}}</strong> </p>
 </body>
 </html>

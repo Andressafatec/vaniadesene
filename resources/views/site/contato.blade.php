@@ -3,12 +3,12 @@
 @section('content')
 <div class="container py-5">
     <div id="">
-        <div class="row justify-content-center">
+        <div class="justify-content-center">
             <div class="col text-center">
                 <h2> Contato</h2>
                 <div class="cards-contato">
                     <div class="card-contato">
-                        <a href="">
+                        <a href="https://web.whatsapp.com/send?phone=99658-6008" target="_blank">
                             <div class="icon">
                                 <i class="fab fa-whatsapp"></i>
                             </div>
@@ -20,7 +20,7 @@
                         </a>
                     </div>
                     <div class="card-contato">
-                        <a href="">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contato@vaneadesene.com.br" target="_blank">
                             <div class="icon">
                                 <i class="far fa-envelope"></i>
                             </div>

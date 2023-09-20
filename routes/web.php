@@ -196,13 +196,13 @@ Route::prefix('/')->middleware(['web'])->name('site.')->group(function () {
   
     Route::prefix('imoveis')->name('imoveis.')->group(function () {
         Route::get('/{contrato?}', [\App\Http\Controllers\Site\ImoveisController::class, 'index'])->name('index');
-        Route::get('/detalhes/{referencia}', [\App\Http\Controllers\Site\ImoveisController::class, 'detalhes'])->name('detalhes');
+        Route::get('/detalhes/{referencia_original}', [\App\Http\Controllers\Site\ImoveisController::class, 'detalhes'])->name('detalhes');
     });
 
     Route::get('/busca_avancada', [\App\Http\Controllers\Site\IndexController::class, 'busca_avancada'])->name('busca_avancada');
 
     Route::prefix('locacao')->name('locacao.')->group(function () {
-        Route::get('/', [LocacaoController::class, 'index'])->name('index');
+        Route::get('/{locacao}', [LocacaoController::class, 'index'])->name('index');
     });
     Route::prefix('venda')->name('venda.')->group(function () {
         Route::get('/', [VendaController::class, 'index'])->name('index');
@@ -210,6 +210,9 @@ Route::prefix('/')->middleware(['web'])->name('site.')->group(function () {
 
     Route::get('/mail', [MailController::class, 'index'])->name('mail');
     Route::post('/sendMail', [MailController::class, 'store'])->name('sendMail');
+    Route::post('/sendMailImoveis', [MailController::class, 'storeImovel'])->name('sendMailImoveis');
+    Route::post('/sendMailFinanciar', [MailController::class, 'storefinanciamento'])->name('sendMailFinanciar');
+    Route::post('/uploadform', [MailController::class, 'uploadform'])->name('uploadform');
 
     Route::get('/{slug}', ['as'=>'paginas','uses'=>'\App\Http\Controllers\Site\ContentsController@content']);
 
