@@ -161,6 +161,20 @@
     }
 }
 
+#carrocelFotosImoveisMobile{
+  .swiper-wrapper{
+      a{
+          display: block;
+          text-align: center;
+          background: #000;
+          img{
+              height: 300px;
+              display: inline-block;
+          }
+      }
+  }
+}
+
 
 
 .range-price {
@@ -253,3 +267,32 @@
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
     }
   }
+
+  .page-link{
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: #eb9839;
+  }
+
+  .page-item.active .page-link {
+    z-index: 3;
+    color: #0d3f85;
+    font-size: 20px;
+    background-color: transparent;
+}
+
+.page-item.disabled .page-link {
+    color: #eb9839;
+    font-size: 20px;
+    background-color: transparent;
+}
+
+.filtro{
+  text-decoration: none;
+  color: #0d3f85;
+  font-size: 18px;
+  padding-top: 10px;
+  display: block;
+}
+

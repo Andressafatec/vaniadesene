@@ -63,10 +63,10 @@ class IndexController extends Controller
            };
         }
        
-       
+        $maiorValor = Imoveis::max('valor');
         
        
-        return view("site.index", compact('locacoes', 'vendas','imoveis_por_bairro'));
+        return view("site.index", compact('locacoes', 'vendas','imoveis_por_bairro', 'maiorValor'));
     }
     public function contato()
     {
@@ -98,7 +98,7 @@ class IndexController extends Controller
         $imoveis = Imoveis::with(['caracteristica', 'fotos']);
 
         if ($request->filled('codigo')) {
-            $imoveis->where('referencia', $request->input('codigo'));
+            $imoveis->where('referencia_original', $request->input('codigo'));
         }
 
         if ($request->filled('contrato')) {
@@ -155,7 +155,7 @@ class IndexController extends Controller
         }
 
         if ($request->filled('codigo')) {
-            $imovelEncontrado = $imoveis->where('referencia', $request->input('codigo'))->first();
+            $imovelEncontrado = $imoveis->where('referencia_original', $request->input('codigo'))->first();
 
             if ($imovelEncontrado) {
                 $idDoImovelEncontrado = $imovelEncontrado->id;

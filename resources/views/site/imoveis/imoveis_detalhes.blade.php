@@ -3,32 +3,29 @@
 @section('head')
 <link rel="stylesheet" href="{{asset('vendor/magnific-popup/dist/magnific-popup.css')}}">
 
+<style>
+  
+</style>
 @endsection
 @section('content')
 
-
-
-
-<div id="carrocelFotosImoveis" class="carousel slide" data-ride="carousel">
+<div id="carrocelFotosImoveis" class="carousel slide d-sm-block d-none" data-ride="carousel">
   <div class="swiper-container">
   <div class="swiper-wrapper">
   @foreach ($imovel->videos as $k => $video)
     <div class="swiper-slide @if($k === 0) active @endif">
         <a href="{{$video->url}}" class="popup-link">
-                        <img src="{{$video->url}}" >
-                    </a>
-            
+          <iframe width="auto" height="295" src="{{$video->url}}" frameborder="0"></iframe>
+        </a>
     </div>
    
     @endforeach
     @foreach ($imovel->fotos as $k => $foto)
     <div class="swiper-slide @if($k === 0) active @endif">
-    <a href="{{$foto->url}}" class="popup-link">
-                    <img src="{{$foto->url}}" >
-                </a>
-         
-</div>
-   
+      <a href="{{$foto->url}}" class="popup-link">
+          <img src="{{$foto->url}}" >
+      </a>
+    </div>
     @endforeach
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -42,7 +39,38 @@
     </span>
   </a>
   </div>
-  
+</div>
+
+<div id="carrocelFotosImoveisMobile" class="carousel slide d-sm-none" data-ride="carousel">
+  <div class="swiper-container-mobile">
+  <div class="swiper-wrapper">
+  @foreach ($imovel->videos as $k => $video)
+    <div class="swiper-slide @if($k === 0) active @endif">
+        <a href="{{$video->url}}" class="popup-link">
+          <iframe width="auto" height="295" src="{{$video->url}}" frameborder="0"></iframe>
+        </a>
+    </div>
+   
+    @endforeach
+    @foreach ($imovel->fotos as $k => $foto)
+    <div class="swiper-slide @if($k === 0) active @endif">
+      <a href="{{$foto->url}}" class="popup-link">
+          <img src="{{$foto->url}}" >
+      </a>
+    </div>
+    @endforeach
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true">
+      <i class="fal fa-chevron-left"></i>
+    </span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"> 
+      <i class="fal fa-chevron-right"></i>
+    </span>
+  </a>
+  </div>
 </div>
     <div class="container">
         <div class="conteudo">
@@ -208,26 +236,14 @@
                   @endforeach
                   </div>
                 </div>
-                @if($imovel->edificio)
+                @if(count($imovel->edificio) >= 1)
                 <div class="titulo-azul">Instalações do Condomínio</div>
                 <div class="quadro2">
-                @foreach ($imovel->edificio as $caracteristica)
-                   
+                  @foreach ($imovel->edificio as $caracteristica)
                     <div class="col-sm-5 col-6">
                       <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> {{Helper::corrigiAcento($caracteristica->pref)}}({{$caracteristica->valor}})<br></div>
                     </div>
-                   
                   @endforeach
-                    <!--<div class="col-sm-5 col-6">
-                        <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> Churrasqueira<br></div>
-                        <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> Elevador<br></div>
-                        <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> Gerador</div>
-                    </div>
-                    <div class="col-sm col-6">
-                        <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> Portaria<br></div>
-                        <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> Salão de Festas<br></div>
-                        <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> Área Verde</div>
-                    </div>-->
                 </div>
                 @endif
                 <div class="titulo-azul">Nas proximidades do imóvel</div>
@@ -258,27 +274,32 @@
                     <div class="titulo_card">Fale com o Corretor</div>
                     <p>Preencha os campos abaixo com seus dados a nosso corretor entrará em contato.</p>
                     <div class="row">
+                    <form action="{{ route('site.sendMail')}}" method="POST" class="row" id="formcorretor">
+                    @csrf
+                      <input type="hidden" name="imovel_id" id="" value="{{$imovel->referencia}}">
+                      <input type="hidden" name="imovel_titulo" id="" value="{{$imovel->titulo}}">
                         <div class="col-12">
                             <div class="detalhes-input">
                                 <label for="">Nome:</label>
-                                <input type="text" name="keyword" id="keyword" placeholder="Digite seu nome">
+                                <input type="text" name="name" placeholder="Digite seu nome">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="detalhes-input">
                                 <label for="">E-mail:</label>
-                                <input type="text" name="keyword" id="keyword" placeholder="Digite seu e-mail">
+                                <input type="email" name="email" placeholder="Digite seu e-mail">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="detalhes-input">
                                 <label for="">Telefone:</label>
-                                <input type="text" name="keyword" id="keyword" placeholder="(XX) XXXXX-XXXX">
+                                <input type="tel" name="tel" placeholder="(XX) XXXXX-XXXX">
                             </div>
                         </div>
                         <div class="col-12">
-                            <button class="bot_laranja">enviar dados</button>
+                            <button type="submit" id="btEnviar" class="bot_laranja">enviar dados</button>
                         </div>
+                        </form>
                     </div>
                     @if ($imovel->corretor)
                     <div class="col-12 d-flex mt-3">
@@ -310,14 +331,14 @@
                         <div class="laranja">Este é um ambiente seguro!</div>
                         Trabalhamos constantemente para proteger sua segurança e privacidade 
                         <a href="">Saiba mais</a>
-                        <div class="azul">Código do imóvel: {{ $imovel->referencia }}</div>
+                        <div class="azul">Código do imóvel: {{ $imovel->referencia_original }}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <section id="mapa">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.259478853855!2d-45.88746962470425!3d-23.233642949634184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc4abf5f89c343%3A0x4b5f5ec5da2d27f4!2sAv.%20Andr%C3%B4meda%2C%202320%20-%20Jardim%20Sat%C3%A9lite%2C%20S%C3%A3o%20Jos%C3%A9%20dos%20Campos%20-%20SP%2C%2012230-001!5e0!3m2!1spt-BR!2sbr!4v1689966931157!5m2!1spt-BR!2sbr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="mt-5" id="#mapa"></iframe>    
+        <iframe width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="mt-5" id="#mapa" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{htmlentities(urlencode($endereco))}}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
     </section>
         
      
@@ -345,8 +366,47 @@
             enabled: true
         }
     });
+
+    var swiper = new Swiper('.swiper-container-mobile', {
+        slidesPerView: 1,
+        spaceBetween: 1,
+        autoplay:true,
+        navigation: {
+            nextEl: '.carousel-control-next', // Use as classes das setas de controle como seletor
+            prevEl: '.carousel-control-prev',
+        },
+    });
 });
 
+
+$("body").on('click','#formcorretor #btEnviar',function(e) {
+    e.preventDefault();
+      $(".bot_laranja").attr('disabled',true)
+        e.preventDefault();
+        var url = $("#formcorretor").attr('action'); 
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: $("#formcorretor").serialize(), // serializes the form's elements.
+               success: function(data){
+                   console.log(data)
+                   $(".bot_laranja").attr('disabled',false);
+                    if(data.error != 0){
+                      swal("Atention!", data.msg, "warning");
+                   }else{
+                   swal({
+                      title: "Formulário enviado com sucesso!",
+                      text: data.msg,
+                      icon: "success",
+                      dangerMode: false,
+                    })
+                    }
+               },error:function(data){
+                $(".bot_laranja").attr('disabled',false);
+               }
+             });
+        e.preventDefault();
+    });
 </script>
 
 @endsection

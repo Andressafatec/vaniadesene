@@ -1,7 +1,8 @@
 @extends('layouts.site')
 
 @section('head')
-
+<style>
+</style>
 @endsection
 
 @section('content')
@@ -376,7 +377,7 @@
                             </div>
                         </div>
                         <button type="submit" class="botao_filtro">Aplicar filtro</button>
-                        <a href="{{route('site.imoveis.index')}}" class=""> Limpar filtro</a>
+                        <a href="{{route('site.imoveis.index')}}" class="filtro"> Limpar filtro</a>
                     </div>
                     </form>
                 </div>

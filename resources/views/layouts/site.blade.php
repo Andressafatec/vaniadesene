@@ -32,30 +32,11 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="{{ asset('build/assets/app-408f3d12.css')}}">
-  <link rel="stylesheet" href="{{ asset('build/assets/app-923d1bf9.css')}}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-c6e255bc.css')}}">
 
   @yield('head')
 
 <style>
-  .page-link{
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-    color: #eb9839;
-  }
-
-  .page-item.active .page-link {
-    z-index: 3;
-    color: #0d3f85;
-    font-size: 20px;
-    background-color: transparent;
-}
-
-.page-item.disabled .page-link {
-    color: #eb9839;
-    font-size: 20px;
-    background-color: transparent;
-}
 </style>
 
 </head>
@@ -191,6 +172,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="{{asset('vendor/swiper-bundle.min.js')}}"></script>
 
 
@@ -268,6 +250,99 @@ $(document).ready(function() {
               e.preventDefault(); // avoid to execute the actual submit of the form.
           });
 })
+
+
+var swiperLocacao = new Swiper(".slider-content-locacao", {
+  slidesPerView: 3,
+  spaceBetween: 15,
+  loop: true,
+  centerSlide: true,
+  fade: true,
+  grabCursor: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+    dynamicBullets: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next-locacao",
+    prevEl: ".swiper-button-prev-locacao",
+  },
+
+  breakpoints: {
+    0: {
+      slidesPerView: 1,
+    },
+    520: {
+      slidesPerView: 2,
+    },
+    950: {
+      slidesPerView: 3,
+    },
+  },
+});
+
+var swiperVenda = new Swiper(".slider-content-venda", {
+  slidesPerView: 3,
+  spaceBetween: 15,
+  loop: true,
+  centerSlide: true,
+  fade: true,
+  grabCursor: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+    dynamicBullets: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next-venda",
+    prevEl: ".swiper-button-prev-venda",
+  },
+
+  breakpoints: {
+    0: {
+      slidesPerView: 1,
+    },
+    520: {
+      slidesPerView: 2,
+    },
+    950: {
+      slidesPerView: 3,
+    },
+  },
+});
+
+var swiperLocais = new Swiper(".slider-content-locais", {
+  slidesPerView: 4,
+  spaceBetween: 15,
+  loop: true,
+  centerSlide: true,
+  fade: true,
+  grabCursor: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+    dynamicBullets: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+
+  breakpoints: {
+    0: {
+      slidesPerView: 1,
+    },
+    520: {
+      slidesPerView: 2,
+    },
+    950: {
+      slidesPerView: 3,
+    },
+  },
+});
+
+
 
 
 /* Menu */

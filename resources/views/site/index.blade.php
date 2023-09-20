@@ -1,20 +1,7 @@
 @extends('layouts.site')
 @section('head')
 <style>
-  .slider-content-locacao{
-    padding-bottom: 10px;
-    padding-right: 5px;
-    padding-left: 5px;
-  }
-  .slider-content-venda{
-    padding-bottom: 10px;
-    padding-right: 5px;
-    padding-left: 5px;
-  }
-  .swiper-pagination{
-    position: relative;
-    margin-top: 10px;
-  }
+  
 </style>
 @endsection
 @section('content')
@@ -39,10 +26,12 @@
                 </div>
                 <div class="col-sm col-12 p-0">
                     <div class="search-input">
-                      <select name="tipo">
+                        <select name="tipo">
                           <option value="">Tipo Imóvel </option>
-                         
-                      </select>
+                          @foreach($tipos as $k => $tipo)
+                          <option value="{{$tipo}}"> {{$tipo}}</option>
+                          @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm col-12 p-0">
@@ -78,7 +67,7 @@
         <div class="botoes">
             <input type="text" name="codigo" class="botao2" placeholder="Insira o código">
            
-            <a class="botao1" href="{{route('site.imoveis.index')}}">Busca avançada</a>
+            <a class="botao1" href="{{ route('site.imoveis.index', ['valor' => $maiorValor]) }}">Busca avançada</a>
         </div>
         </form>
        </div>
@@ -136,54 +125,69 @@
             </div>
           </div>
           <div class="col-sm-6 col-12 conteudo-right pt-sm-0 pt-2">
+          <form method="POST" action="{{ route('site.sendMailFinanciar')}}" accept-charset="UTF-8" class="form-imovel" id="formFinanciamento" enctype="multipart/form-data"><input name="_token" type="hidden">
+            @csrf
             <div class="simular-form wow fadeInUp" data-wow-delay=".7s">
               <div class="row">
                   <div class="col-6">
                       <div class="simular-input">
-                          <input type="text" name="keyword" id="keyword" placeholder="Valor do imóvel">
+                          <input type="text" name="valor" placeholder="Valor do imóvel">
                       </div>
                   </div>
                   <div class="col-6">
                     <div class="simular-input">
-                        <input type="text" name="keyword" id="keyword" placeholder="Renda familiar">
+                        <input type="text" name="renda" placeholder="Renda familiar">
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="simular-input">
-                        <input type="text" name="keyword" id="keyword" placeholder="Entrada">
+                        <input type="text" name="entrada" placeholder="Entrada">
                     </div>
                   </div>
                   <div class="col-6">
                       <div class="simular-input">
                           <label for="location"><i class="fas fa-chevron-down"></i></label>
-                          <select name="location" id="location">
-                              <option value="none" selected disabled>Tipo do imóvel</option>
+                          <select name="tipo">
+                              <option value="">Tipo do imóvel</option>
+                              @foreach($tipos as $k => $tipo)
+                              <option value="{{$tipo}}"> {{$tipo}}</option>
+                              @endforeach
                           </select>
                       </div>
                   </div>
                   <div class="col-6">
                     <div class="simular-input">
                         <label for="valor"><i class="fas fa-chevron-down"></i></label>
-                        <select name="valor" id="valor">
-                            <option value="none" selected disabled>Estado do imóvel</option>
+                        <select name="estado">
+                            <option value="">Estado do imóvel</option>
+                            <option value="comprado">Comprado</option>
+                            <option value="alugado">Alugado</option>
                         </select>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="simular-input">
                         <label for="valor"><i class="fas fa-chevron-down"></i></label>
-                        <select name="valor" id="valor">
-                            <option value="none" selected disabled>Possui imóvel</option>
+                        <select name="possui">
+                            <option value="">Possui imóvel</option>
+                            <option value="sim">Sim</option>
+                            <option value="não">Não</option>
                         </select>
                     </div>
                   </div>
                   <div class="col-12">
+                      <div class="simular-input">
+                          <input type="text" name="email" placeholder="E-mail para contato">
+                      </div>
+                  </div>
+                  <div class="col-12">
                       <div class="simular-btn button">
-                          <button class="btn">Simular</button>
+                          <button id="btEnviar" type="submit" class="btn">Simular</button>
                       </div>
                   </div>
               </div>
             </div>
+          </form>
           </div>
         </div>
       </section>
@@ -204,7 +208,7 @@
                   <div class="texto-laranja">Encontre um imóvel</div>
                   <p>Confira os imóveis disponíveis e encontre a <strong>melhor opção</strong> para locação ou compra.</p>
                 </div>
-                <div class="botao_services"><a href="{{route('site.imoveis.index')}}" target="blank">buscar</a></div>
+                <div class="botao_services"><a href="{{route('site.imoveis.index', ['valor' => $maiorValor])}}" target="blank">buscar</a></div>
               </div>
               <div class="services">
                 <div class="card_serv">
@@ -260,7 +264,34 @@
     window.location.href = "{{route('site.imoveis.index')}}";
   });
 
- 
+  $("body").on('click','#formFinanciamento #btEnviar',function(e) {
+    e.preventDefault();
+      $(".btn").attr('disabled',true)
+        e.preventDefault();
+        var url = $("#formFinanciamento").attr('action'); // the script where you handle the form input.
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: $("#formFinanciamento").serialize(), // serializes the form's elements.
+               success: function(data){
+                   console.log(data)
+                   $(".btn").attr('disabled',false);
+                    if(data.error != 0){
+                      swal("Atention!", data.msg, "warning");
+                   }else{
+                   swal({
+                      title: "Simulação de financiamento enviado com sucesso! Aguarde contato da empresa",
+                      text: data.msg,
+                      icon: "success",
+                      dangerMode: false,
+                    })
+                    }
+               },error:function(data){
+                $(".btn").attr('disabled',false);
+               }
+             });
+        e.preventDefault();
+    });
 
 </script>
 @endsection

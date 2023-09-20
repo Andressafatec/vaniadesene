@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<div class="row ml-2">
+<div class="row ml-sm-2">
     @foreach ($imoveis as $key => $imovel)
     <div class="col-sm-4 col-12 mb-4">
         @include('site.imoveis._card_imovel')

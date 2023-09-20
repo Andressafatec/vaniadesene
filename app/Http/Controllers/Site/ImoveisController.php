@@ -30,7 +30,7 @@ class ImoveisController extends Controller
             }
         }
         if ($request->filled('codigo')) {
-            $imoveis->where('referencia', $request->input('codigo'));
+            $imoveis->where('referencia_original', $request->input('codigo'));
         }
         if ($request->filled('tipo')) {
             $imoveis->where('tipo', $request->input('tipo'));
@@ -48,6 +48,12 @@ class ImoveisController extends Controller
             $valormin = str_replace(',', '.', str_replace('.', '', $request->input('valormin')));
             $valormax = str_replace(',', '.', str_replace('.', '', $request->input('valormax')));
             $imoveis->whereBetween('valor', [$valormin, $valormax]);
+        }
+
+        if ($request->filled('valor')) {
+            $valor = str_replace(',', '.', str_replace('.', '', $request->input('valor')));
+
+            $imoveis->whereBetween('valor', ['0', $valor]);
         }
         
         if ($request->filled('caracteristicas')) {
@@ -86,8 +92,10 @@ class ImoveisController extends Controller
     }
     public function detalhes($id)
     {
-        $imovel = Imoveis::where('referencia',$id)->first();
+        $imovel = Imoveis::where('referencia_original',$id)->first();
 
-        return view("site.imoveis.imoveis_detalhes", compact('imovel'));
+    	$endereco = $imovel->rua .' - '. $imovel->bairro . " - " . $imovel->cidade . " - " . $imovel->cep;
+
+        return view("site.imoveis.imoveis_detalhes", compact('imovel', 'endereco'));
     }
 }

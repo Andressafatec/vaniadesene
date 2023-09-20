@@ -83,6 +83,9 @@
             color: #EB9839;
             font-size: 30px;
             padding-top: 0.25rem !important;
+            @include mq(boot-md,max){
+                color: #0D3F85;
+            }
         }
     }
 

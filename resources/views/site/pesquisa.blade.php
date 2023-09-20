@@ -66,7 +66,7 @@
                                 </div>
                               </div>
                               <div class="p1">
-                                <strong>CÓDIGO:</strong> {{ $imovel->referencia }}
+                                <strong>CÓDIGO:</strong> {{ $imovel->referencia_original }}
                               </div>
                             </div>
                           </a>

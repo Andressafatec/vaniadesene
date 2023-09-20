@@ -25,6 +25,22 @@
         font-weight: 500 !important;
     }
 
+    .preview-item{
+        width: 100%;
+        padding: 10px;
+        display: flex;
+    }
+    .preview-item img{
+        width:30%;
+
+    }
+    .preview-item a{
+        display: flex;
+        height:100%;
+        width:10%;
+        text-decoration:none;
+    }
+
     @media (max-width: 768px) {
         .card-form{
             padding: 10px;
@@ -42,7 +58,8 @@
 @section('content')
 <div class="container">
     <div class="card-form">
-        <form method="POST" action="" accept-charset="UTF-8" class="form-imovel" id="form-cadastro" enctype="multipart/form-data"><input name="_token" type="hidden">
+        <form method="POST" action="{{ route('site.sendMailImoveis')}}" accept-charset="UTF-8" class="form-imovel" id="formImoveis" enctype="multipart/form-data"><input name="_token" type="hidden">
+        @csrf
             <div class="row">
                 <div class="col-sm-12 text-center my-3">
                     <h3>Formulário de Cadastro de Imóvel</h3>
@@ -91,19 +108,29 @@
                 </div>
                 <div class="col-sm-3">
                     <label for="">Tipo Imóvel:*</label>
-                    <input type="text" name="tipo" class="form-control" required="">
+                    <select name="tipo" class="form-control">
+                        <option value="">Selecione</option>
+                        @foreach($tipos as $k => $tipo)
+                        <option value="{{$tipo}}"> {{$tipo}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-sm-3">
                     <label for="">Valor:*</label>
-                    <input type="text" name="tipo" class="form-control" required="">
+                    <input type="text" name="valor" class="form-control" required="">
                 </div>
                 <div class="col-sm-3">
-                    <span class="default">Finalidade:</span>
-                    
+                    <label for="">Finalidade:*</label>
+                    <select name="finalidade" class="form-control"> 
+                        <option value="" style="padding: 0 25px;"> Selecione</option>
+                        @foreach ($finalidadeimovel as $finalidadeimoveis)
+                            <option value="{{ Helper::corrigiAcento($finalidadeimoveis->finalidade) }}"> {{ Helper::corrigiAcento($finalidadeimoveis->finalidade) }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 
                 <div class="col-sm-12">
-                    <label for="">Descrição:*</label>
+                    <label for="">Descrição:</label>
                     <textarea name="descricao" id="descricao" class="form-control" rows="7" required=""></textarea>
                 </div>
             </div>
@@ -468,15 +495,10 @@
                 <div class="col-sm-12">
                     <label for="">Fotos</label>
                     <div class="container-upload">
-                        <input type="file" id="uploadArquivos" name="file[]" multiple="">
+                        <input type="file" class="uploadArquivos" multiple>
+                        <div class="carregandoDestaque" style="display: none;">Carregando...</div>
                     </div>
-                    <div id="preview">
-                        <ul>
-                            
-                        </ul>
-                    </div>
-
-
+                    <div id="previews" class="d-flex flex-wrap"></div>
                 </div>
             </div>
             <div class="containerbtn text-center">
@@ -488,5 +510,88 @@
 @endsection
 
 @section('pos-script')
+
+<script>
+    $(document).on('change', '.uploadArquivos', function() {
+    var $uploadInput = $(this);
+    var $containerUpload = $uploadInput.closest('.container-upload');
+    var $carregandoDestaque = $containerUpload.find(".carregandoDestaque");
+
+    $carregandoDestaque.show(0);
+
+    var data = new FormData();
+    $.each($uploadInput[0].files, function(i, file) {
+        data.append('files[]', file);
+    });
+    data.append('_token', '{{ csrf_token() }}');
+
+    $.ajax({
+        url: '{{ route("site.uploadform") }}',
+        type: 'POST',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data,
+        success: function(result) {
+            $(".containerUpload").fadeOut('fast');
+
+            $.each(result, function (index, value) {
+                var urlBase = "{{ URL::to('/') }}";
+                var html = '';
+                html +='<div class="preview-item">';
+                html +='<input type="hidden" name="fotos[]" value="/upload/formulario/'+value+'" />';
+                html +='<img src="'+urlBase+'/upload/formulario/'+value+'" alt="">';
+                html +='<a href="#" class="corretor-close delete-photo" data-file="'+value+'">';
+                html +='<i class="fas fa-times"></i> ';
+                html += '</a>';
+                html +='</div>';
+
+                $('#previews').append(html);
+            });
+
+            $(".carregandoDestaque").hide(0);
+        }
+    });
+});
+
+// Adicionando funcionalidade para excluir uma foto
+$(document).on('click', '.delete-photo', function(e) {
+    e.preventDefault();
+    $(this).parent('.preview-item').remove();
+});
+
+$("body").on('click','#formImoveis #btEnviar',function(e) {
+    e.preventDefault();
+      $(".botao_laranja").attr('disabled',true)
+        e.preventDefault();
+        var url = $("#formImoveis").attr('action'); // the script where you handle the form input.
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: $("#formImoveis").serialize(), // serializes the form's elements.
+               success: function(data){
+                   console.log(data)
+                   $(".botao_laranja").attr('disabled',false);
+                    if(data.error != 0){
+                      swal("Atention!", data.msg, "warning");
+                   }else{
+                   swal({
+                      title: "Formulário enviado com sucesso!",
+                      text: data.msg,
+                      icon: "success",
+                      dangerMode: false,
+                    })
+                    }
+               },error:function(data){
+                $(".botao_laranja").attr('disabled',false);
+               }
+             });
+        e.preventDefault();
+    });
+
+
+
+
+</script>
 
 @endsection

@@ -1,5 +1,5 @@
 <div class="card-imovel">
-    <a href="{{ route('site.imoveis.detalhes',[$imovel->referencia]) }}"
+    <a href="{{ route('site.imoveis.detalhes',[$imovel->referencia_original]) }}"
         class="text-decoration-none">
         <div class="card">
             @php
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="p1">
-                <strong>CÓDIGO:</strong> {{ $imovel->referencia }}
+                <strong>CÓDIGO:</strong> {{ $imovel->referencia_original }}
             </div>
         </div>
     </a>
