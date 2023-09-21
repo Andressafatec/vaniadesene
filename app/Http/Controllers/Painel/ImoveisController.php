@@ -27,21 +27,20 @@ class ImoveisController extends Controller
     }
 
     public function upload(Request $request){
-            
-            $arrayFile = array();
-            $file =  $request->file('file');
-        
-                $e = explode(".",$file->getClientOriginalName());
-                $n = str_replace(end($e), "", $file->getClientOriginalName());
-                $newName = Str::slug($n, "-") .".".end($e) ;
-                $fileName = time(). "-". $newName;
-                $arrayFile[] = $fileName;
-                $file->move('./upload/imoveis/',$fileName);
-            
-
-
-            return response()->json($arrayFile);
+        $arrayFiles = array();
+    
+        foreach($request->file('files') as $file) {
+            $e = explode(".",$file->getClientOriginalName());
+            $n = str_replace(end($e), "", $file->getClientOriginalName());
+            $newName = Str::slug($n, "-") .".".end($e) ;
+            $fileName = time(). "-". $newName;
+            $arrayFiles[] = $fileName;
+            $file->move('./upload/imoveis/',$fileName);
+        }
+    
+        return response()->json($arrayFiles);
     }
+
 
     public function deleteImg(Request $request)
     {
@@ -66,24 +65,9 @@ class ImoveisController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token', '_method');
-        $request->validate([
-            "anuncio",
-            "label",
-            "tipoanuncio",
-            "valor",
-            "bairro",
-            "cidade",
-            "uf",
-            "contrato",
-            "detalhes",
-            "empresa",
-            "finalidade",
-            "grupo",
-            "referencia",
-            "referencia_original",
-            "regiao",
-            "tipo"
-        ]);
+
+        $data['valor'] = str_replace(',', '.', str_replace('.', '', $data['valor']));
+       
 
         $imovel = Imoveis::create($data);
 
@@ -172,7 +156,6 @@ class ImoveisController extends Controller
     {
         $imoveis = Imoveis::find($id);
         $imoveis->delete();
-        return response()->json(['status' => 'ok']);
     }
 
 }
