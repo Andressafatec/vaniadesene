@@ -43,10 +43,6 @@ class Imoveis extends Model
 	public function edificio(){
         return $this->hasMany(Edificio::class, 'imovel_id');
     }
-    public function corretor(){
-        return $this->hasOne(Corretor::class, 'id','corretor_id');
-    }
-
 	public function fotos(){
         return $this->hasMany(Fotos::class, 'imovel_id')->orderBy('ordem','asc');
     }

@@ -46,16 +46,34 @@
     <section class="col-8 center-form">
         <div class="card p-5">
             <div class="row">
-                <div class="col-12">
+                <div class="col-2">
+                    <div class="form-group">
+                        {!! Form::label('id_sistemas','Id Sistema:') !!}
+                        {!! Form::text('id_sistemas',null,['class'=>'form-control','placehold'=>'']) !!}
+                    </div>
+                </div>
+                <div class="col-10">
                     <div class="form-group ">
                         {!! Form::label('Nome','Nome Completo:*') !!}
                         {!! Form::text('nome',null,['class'=>'form-control', 'required'=>'true']) !!}
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-4">
+                    <div class="form-group">
+                        {!! Form::label('funcao','Função:') !!}
+                        {!! Form::text('funcao',null,['class'=>'form-control','placehold'=>'']) !!}
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        {!! Form::label('loja','Loja:') !!}
+                        {!! Form::text('loja',null,['class'=>'form-control','placehold'=>'']) !!}
+                    </div>
+                </div>
+                <div class="col-4">
                     <div class="form-group">
                         {!! Form::label('telefone','Telefone:') !!}
-                        {!! Form::text('telefone',null,['class'=>'form-control','placehold'=>'']) !!}
+                        {!! Form::text('telefone',null,['class'=>'form-control telMask','placehold'=>'']) !!}
                     </div>
                 </div>
                 <div class="col-6">
@@ -131,7 +149,7 @@ $('.uploadArquivos' ).on('change', function() {
 
                 html +='<div style="float:left">';
 
-                    html +='<input type="hidden" name="foto" value="'+value+'" />';
+                    html +='<input type="hidden" name="foto" value="/upload/corretor/'+value+'" />';
                     html +='<a href="#" class="corretor-close remote" data-file="'+value+'">';
                     html +='<i class="fas fa-times"></i> ';
                     html += '</a>';

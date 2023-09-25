@@ -47,13 +47,31 @@
     <section class="col-8 center-form">
         <div class="card p-5">
             <div class="row">
-                <div class="col-12">
+                <div class="col-2">
+                    <div class="form-group ">
+                        {!! Form::label('id_sistemas','Id Sistemas:') !!}
+                        <input type='text' name="nome" class="form-control" value="{{ $corretor->id_sistemas }}">
+                    </div>
+                </div>
+                <div class="col-10">
                     <div class="form-group ">
                         {!! Form::label('Nome','Nome Completo:*') !!}
                         <input type='text' name="nome" class="form-control" value="{{ $corretor->nome }}">
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-4">
+                    <div class="form-group">
+                        {!! Form::label('funcao','Funcao:') !!}
+                        <input type='text' name="funcao" class="form-control" value="{{ $corretor->funcao }}">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        {!! Form::label('loja','Loja:') !!}
+                        <input type='text' name="loja" class="form-control" value="{{ $corretor->loja }}">
+                    </div>
+                </div>
+                <div class="col-4">
                     <div class="form-group">
                         {!! Form::label('telefone','Telefone:') !!}
                         <input type='text' name="telefone" class="form-control" value="{{ $corretor->telefone }}">

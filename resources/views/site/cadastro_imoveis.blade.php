@@ -52,6 +52,19 @@
         }
 
     }
+
+    .container-cep{
+        position: relative;
+    }
+    #searchCep{
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 6px 12px;
+        background: none;
+        border: none;
+    }
+
 </style>
 @endsection
 
@@ -76,11 +89,16 @@
                 </div>
                 <div class="col-sm-4 ">
                     <label for="">Telefone:*</label>
-                    <input type="text" name="telefone" class="form-control telMask" required="" maxlength="15">
+                    <input type="text" name="telefone" class="form-control phoneMask" required="" maxlength="15">
                 </div>
                 <div class="col-sm-4">
                     <label for="">CEP*</label>
-                    <input type="text" name="cep" id="cep" class="form-control cepMask" required="" maxlength="9">
+                    <div class="container-cep" >
+                        <input type="text" name="cep" id="buscaCep" class="form-control cad-form cepMask">
+                        <button type="button" id="searchCep">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="">Endereço:*</label>
@@ -117,7 +135,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label for="">Valor:*</label>
-                    <input type="text" name="valor" class="form-control" required="">
+                    <input type="text" name="valor" class="form-control" required="" onkeyup="formatarValor(this)">
                 </div>
                 <div class="col-sm-3">
                     <label for="">Finalidade:*</label>
@@ -588,6 +606,30 @@ $("body").on('click','#formImoveis #btEnviar',function(e) {
              });
         e.preventDefault();
     });
+
+    function buscaCep(cep) {
+    $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
+        $("input[name='endereco']").val(dados.logradouro)
+        $("input[name='bairro']").val(dados.bairro)
+        $("input[name='cidade']").val(dados.localidade)
+        $("input[name='uf']").val(dados.uf)
+
+    });
+}
+$("#buscaCep").change(function() {
+    buscaCep($(this).val())
+});
+
+$("#searchCep").click(function(e) {
+    e.preventDefault();
+    buscaCep($("#buscaCep").val())
+})
+
+function formatarValor(input) {
+    var valor = input.value.replace(/\D/g, '');
+    valor = (valor / 100).toFixed(2).replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    input.value = valor;
+}
 
 
 

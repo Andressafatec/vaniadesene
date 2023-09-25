@@ -32,7 +32,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="{{ asset('build/assets/app-408f3d12.css')}}">
-  <link rel="stylesheet" href="{{ asset('build/assets/app-c6e255bc.css')}}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-da070e00.css')}}">
 
   @yield('head')
 

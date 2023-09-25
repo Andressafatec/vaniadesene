@@ -72,14 +72,14 @@
     <div class="card-body p-0">
         <table class="table table-hover">
             <tr>
-                <th style="width: 30%">Creci</th>
+                <th style="width: 30%">Id Sistema</th>
                 <th class="">Nome</th>
                 <th class="text-right">Ações</th>
             </tr>
             @foreach($corretor as $corretores)
             <tr>
                 <td>
-                    <p>{{$corretores->creci}}</p>
+                    <p>{{$corretores->id_sistemas}}</p>
                 </td>
                 <td>
                     <p>{{$corretores->nome}}</p>
