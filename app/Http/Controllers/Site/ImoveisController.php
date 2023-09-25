@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Site;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Corretores;
+use App\Models\CorretoresImoveis;
 use App\Models\Fotos;
 use App\Models\Videos;
 use App\Models\Imoveis;
@@ -94,8 +96,17 @@ class ImoveisController extends Controller
     {
         $imovel = Imoveis::where('referencia_original',$id)->first();
 
+        $corretoresImoveis = CorretoresImoveis::where('imovel_id', $imovel->id)->first();
+
+        if ($corretoresImoveis) {
+            $corretorId = $corretoresImoveis->corretor_id;
+            $corretor = Corretores::find($corretorId);
+        } else {
+            $corretor = null;
+        }
+
     	$endereco = $imovel->rua .' - '. $imovel->bairro . " - " . $imovel->cidade . " - " . $imovel->cep;
 
-        return view("site.imoveis.imoveis_detalhes", compact('imovel', 'endereco'));
+        return view("site.imoveis.imoveis_detalhes", compact('imovel', 'endereco', 'corretor'));
     }
 }

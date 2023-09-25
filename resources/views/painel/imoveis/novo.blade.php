@@ -5,6 +5,35 @@
   width: 1000px;
   margin: 0 auto;
 }
+
+.preview-item{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+}
+.preview-item img{
+    width:20%;
+
+}
+.preview-item a{
+    display: flex;
+    height:100%;
+    width:10%;
+    text-decoration:none;
+}
+
+.container-cep{
+        position: relative;
+    }
+    #searchCep{
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 6px 12px;
+        background: none;
+        border: none;
+    }
+
 </style>
 @endsection
 @section('content')
@@ -37,7 +66,24 @@
                 <div class="col-6">
                     <div class="form-group">
                         {!! Form::label('valor','Valor:') !!}
-                        {!! Form::text('valor',null,['class'=>'form-control','placehold'=>'']) !!}
+                        {!! Form::text('valor',null,['class'=>'form-control','placehold'=>'', 'onkeyup'=>'formatarValor(this)']) !!}
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        {!! Form::label('cep','CEP:') !!}
+                        <div class="container-cep" >
+                            <input type="text" name="cep" id="buscaCep" class="form-control cad-form cepMask">
+                            <button type="button" id="searchCep">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        {!! Form::label('rua','Rua:') !!}
+                        {!! Form::text('rua',null,['class'=>'form-control','placehold'=>'']) !!}
                     </div>
                 </div>
                 <div class="col-5">
@@ -46,7 +92,7 @@
                         {!! Form::text('bairro',null,['class'=>'form-control','placehold'=>'']) !!}
                     </div>
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     <div class="form-group">
                         {!! Form::label('cidade','Cidade:') !!}
                         {!! Form::text('cidade',null,['class'=>'form-control','placehold'=>'']) !!}
@@ -56,6 +102,18 @@
                     <div class="form-group">
                         {!! Form::label('uf','UF:') !!}
                         {!! Form::text('uf',null,['class'=>'form-control','placehold'=>'']) !!}
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        {!! Form::label('latitude','Latitude:') !!}
+                        {!! Form::text('latitude',null,['class'=>'form-control','placehold'=>'']) !!}
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        {!! Form::label('longitude','Longitude:') !!}
+                        {!! Form::text('longitude',null,['class'=>'form-control','placehold'=>'']) !!}
                     </div>
                 </div>
                 <div class="col-2">
@@ -83,18 +141,13 @@
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('finalidade','Finalidade:') !!}
-                        {!! Form::text('finalidade',null,['class'=>'form-control','placehold'=>'']) !!}
+                        <select name="finalidade" class="form-control">
+                            @foreach ($finalidadeimovel as $finalidadeimoveis)
+                                <option value="{{ $finalidadeimoveis->finalidade }}">{{ $finalidadeimoveis->finalidade }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-
-                <!--<div class="col-sm-3">
-                    {!! Form::label('finalidade','Finalidade:') !!}
-                    <select class="form-select" aria-label="" data-name="finalidade[]" style="width: 100%; padding: 0.375rem 0.75rem">
-                        <option selected name="finalidade[]" value="Comercial">Comercial</option>
-                        <option name="finalidade[]" value="Res/Com">Res/Com</option>
-                        <option name="finalidade[]" value="Residencial">Residencial</option>
-                    </select>
-                </div>-->
                 <div class="col-3">
                     <div class="form-group">
                         {!! Form::label('grupo','Grupo:') !!}
@@ -119,18 +172,23 @@
                         {!! Form::text('tipo',null,['class'=>'form-control','placehold'=>'']) !!}
                     </div>
                 </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        {!! Form::label('corretor','Corretor:') !!}
+                        <select name="corretor" class="form-control">
+                            <option value="">Nenhum</option>
+                            @foreach ($corretor as $corretores)
+                                <option value="{{ $corretores->id }}">{{ $corretores->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="col-12">
                     <div class="form-group">
                         {!! Form::label('detalhes','Detalhes:') !!}
                         {!! Form::text('detalhes',null,['class'=>'form-control','placehold'=>'']) !!}
                     </div>
                 </div>
-                <!--<div class="col-12">
-                    <div class="form-group">
-                    {!! Form::label('detalhes','Detalhes:') !!}
-                    {!! Form::textarea('value',null,['class'=>'form-control', 'required'=>'true', 'rows'=>'5']) !!}
-                    </div>
-                </div>-->
                 <div class="col-12">
                     <div class="form-group">
                         {!! Form::label('caracteristicas','Características:') !!}
@@ -139,6 +197,7 @@
                                 <li class="mb-3  catCaracteristica itemOrdenar" id="caracteristica">
                                     <div class="col-2 px-0 d-inline-block">
                                         <select name="caracteristica[pref][]" class="form-control">
+                                            <option value="">Prefixo</option>
                                             @foreach ($prefcar as $pref)
                                                 <option value="{{ $pref->pref }}">{{ $pref->pref }}</option>
                                             @endforeach
@@ -146,13 +205,14 @@
                                     </div>
                                     <div class="col-5 px-0 d-inline-block">
                                         <select name="caracteristica[label][]" class="form-control">
+                                            <option value="">Descrição</option>
                                             @foreach ($labelcar as $label)
                                                 <option value="{{ $label->label }}">{{ $label->label }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-3 px-0 d-inline-block">
-                                        <input type="text" name="caracteristica[valor][]" required placeholder="Valor" class="form-control">
+                                        <input type="text" name="caracteristica[valor][]" required placeholder="Valor" class="form-control" value="">
                                     </div>
                                     <div class="d-inline-block ml-5">
                                         <button type="button" class="btn btn-icon btn-dark btn-xs ml-3 removeDefault icon" data-tooltip-arquivar="Excluir">
@@ -173,33 +233,12 @@
                 <div class="col-12">
                     <div class="form-group">
                         {!! Form::label('foto','Foto:') !!}
-                        <div style="max-height: 350px; overflow-y: auto; overflow-x: hidden;">
-                            <ul class="pl-0" style="list-style: none;">
-                                <li class="mb-3 catfoto d-flex" id="foto_2">
-                                        <div class="containerUpload col-5">
-                                            <input type="file" name="foto" id="arquivo" class="uploadArquivos">
-                                        </div>
-                                        <div id="preview_2"></div>
-                                    <div class="col-2">
-                                        <input type="text" name="foto[ordem][]" class="form-control" value="1" style="height: 30px"/>
-                                    </div>
-                                    <div class="col-3">
-                                        <input type="text" name="foto[descricao][]" class="form-control" placeholder="Descrição" style="height: 30px"/>
-                                    </div>
-                                    <div class="d-inline-block ml-5">
-                                        <button type="button" class="btn btn-icon btn-dark btn-xs ml-3 removefoto icon" data-tooltip-arquivar="Excluir">
-                                            <i class="fas fa-trash pr-0"></i>
-                                            <span class="tooltip">Excluir</span>
-                                        </button>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="mt-5 pb-3">
-                                <a href="" class="w-115px btn btn-primary btn-xs addfoto">
-                                    <i class="fas fa-plus p-1"></i> Fotos
-                                </a>
-                            </div>
+                        <div class="container-upload">
+                            <input type="file" class="uploadArquivos" multiple>
+                            <i class="fas fa-file-upload pr-2"></i> Clique aqui para cadastrar fotos
+                            <div class="carregandoDestaque" style="display: none;">Carregando...</div>
                         </div>
+                        <div id="previews" class="d-flex flex-wrap"></div>
                     </div>
                 </div>
             </div>
@@ -304,7 +343,7 @@ $(document).on('change', '.uploadArquivos', function() {
 
     var data = new FormData();
     $.each($uploadInput[0].files, function(i, file) {
-        data.append('file', file);
+        data.append('files[]', file);
     });
     data.append('_token', '{{ csrf_token() }}');
 
@@ -316,97 +355,62 @@ $(document).on('change', '.uploadArquivos', function() {
         processData: false,
         data: data,
         success: function(result) {
-            var total = $(".catfoto").length;
+            var total = $(".preview-item").length;
             var prox = total + 1;
-            $(".containerUpload").fadeOut('fast');
-                $.each(result, function (index, value) {
 
+            $(".containerUpload").fadeOut('fast');
+
+            $.each(result, function (index, value) {
                 var urlBase = "{{ URL::to('/') }}";
                 var html = '';
+                    html +='<div class="preview-item">';
                     html +='<input type="hidden" name="foto[url][]" value="/upload/imoveis/'+value+'" />';
                     html +='<input type="hidden" name="foto[arquivo][]" value="'+value+'" />';
-                    html +='<a href="#" class="corretor-close remote" data-file="'+value+'">';
-                    html +='<i class="fas fa-times"></i> ';
-                    html += '</a>';
-                    html +='<img src="'+urlBase+'/upload/imoveis/'+value+'" alt="" style="width:40%;">';
-                  
+                    html +='<img src="'+urlBase+'/upload/imoveis/'+value+'" alt="">';
+                    html +='<input type="text" name="foto[ordem][]" class="form-control" value="'+prox+'" style="height: 30px"/>';
+                    html +='<input type="text" name="foto[descricao][]" class="form-control" placeholder="Descrição" style="height: 30px"/>';
+                    html +='<button type="button" class="btn btn-icon btn-dark btn-xs ml-3 delete-photo icon" data-tooltip-arquivar="Excluir" style="height: 30px;">';
+                    html +='<i class="fas fa-trash pr-0"></i>';
+                    html += '<span class="tooltip">Excluir</span>';
+                    html += '</button>';
+                    html +='</div>';
 
-                    $('#preview_'+prox).html(html);
-                });
-          $(".carregandoDestaque").hide(0);
+                $('#previews').append(html);
+            });
+
+            $(".carregandoDestaque").hide(0);
         }
     });
 });
-$(document).ready(function() {
-    $("body").on('click', '.remote', function(e) {
-        e.preventDefault();
 
-        var $parent = $(this).closest('div');
-        var fileName = $(this).data("file");
-
-        $.get("{{ route('admin.imoveis.deleteImg') }}", {
-            name: fileName,
-            collum: 'foto'
-        })
-        .done(function(data) {
-            if (data.status === 'success') {+
-
-
-
-                
-                $parent.remove();
-
-                $(".containerUpload").fadeIn('fast');
-            } else {
-                console.error('Erro ao excluir a imagem:', data.message);
-            }
-        })
-        .fail(function() {
-            console.error('Erro na solicitação AJAX.');
-        });
-    });
+$(document).on('click', '.delete-photo', function(e) {
+    e.preventDefault();
+    $(this).parent('.preview-item').remove();
 });
 
+function formatarValor(input) {
+    var valor = input.value.replace(/\D/g, '');
+    valor = (valor / 100).toFixed(2).replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    input.value = valor;
+}
 
+function buscaCep(cep) {
+    $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
+        $("input[name='rua']").val(dados.logradouro)
+        $("input[name='bairro']").val(dados.bairro)
+        $("input[name='cidade']").val(dados.localidade)
+        $("input[name='uf']").val(dados.uf)
 
+    });
+}
+$("#buscaCep").change(function() {
+    buscaCep($(this).val())
+});
 
-
-$("body").on('click','.addfoto',function(e){
-        e.preventDefault();
-
-        var total = $(".catfoto").length;
-        
-        var prox = total + 2;
-
-        var ordem = prox - 1;
-
-        var html = `
-        <li class="mb-3 catfoto d-flex" id="foto_`+prox+`">
-                <div class="containerUpload col-5">
-                    <input type="file" name="foto" id="arquivo" class="uploadArquivos">
-                </div>
-                <div id="preview_`+prox+`"></div>
-            <div class="col-2">
-                <input type="text" name="foto[ordem][]" class="form-control" value="`+ordem+`" style="height: 30px"/>
-            </div>
-            <div class="col-3">
-                <input type="text" name="foto[descricao][]" class="form-control" placeholder="Descrição" style="height: 30px"/>
-            </div>
-            <div class="d-inline-block ml-5">
-                <button type="button" class="btn btn-icon btn-dark btn-xs ml-3 removefoto icon" data-tooltip-arquivar="Excluir">
-                    <i class="fas fa-trash pr-0"></i>
-                    <span class="tooltip">Excluir</span>
-                </button>
-            </div>
-        </li>`;
-        $(".catfoto").closest('ul').append(html);
-        updateIndex()
-    })
-    $("body").on('click','.removefoto',function(e){
-        e.preventDefault();
-        $(this).closest('li').remove()
-
-    })
+$("#searchCep").click(function(e) {
+    e.preventDefault();
+    buscaCep($("#buscaCep").val())
+})
 
 </script>
 @endsection

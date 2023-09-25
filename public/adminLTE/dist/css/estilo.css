@@ -284,7 +284,8 @@ img{
     text-align: center;
     font-size: 1.5em;
     position: relative;
-    padding: 5px
+    padding: 5px;
+    width: 50%;
 }
 
 .container-upload input.uploadArquivos,.container-upload input#uploadPatrocinador,.container-upload input#uploadPatrocinadorCapa {

@@ -92,8 +92,8 @@
                 @if($imovel->contrato == 'Locação')
                 total/mês @endif</div>
                 <div class="texto3-left"> 
-                    <strong>Condomínio</strong> R$ 0.000
-                    <strong>IPTU</strong> R$ 000
+                    <strong>Condomínio</strong> R${{number_format($imovel->valorcondominio, 2, ',','.')}}
+                    <strong>IPTU</strong> R${{number_format($imovel->valoriptu, 2, ',','.')}} 
                 </div>
                 <div class="quadro1">
                     <div class="icones-quadro">
@@ -215,10 +215,11 @@
                     </div>
                 </div>
                 <div class="titulo-azul">Sobre o imóvel</div>
-                <div class="texto4-left">
-                    <p>  {{$imovel->detalhes}}
-                    </p>
-                    <a href="">Ver mais</a>
+
+                <div class="info texto4-left">
+                    <p class="short-description" id="short-description">{{ substr($imovel->detalhes, 0, 120) }}</p>
+                    <p class="full-description" id="full-description" style="display:none;">{{ $imovel->detalhes }}</p>
+                    <button class="toggle-description" id="toggle-description">Ver mais</button>
                 </div>
                 <div class="titulo-azul">Característica do imóvel</div>
                 <div class="quadro2">
@@ -246,9 +247,9 @@
                   @endforeach
                 </div>
                 @endif
-                <div class="titulo-azul">Nas proximidades do imóvel</div>
+                <!--<div class="titulo-azul">Nas proximidades do imóvel</div>
                 <div class="quadro2">
-                  Em desenvolvimento
+                  Em desenvolvimento-->
                     <!--<div class="col-sm-6 col-12 pb-3">
                         <div class="titulo-quadro"><i class="far fa-graduation-cap"></i>Educação</div>
                         <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> Nome do local <p>000m</p> </div>
@@ -266,8 +267,8 @@
                         <div class="pt-1"><i class="fas fa-circle align-top pt-2 pr-1"></i> Nome do local <p>000m</p> </div>
                         <div class="pt-1 pb-3"><i class="fas fa-circle align-top pt-2 pr-1"></i> Nome do local <p>000m</p> </div>
                         <a href="">Ver mais</a>
-                    </div>-->
-                </div>
+                    </div>
+                </div>-->
             </div>
             <div class="conteudo-right">
                 <div class="card-detalhes">
@@ -301,20 +302,20 @@
                         </div>
                         </form>
                     </div>
-                    @if ($imovel->corretor)
+                    @if ($corretor)
                     <div class="col-12 d-flex mt-3">
                         <div class="col-4">
-                          @if ($imovel->corretor->foto === NULL)
+                          @if ($corretor->foto === NULL)
                             <img src="https://via.placeholder.com/200x200" alt="#" class="mt-3">
                           @else
-                            <img src="{{asset($imovel->corretor->foto)}}" alt="#" class="mt-3">
+                            <img src="{{asset($corretor->foto)}}" alt="#" class="mt-3">
                           @endif
                         </div>
                         <div class="col-8">
                             <div class="texto-card">
                                 <div class="color">Corretor</div>
-                                <strong>{{$imovel->corretor->nome}}</strong><br>
-                                {{$imovel->corretor->creci}}
+                                <strong>{{$corretor->nome}}</strong><br>
+                                {{$corretor->creci}}
                                 <div class="d-flex">
                                     <button class="bot_azul mr-2">veja mais</button>
                                     <button class="bot_azul">contato</button>
@@ -407,6 +408,25 @@ $("body").on('click','#formcorretor #btEnviar',function(e) {
              });
         e.preventDefault();
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var toggleButton = document.getElementById('toggle-description');
+    var shortDescription = document.getElementById('short-description');
+    var fullDescription = document.getElementById('full-description');
+
+    toggleButton.addEventListener('click', function() {
+        if (shortDescription.style.display === 'none' || shortDescription.style.display === '') {
+            shortDescription.style.display = 'block';
+            fullDescription.style.display = 'none';
+            this.textContent = 'Ver mais';
+        } else {
+            shortDescription.style.display = 'none';
+            fullDescription.style.display = 'block';
+            this.textContent = 'Ver menos';
+        }
+    });
+});
+
 </script>
 
 @endsection

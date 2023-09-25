@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
-use App\Models\Corretor;
+use App\Models\Corretores;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class CorretorController extends Controller
 
     public function list()
     {
-        $corretor = Corretor::orderBy('id','asc')->get();
+        $corretor = Corretores::orderBy('id','asc')->get();
         return view("painel.corretor.list", compact('corretor'));
     }
 
@@ -61,29 +61,25 @@ class CorretorController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token', '_method');
-        $request->validate([
-            "nome",
-            "creci",
-        ]);
 
-       Corretor::create($data);
+       Corretores::create($data);
 
         return response()->json(['status' => 'ok']);
     }
 
     public function edit(Request $request,$id)
     {
-        $corretor = Corretor::find($id);
+        $corretor = Corretores::find($id);
         return view('painel.corretor.editar',compact('corretor'));
     }
 
     public function update(Request $request, $id)
     {  
-        $corretor = Corretor::find($id);
+        $corretor = Corretores::find($id);
 
         $data = $request->except('_token','_method');        
       
-        Corretor::where('id',$corretor->id)->update($data);
+        Corretores::where('id',$corretor->id)->update($data);
 
         return redirect()->route('admin.corretor.list')->with('success');
     }
