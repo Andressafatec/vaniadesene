@@ -71,7 +71,7 @@
         </div>
         </form>
        </div>
-       <a href="#personalize" class="down"><i class="fas fa-chevron-down"></i></a>
+       <a href="#servicos" class="down"><i class="fas fa-chevron-down"></i></a>
       </section>
       <section id="imoveis">
           <div class="container">

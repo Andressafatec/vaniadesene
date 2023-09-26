@@ -294,7 +294,7 @@
                         <div class="col-6">
                             <div class="detalhes-input">
                                 <label for="">Telefone:</label>
-                                <input type="tel" name="tel" placeholder="(XX) XXXXX-XXXX">
+                                <input type="tel" name="tel" placeholder="(XX) XXXXX-XXXX" class="phoneMask">
                             </div>
                         </div>
                         <div class="col-12">

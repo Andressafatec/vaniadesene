@@ -33,11 +33,14 @@
 
 
   <link rel="stylesheet" href="{{ asset('build/assets/app-34aed2f1.css')}}">
-  <link rel="stylesheet" href="{{ asset('build/assets/app-242e5fef.css')}}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-64bf95a6.css')}}">
 
   @yield('head')
 
 <style>
+  #google_translate_element {
+        display: none;
+    }
 </style>
 @include('includes.analyticstracking')
 	
@@ -89,11 +92,14 @@
         <div class="col-6">
           <a href="https://vaniadesene.com.br/acesso-administrativo" target="_blank" class="adm">
             Administração
-</a>
+          </a>
         </div>
         <div class="col-6">
           <div class="d-flex float-end" >
-            <div class="bandeira-brasil"><img src="{{asset('images/brasil.png')}}" alt=""></div>
+            <div id="google_translate_element" class="boxTradutor"></div>
+            <!--<div class="bandeira-brasil"><img src="{{asset('images/brasil.png')}}" alt=""></div>-->
+            <a href="javascript:trocarIdioma('pt')" class="bandeira-brasil"><img src="{{asset('images/brasil.png')}}" alt=""></a>
+            <a href="javascript:trocarIdioma('en')" class="bandeira-eua"><img src="{{asset('images/eua.png')}}" alt=""></a>
            <!-- <div class="bandeira-eua"><img src="{{asset('images/eua.png')}}" alt=""></div>-->
           </div>
         </div>
@@ -104,18 +110,18 @@
        <div class="row align-items-end">
         <div class="col">
           <div class="texto-azul">
-            <strong>Unidade I Jardim Satélite <br></strong>
-            <i class="fab fa-whatsapp pr-1"></i>(12) 99658-6008 <br>
-            (12) 3935-8000 <br>
+            <a href="https://www.google.com/maps/place/Av.+Andr%C3%B4meda,+2320+-+Jardim+Sat%C3%A9lite,+S%C3%A3o+Jos%C3%A9+dos+Campos+-+SP,+12230-001/@-23.2336429,-45.8874696,17z/data=!3m1!4b1!4m6!3m5!1s0x94cc4abf5f89c343:0x4b5f5ec5da2d27f4!8m2!3d-23.2336479!4d-45.8848947!16s%2Fg%2F11dzsdrs7j?entry=ttu" target="_blank" style="color: #0f4b93; text-decoration:none"><strong>Unidade I Jardim Satélite <br></strong></a>
+            <a href="https://web.whatsapp.com/send?phone=99658-6008" target="_blank" style="color: #0f4b93; text-decoration:none"><i class="fab fa-whatsapp pr-1"></i>(12) 99658-6008 <br></a>
+            <a href="tel:+551239358000" target="_blank" style="color: #0f4b93; text-decoration:none">(12) 3935-8000 <br></a>
             <p>Creci 19.068-J</p>
           </div>
         </div>
         <a href="{{route('site.index')}}" class="logo d-sm-block d-none"><img src="{{asset('images/logo.svg')}}" ></a>
          <div class="col">
           <div class="texto-azul text-end">
-            <strong>Unidade II Jardim Esplanada <br></strong>
-            <i class="fab fa-whatsapp pr-1"></i>(12) 99658-8525 <br>
-            (12) 3949-6000 <br>
+            <a href="https://www.google.com/maps/place/R.+Irm%C3%A3+Maria+Dem%C3%A9tria+Kfuri,+647+-+Jardim+Esplanada,+S%C3%A3o+Jos%C3%A9+dos+Campos+-+SP,+12242-500/@-23.2024771,-45.9091393,17z/data=!3m1!4b1!4m6!3m5!1s0x94cc358badb8f601:0xf2f27d8887a070b4!8m2!3d-23.2024821!4d-45.9065644!16s%2Fg%2F11c1_01c_s?entry=ttu" target="_blank" style="color: #0f4b93; text-decoration:none"><strong>Unidade II Jardim Esplanada <br></strong></a>
+            <a href="https://web.whatsapp.com/send?phone=99658-8525" target="_blank" style="color: #0f4b93; text-decoration:none"><i class="fab fa-whatsapp pr-1"></i>(12) 99658-8525 <br></a>
+            <a href="tel:+551239496000" target="_blank" style="color: #0f4b93; text-decoration:none">(12) 3949-6000 <br></a>
             <p>Creci 32.366-J</p>
           </div>
          </div>
@@ -142,7 +148,7 @@
       <div class="row">
         <div class="col-footer-1">
           <div class="logo-branco"></div>
-          <div class="email d-sm-block d-none">E-mail: <div class="cor">contato@vaneadesene.com.br</div></div>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contato@vaneadesene.com.br" target="_blank" class="email d-sm-block d-none">E-mail: <div class="cor">contato@vaneadesene.com.br</div></a>
         </div>
         <div class="col-footer-2">
           <strong>Navegação <br></strong>
@@ -165,27 +171,29 @@
         </div>
         <div class="col-footer-4">
           <div class="texto-laranja">Unidade I</div>
-          <p>Av. Andrôneda, 2320
+          <a href="https://www.google.com/maps/place/Av.+Andr%C3%B4meda,+2320+-+Jardim+Sat%C3%A9lite,+S%C3%A3o+Jos%C3%A9+dos+Campos+-+SP,+12230-001/@-23.2336429,-45.8874696,17z/data=!3m1!4b1!4m6!3m5!1s0x94cc4abf5f89c343:0x4b5f5ec5da2d27f4!8m2!3d-23.2336479!4d-45.8848947!16s%2Fg%2F11dzsdrs7j?entry=ttu" target="_blank">
+            Av. Andrôneda, 2320
             Jardim Satélite <br>
             São José dos Campos, SP
-          </p>
-          <div class="texto-negrito">(12) 3935-8000</div>
+          </a>
+          <a href="tel:+551239358000" target="_blank" class="texto-negrito">(12) 3935-8000</a>
           <p>Creci 19.068-J</p>
         </div>
         <div class="col-footer-5">
           <div class="texto-laranja">Unidade II</div>
-          <p>Rua Maria Demetria Kfuri, 647
+          <a href="https://www.google.com/maps/place/R.+Irm%C3%A3+Maria+Dem%C3%A9tria+Kfuri,+647+-+Jardim+Esplanada,+S%C3%A3o+Jos%C3%A9+dos+Campos+-+SP,+12242-500/@-23.2024771,-45.9091393,17z/data=!3m1!4b1!4m6!3m5!1s0x94cc358badb8f601:0xf2f27d8887a070b4!8m2!3d-23.2024821!4d-45.9065644!16s%2Fg%2F11c1_01c_s?entry=ttu" target="_blank">
+            Rua Maria Demetria Kfuri, 647
             Jardim Esplanada <br>
             São José dos Campos, SP
-          </p>
-          <div class="texto-negrito">(12) 3949-6000</div>
+          </a>
+          <a href="tel:+551239496000" target="_blank" class="texto-negrito">(12) 3949-6000</a>
           <p>Creci 35.366-J</p>
         </div>
         <div class="col-footer-6">
           Siga nossas redes sociais e acompanhe as ofertas
           <div class="redes">
-            <div class="quadro"><i class="fab fa-instagram"></i></div>
-            <div class="quadro"><i class="fab fa-facebook-f px-1"></i></div>
+            <div class="quadro"><a href="https://www.instagram.com/vaniadesene/" target="_blank" style="color: #fff"><i class="fab fa-instagram"></i></i></a></div>
+            <div class="quadro"><a href="https://www.facebook.com/vaniadeseneimoveis/" target="_blank" style="color: #fff"><i class="fab fa-facebook-f px-1"></i></a></div>
           </div>
         </div>
         <div class="email_2 d-sm-none">E-mail: contato@vaneadesene.com.br</div>
@@ -213,7 +221,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="{{asset('vendor/swiper-bundle.min.js')}}"></script>
-
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   @yield('pos-script')
 
@@ -518,6 +526,36 @@ $("body").on('click','.btnClose',function(e){
 			
 
 		})
+
+var comboGoogleTradutor = null;
+
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'pt',
+        includedLanguages: 'en,pt',
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+    }, 'google_translate_element');
+
+    comboGoogleTradutor = document.getElementById("google_translate_element").querySelector(".goog-te-combo");
+}
+
+function changeEvent(el) {
+    if (el.fireEvent) {
+        el.fireEvent('onchange');
+    } else {
+        var evObj = document.createEvent("HTMLEvents");
+
+        evObj.initEvent("change", false, true);
+        el.dispatchEvent(evObj);
+    }
+}
+
+function trocarIdioma(sigla) {
+    if (comboGoogleTradutor) {
+        comboGoogleTradutor.value = sigla;
+        changeEvent(comboGoogleTradutor);
+    }
+}
 	</script>
 </body>
 </html>
