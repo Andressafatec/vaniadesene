@@ -31,13 +31,43 @@
   <meta name="msapplication-TileImage" content="{{asset('min/img/favicon/ms-icon-144x144.png')}}">
   <meta name="theme-color" content="#ffffff">
 
-  <link rel="stylesheet" href="{{ asset('build/assets/app-408f3d12.css')}}">
-  <link rel="stylesheet" href="{{ asset('build/assets/app-da070e00.css')}}">
+
+  <link rel="stylesheet" href="{{ asset('build/assets/app-34aed2f1.css')}}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-242e5fef.css')}}">
 
   @yield('head')
 
 <style>
 </style>
+@include('includes.analyticstracking')
+	
+	<script type='application/ld+json'>
+		{
+			"@context":"http:\/\/schema.org",
+			"@type":"WebSite",
+			"@id":"#website",
+			"url":"http:\/\/vaniadesene.com.br\/",
+			"name":"Vania de Sene - Negócios Imobiliários",
+			"alternateName":"Vania de Sene - Locação de imóveis, Venda de imóveis, assessoria imobiliária",
+			"potentialAction":{
+			"@type":"SearchAction",
+			"target":"http:\/\/vaniadesene.com.br\/",
+			
+		}
+}
+</script>
+	<script type='application/ld+json'>
+	{
+	"@context":"http:\/\/schema.org",
+	"@type":"Organization",
+	"url":"{{Request::url()}}",
+	"sameAs":[
+	"https:\/\/www.facebook.com\/vaniadeseneimoveis",
+	],
+	"@id":"#organization",
+	"name":"Vania de Sene - Negócios Imobiliários",
+	"logo":"http:\/\/vaniadesene.com.br\/min\/img\/vania-de-sene.jpg"
+	}</script>
 
 </head>
 <body>
@@ -57,14 +87,14 @@
      <div class="container-fluid">
       <div class="row">
         <div class="col-6">
-          <div class="adm">
+          <a href="https://vaniadesene.com.br/acesso-administrativo" target="_blank" class="adm">
             Administração
-          </div>
+</a>
         </div>
         <div class="col-6">
           <div class="d-flex float-end" >
             <div class="bandeira-brasil"><img src="{{asset('images/brasil.png')}}" alt=""></div>
-            <div class="bandeira-eua"><img src="{{asset('images/eua.png')}}" alt=""></div>
+           <!-- <div class="bandeira-eua"><img src="{{asset('images/eua.png')}}" alt=""></div>-->
           </div>
         </div>
       </div>
@@ -117,21 +147,21 @@
         <div class="col-footer-2">
           <strong>Navegação <br></strong>
           <a href="#" target="blank">Administração<br></a>
-          <a href="#" target="blank">Quem somos<br></a>
-          <a href="#" target="blank">Venda<br></a>
-          <a href="#" target="blank">Cadastre seu Imóvel<br></a>
-          <a href="#" target="blank">Locação<br></a>
-          <a href="#" target="blank">Contato<br></a>
-          <a href="#" target="blank">Trabalhe Conosco</a>
+          <a href="{{route('site.paginas',['slug'=>'quem-somos'])}}" target="blank">Quem somos<br></a>
+          <a href="{{route('site.imoveis.index',['contrato'=>'venda'])}}" target="blank">Venda<br></a>
+          <a href="{{route('site.paginas',['slug'=>'cadastre-seu-imovel'])}}" target="blank">Cadastre seu Imóvel<br></a>
+          <a href="{{route('site.imoveis.index',['contrato'=>'locacao'])}}" target="blank">Locação<br></a>
+          <a href="{{route('site.paginas',['slug'=>'contato'])}}" target="blank">Contato<br></a>
+          <!--<a href="#" target="blank">Trabalhe Conosco</a>-->
         </div>
         <div class="col-footer-3">
           <strong>Links Úteis<br></strong>
-          <a href="#" target="blank">Prefeitura - 2° via IPTU<br></a>
-          <a href="#" target="blank">Comgás<br></a>
-          <a href="#" target="blank">Sabesp - Débitos<br></a>
-          <a href="#" target="blank">Sabesp - 2° via de conta<br></a>
-          <a href="#" target="blank">Bandeirante Energia - Débitos<br></a>
-          <a href="#" target="blank">Bandeirante Energia - 2° via de conta</a>
+          <a href="https://servicos.sjc.sp.gov.br/servicos/iptu/index.aspx" target="blank">Prefeitura - 2° via IPTU<br></a>
+          <a href="https://virtual.comgas.com.br/#/comgasvirtual/historicoFaturas" target="blank">Comgás<br></a>
+          <a href="https://www9.sabesp.com.br/agenciavirtual/pages/template/siteexterno.iface?idFuncao=22" target="blank">Sabesp - Débitos<br></a>
+          <a href="https://www9.sabesp.com.br/agenciavirtual/pages/template/siteexterno.iface?idFuncao=18" target="blank">Sabesp - 2° via de conta<br></a>
+          <a href="https://www.edponline.com.br/para-sua-casa/login?returnUrl=%2Fservicos%2Fconsulta-debitos" target="blank">Bandeirante Energia - Débitos<br></a>
+          <a href="https://www.edponline.com.br/para-sua-casa/login?returnUrl=%2Fservicos%2Fsegunda-via-de-contrato" target="blank">Bandeirante Energia - 2° via de conta</a>
         </div>
         <div class="col-footer-4">
           <div class="texto-laranja">Unidade I</div>
@@ -159,14 +189,23 @@
           </div>
         </div>
         <div class="email_2 d-sm-none">E-mail: contato@vaneadesene.com.br</div>
-        <div class="copyright">Copyright 2023 <i class="far fa-copyright"></i> Vania de Sene <i class="far fa-grip-lines-vertical"></i> Negócios Imobiliários</div>
+        <div class="copyright">Copyright 2023 <i class="far fa-copyright"></i> Vania de Sene <i class="far fa-grip-lines-vertical"></i> Negócios Imobiliários <br>Desenvolvido por <a href="https://dvelopers.com.br/" class="dvelopers" target="_blank"><img src="{{asset('min/img/dvelopers_amarelo.svg')}}" alt=""></a></div>
       </div>
     </div>
    </footer>
 
    @include('layouts._modalSearch')
-
-  <script src="{{asset('build/assets/app-c41fae03.js')}}"></script>
+   <div class="containerWhatsApp">
+			<div class="controleWhats">
+				<div class="floatNumbers">
+				<a href="https://api.whatsapp.com/send?phone=5512996586008"target="_blank" >
+				<i class="fab fa-whatsapp"></i> Jardim Satélite</a>
+				<a href="https://api.whatsapp.com/send?phone=5512991017341" target="_blank"> <i class="fab fa-whatsapp"></i> Jardim Esplanada</a>
+				</div>
+			<button type="button" class="btnOpenWhats"><i class="fab fa-whatsapp"></i></button>
+			</div>
+		</div>
+  <script src="{{asset('build/assets/app-cccc9fea.js')}}"></script>
    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
@@ -444,5 +483,41 @@ $("body").on('click','.btnClose',function(e){
       $("select[name='bairro'] option[data-cidade='"+cidade+"']").show();
     })
   </script>
+  
+<script type="text/javascript">
+		var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
+		$(document).ready(function() {
+			if( isMobile.any() ){
+				$("body").on('click','.btnOpenWhats', function(){
+				
+					$(".floatNumbers").fadeToggle('fast')
+				
+			})
+			};
+
+			
+
+		})
+	</script>
 </body>
 </html>
