@@ -5,6 +5,7 @@
 </style>
 @endsection
 @section('content')
+<div class="card-overlay" id="cardOverlay"></div>
 <section id="banner">
        <div class="fundo">
         <div class="texto">
@@ -264,34 +265,42 @@
     window.location.href = "{{route('site.imoveis.index')}}";
   });
 
-  $("body").on('click','#formFinanciamento #btEnviar',function(e) {
+    $("body").on('click','#formFinanciamento #btEnviar',function(e) {
     e.preventDefault();
-      $(".btn").attr('disabled',true)
-        e.preventDefault();
-        var url = $("#formFinanciamento").attr('action'); // the script where you handle the form input.
-        $.ajax({
-               type: "POST",
-               url: url,
-               data: $("#formFinanciamento").serialize(), // serializes the form's elements.
-               success: function(data){
-                   console.log(data)
-                   $(".btn").attr('disabled',false);
-                    if(data.error != 0){
-                      swal("Atention!", data.msg, "warning");
-                   }else{
-                   swal({
-                      title: "Simulação de financiamento enviado com sucesso! Aguarde contato da empresa",
-                      text: data.msg,
-                      icon: "success",
-                      dangerMode: false,
-                    })
-                    }
-               },error:function(data){
-                $(".btn").attr('disabled',false);
-               }
-             });
-        e.preventDefault();
+    $(".btn").attr('disabled',true);
+    
+    $('#cardOverlay').show();
+
+    $('#loadingDiv').show();
+
+    var url = $("#formFinanciamento").attr('action'); 
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: $("#formFinanciamento").serialize(),
+        success: function(data){
+            console.log(data)
+            $(".btn").attr('disabled',false);
+            if(data.error != 0){
+                swal("Atenção!", data.msg, "warning");
+            } else {
+                swal({
+                    title: "Formulário enviado com sucesso!",
+                    text: data.msg,
+                    icon: "success",
+                    dangerMode: false,
+                });
+            }
+        },
+        error:function(data){
+            $(".btn").attr('disabled',false);
+        },
+        complete: function() {
+            $('#cardOverlay').hide();
+            $('#loadingDiv').hide();
+        }
     });
+});
 
 </script>
 @endsection

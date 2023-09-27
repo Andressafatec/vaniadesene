@@ -84,8 +84,7 @@
                             <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsefinalidade" role="button" aria-expanded="false" aria-controls="collapsefinalidade">
-                                    Finalidade
-                                    <i class="fas fa-chevron-down icon"></i>
+                                    Finalidade <i class="fas fa-chevron-down icon"></i>
                                 </a>
                             </p>
                             <div class="collapse" id="collapsefinalidade">

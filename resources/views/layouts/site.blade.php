@@ -33,7 +33,7 @@
 
 
   <link rel="stylesheet" href="{{ asset('build/assets/app-34aed2f1.css')}}">
-  <link rel="stylesheet" href="{{ asset('build/assets/app-64bf95a6.css')}}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-0782db7b.css')}}">
 
   @yield('head')
 
@@ -90,7 +90,7 @@
      <div class="container-fluid">
       <div class="row">
         <div class="col-6">
-          <a href="https://vaniadesene.com.br/acesso-administrativo" target="_blank" class="adm">
+          <a href="https://vaniadesene.com.br/administracao/administracao2.html" target="_blank" class="adm">
             Administração
           </a>
         </div>

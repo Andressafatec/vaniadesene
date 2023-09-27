@@ -79,6 +79,11 @@
             font-size: 14px;
             font-weight: 500 !important;
             border: none;
+
+            &:hover{
+                background-color: #0D3F85;
+                color:#fff;
+            }
         }
         img{
             height: auto;
