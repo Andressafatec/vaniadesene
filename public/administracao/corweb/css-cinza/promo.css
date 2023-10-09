@@ -1,0 +1,640 @@
+.divSisprof .tdValorCab {
+	width: 60%;
+	empty-cells: show;
+}
+.divSisprof .tdValorVal {
+	width: 40%;
+	text-align: right;
+	empty-cells: show;
+}
+.divSisprof .tdValor {
+	text-align: right;
+	empty-cells: show;
+}
+.divSisprof .tdValorDet {
+	width: 40%;
+	text-align: center;
+	empty-cells: show;
+}
+.divSisprof .tdValorCabImo {
+	width: 30%;
+	empty-cells: show;
+	vertical-align: top;
+	font-weight: bold;
+}
+.divSisprof .tdValorValImo {
+	width: 65%;
+	text-align: right;
+	empty-cells: show;
+}
+.divSisprof .tdValorChkImo {
+	width: 65%;
+	text-align: center;
+	empty-cells: show;
+}
+.divSisprof .tdValorDetImo {
+	width: 65%;
+	text-align: left;
+	empty-cells: show;
+}
+.divSisprof .tdValorSepImo {
+	width: 5%;
+	text-align: left;
+	empty-cells: show;
+}
+.divSisprof .tdLabel {
+	text-align: right;
+	empty-cells: show;
+}
+.divSisprof .spanTit {
+	float: left;
+	text-align: center;
+	vertical-align: center;
+	line-height: 22px;
+	width: 90%;
+}
+.divSisprof .spanTitImovel {
+	width: 95%;
+}
+.divSisprof .cardImovel {
+	width: 130px;
+	margin: 2px;
+	float: left;
+	background: #f1f1ed;
+	border: solid 1px black; 
+}
+.divSisprof .cardMapa {
+	width: 750px;
+	height: 572px;
+	border: solid 1px black; 
+	position: absolute; 
+	background-color: white;
+	background-image: url('imagens/loading-ini.gif');
+	background-repeat: no-repeat;
+	background-position: center;	
+}
+.divSisprof .spanTitMapa {
+	width: 95%;
+}
+.divSisprof .divMapaConteudo {
+	width: 750px;
+	height: 550px;
+}
+.divSisprof .divImovel {
+	width: 780px;
+	height: 419px;
+	top: 1%;
+	left: 1%;
+	margin-left: 0px;
+	margin-top: 0px;
+	position: absolute;
+	background: #f1f1ed;
+	border: solid 1px black; 
+}
+.divSisprof .divRodapeImo {
+	width: 778px;
+	height: 17px;
+	background: #f1f1ed;
+	text-align: center;
+	vertical-align: center;
+	line-height: 16px;
+	float: left;
+	border-top: 1px black solid;
+	border-bottom: 1px white solid;
+	border-right: 1px white solid;
+	border-left: 1px black solid;
+}
+.divSisprof .divThumbs {
+	width: 47px;
+	height: 378px;
+	overflow: auto;
+	overflow-x: hidden;
+  	float: right;
+  	text-align: center;
+  	border-left: solid 1px gray; 
+	border-right: solid 1px gray; 
+}
+.divSisprof .divFotografia {
+	width: 540px;
+	height: 378px;
+  	float: left;
+}
+.divSisprof .divFoto {
+	width: 130px;
+	height: 100px;
+	position: relative;
+	text-align: center;
+	vertical-align: center;
+}
+.divSisprof .divFotoG {
+	width: 488px;
+	height: 376px;
+	float: left;
+	text-align: center;
+	vertical-align: center;
+}
+.divSisprof .divInfos {
+	width: 230px;
+	height: 374px;
+  	display: inline;
+	float: right;
+	overflow: auto;
+	overflow-x: hidden;
+	padding: 2px;
+}
+.divSisprof .divIni {
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+	display: block;
+	background-color: white;
+	background-image: url('imagens/loading-ini.gif');
+	background-repeat: no-repeat;
+	background-position: center;	
+	position: absolute;
+}
+.divSisprof .divMenu {
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 22px;
+	background: #F1F1ED;
+	padding-top: 2px;
+	padding-bottom: 0px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin: 0px;
+}
+.divSisprof .divMarket {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0px;
+	background: #f1f1ed;
+	margin: 0px;
+	font-size: 9px;
+	text-align: center;
+}
+.divSisprof .divMarketIE {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	left: 0px;
+	background: #f1f1ed;
+	margin: 0px;
+	font-size: 9px;
+	text-align: center;
+}
+.divSisprof .divMarketIE a , .divSisprof .divMarketIE a {
+	font-size: 9px;
+}
+.divSisprof .divMarketIE a: active, .divSisprof .divMarketIE a: active {
+	font-size: 9px;
+}
+.divSisprof .divMarketIE a: link, .divSisprof .divMarketIE a: link {
+	font-size: 9px;
+}
+.divSisprof .divMarketIE a: visited, .divSisprof .divMarketIE a: visited {
+	font-size: 9px;
+}
+.divSisprof .divMarketIE a: hover, .divSisprof .divMarketIE a: hover {
+	font-size: 9px;
+}
+.divSisprof .divLogin {
+	width: 200px;
+	border: 1px solid black;
+	background-color: #f1f1ed;
+	position: absolute;
+}
+.divSisprof .divFinanciamento {
+	width: 250px;
+	border: 1px solid black;
+	background-color: #f1f1ed;
+	position: absolute;
+}
+.divSisprof .spanTitFin {
+	width: 85%;
+}
+.divSisprof .divMensagem {
+	position: absolute;
+	width: 400px;
+	height: 350px;
+	border: 1px solid black;
+	background-color: #f1f1ed;
+}
+.divSisprof .spanTitMensagem {
+	width: 92%;
+}
+.divSisprof #divBairros, #divThumb, #divErrCons {
+	border: solid 1px black;
+	position: absolute; 
+	top: 0px;
+	left: 0px;
+	padding: 2px;
+	background-color: #f1f1ed;
+}
+.divSisprof #divInts, #divPros{
+	border: solid 1px black; 
+	position: absolute; 
+	padding: 2px;
+	background-color: white;
+	width: 400px;
+	left: 0px;
+}
+.divSisprof #divVisit {
+	border: solid 1px black; 
+	position: absolute; 
+	background-color: #f1f1ed;
+	width: 250px;
+	height: 200px;
+}
+.divSisprof .divCtrProposta {
+	width: 650px;
+	border: solid 1px black; 
+	position: absolute; 
+	background-color: #f1f1ed;
+}
+.divSisprof .divProposta {
+	width: 420px;
+	border: solid 1px black; 
+	position: absolute; 
+	background-color: #f1f1ed;
+}
+.divSisprof .spanTitCtrProp {
+	width: 94%;
+}
+.divSisprof .spanTitProp {
+	width: 90%;
+}
+.divSisprof .divPropConteudo {
+	width: 100%;
+	height: 230px;
+}
+.divSisprof #divIdent {
+	background-color: #f1f1ed;
+	position: absolute;
+	width: 400px;
+	border: 1px solid black;
+}
+.divSisprof #divProp {
+	background-color: #f1f1ed;
+	position: absolute;
+	width: 520px;
+	height: 250px;
+	border: 1px solid black;
+}
+.divSisprof #divConcluido {
+	border: solid 1px black; 
+	position: absolute; 
+	top: 0px;
+	left: 0px;
+	padding: 2px;
+	background-color: #f1f1ed;
+	width: 400px;
+	height: 300px;
+}
+.divSisprof .spanTitConcluido {
+	width: 90%;
+}
+.divSisprof .divIdentificacao {
+	background-color: #f1f1ed;
+	width: 100%;
+}
+.divSisprof select {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+}
+.divSisprof input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	font-style: normal;
+}
+.divSisprof textarea {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	font-style: normal;
+}
+#divSisprof .divOpcoesCorretasIdent {
+	border: solid 1px black;
+	position: absolute; 
+	top: 108px; 
+	left: 72px;
+	padding: 2px;
+	background-color: #caded2;
+	width: 478px;
+	overflow-y: auto;
+}
+#divSisprof .divIdTit {
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+}
+.divSisprof .divCtrPropConteudo {
+	margin: 1px;
+}
+.divSisprof #divTexto {
+	margin: 2px;
+	text-align: justify;
+	height: 400px;
+	overflow: auto;
+}
+.divSisprof #divSugestion {
+	position: absolute;
+  	z-Index: 101;
+  	display: none;
+	background-color: #f1f1ed;
+	border: 1px solid black;
+}
+.divSisprof .spanThumbs {
+	padding: 1px;
+}
+.divSisprof .spanMatch {
+	display: block;
+}
+.divSisprof .divTit {
+	background-image: url('imagens/panelBG.png');
+	height: 22px;
+	color : black;
+	font-weight : bolder;
+	text-align: center;
+	vertical-align: center;
+	line-height: 22px;
+	width: 100%;
+}
+.divSisprof .spanTitBotoes { 
+	margin-top: 2px; 
+	margin-left: 2px; 
+}
+.divSisprof .panelHeaderImovel,.divSisprof .panelHeader,.divSisprof .panelHeaderAnu {
+	background-image: url('imagens/panelBG.png');
+	height: 22px;
+	color : black;
+	font-weight : x-small;
+	text-align: center;
+	vertical-align: center;
+	line-height: 22px;
+}
+.divSisprof .divTabsImovel {
+	width: 750px;
+	height: 380px;
+}
+.divSisprof .panelContentContainerCadImovel {
+	border : 1px solid #4f4f4f;
+	clear: both;
+}
+.divSisprof .panelHeaderCadImovel {
+	height: 1.5em;
+	color : black;
+	font-weight : normal;
+	background: #f1f1ed;
+	float: left;
+	margin-left: 1px;
+	margin-right: 1px;
+	margin-bottom: 0px;
+	margin-top: 0.3em;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 20%;
+	padding-top: 3px;
+	border-color: black;
+	border-style: solid;
+	border-width: 1px 1px 0px 1px;
+}
+.divSisprof .panelHoverCadImovel {
+	background: #D8E0F2;
+	cursor: pointer;
+	border-color: red;
+	border-style: solid;
+	border-width: 1px 1px 0px 1px;
+}
+.divSisprof .panelSelectedCadImovel {
+	font-weight : bold;
+	cursor: auto;
+	height: 1.8em;
+	margin-top: 1px;
+	margin-bottom: -1px;
+}
+.divSisprof .panelContent {
+	overflow: auto;
+	overflow-x: hidden;
+	height: 100px;
+	text-align: justify;
+}
+.divSisprof .panelContentImovel {
+	overflow: auto;
+	padding: 2px;
+	height: 120px;
+}
+.divSisprof .panelContentCadImovel, .panelContentCadImovel {
+	min-height: 360px;
+	overflow: auto;
+	padding: 2px;
+	height: 120px;
+	background-color: #f1f1ed;
+	padding: 0px;
+	margin: 0px;
+}
+.divSisprof .panelHover {
+	background-image: url('imagens/panelBGHover.png');
+	height: 22px;
+	color : blue;
+	padding-left: 5px;
+	font-weight : bolder;
+}
+.divSisprof .panelClicked {
+	background-image: url('imagens/panelBGClick.png');
+	height: 22px;
+	padding-left: 5px;
+	font-weight : bolder;
+}
+.divSisprof .panelSelected {
+	background-image: url('imagens/panelBGSelected.png');
+	height: 22px;
+	color : #494949;
+	font-weight : bold;
+	padding-left: 5px;
+}
+.divSisprof .spanThumb {
+	text-align: center;
+}
+.divSisprof .spanTitVisit {
+	width: 84%;
+}
+.divSisprof .divVisitConteudo {
+	height: 100px;
+}
+.divSisprof .spanTitLogin {
+	width: 83%;
+}
+.divSisprof .spanTitIdent {
+	width: 90%;
+}
+.divSisprof .cmdEnvia {
+	border: 1px solid;
+	border-top-color: #cacaca;
+	border-left-color: #cacaca;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	background-color: gray;
+	color: white;
+	height: 24px;
+	width: 50px;
+	font-weight: bold;
+}
+.divSisprof table.tabelaCliente {
+	width: 100%;
+}
+.divSisprof .divCliente {
+	float: left;
+}
+.divSisprof .divRegioes,.divSisprof .divOpcionais {
+	background: #f1f1ed;
+	width: 180px;
+}
+.divSisprof .divRegioesCorpo, .divOpcionaisCorpo  {
+	height: 140px;
+}
+.divSisprof .spanOpcionaisTitulo {
+	width: 100px;
+}
+.divSisprof .divPesquisa {
+	width: 100%;
+}
+.divSisprof .divPesquisaContainer {
+	margin: 10px;
+	float: left;
+}
+.divSisprof .divResultadoPesquisa {
+	float: right;
+	margin: 10px;
+	background: #f1f1ed;
+}
+.divSisprof .divPesquisaTrabalho {
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+	border-bottom: 2px black solid;
+	border-right: 2px black solid;
+	border-top: 1px gray solid;
+	border-left: 1px gray solid;
+	background-color: white;
+	background-image: url('imagens/loading-ini.gif');
+	background-repeat: no-repeat;
+	background-position: center;	
+}
+.divSisprof .cmdCons {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.divSisprof .selectPesquisa {
+	width: 180px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+}
+.divSisprof .CampoEsq label {
+	float: left;
+	width: 80px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.divSisprof .CampoDir {
+	width: 80px;
+}
+.divSisprof .CampoDir select {
+	width: 97px;
+}
+.divSisprof .divResultadoPesquisa {
+	float: left;
+}
+.divSisprof table.tabelaImoveis {
+	border-spacing: 1px #0b2212 solid;
+	border-top: 1px #0b2212 solid;
+	border-bottom: 1px #0b2212 solid;
+	border-right: 1px #0b2212 solid;
+	border-left: 1px #0b2212 solid;
+}
+.divSisprof .tabelaImoveisTD {
+	padding: 2px 4px 2px 4px;
+	empty-cells: show;
+}
+.divSisprof .tabelaImoveisTDValor {
+	text-align: right;
+}
+.divSisprof .tabelaImoveisTDFoto {
+	text-align: center;
+}
+.divSisprof .tabelaImoveisLinha0 {
+	background-color: #f1f1ed;
+}
+.divSisprof .tabelaImoveisLinha1 {
+	background-color: #ffffff;
+}
+.divSisprof .tabelaImoveisNavegacaoResumo, .tabelaImoveisFoot, .tabelaImoveisNavegacaoPg {
+}
+.divSisprof .tabelaImoveisNavegacaoFim, .tabelaImoveisNavegacaoIni, .tabelaImoveisNavegacaoPg, .tabelaImoveisNavegacaoResumo {
+	padding: 2px 4px 2px 4px;
+	empty-cells: show;
+}
+.divSisprof .divPromocoesTrabalho {
+	width: 100%;
+	height: 275px;
+}
+.divSisprof .divPromocoes {
+	width: 100%;
+	min-height: 255px;
+}
+.divSisprof .divPromocoesPg {
+	float: left;
+	height: 20px;
+	width: 100%;
+	text-align: center;
+	display: block;
+}
+.divSisprof .divAmpulheta {
+	width: 10px;
+	height: 10px;
+	padding: 0px;
+	margin: 0px;
+	display: none;
+	background-image: url('imagens/ampulheta.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	z-Index: 1;
+}
+.divSisprof .spanLista {
+	font-size: 150%;
+}
+.divSisprof .divResumoImovel {
+	position: absolute;
+	width: 410px;
+	height: 155px;
+	background-color: #f1f1ed;
+	text-align: center;
+	vertical-align: center;
+	border: solid 1px black;
+	padding: 3px;
+}
+.divSisprof .divResumoImg {
+	float: left;
+	width: 200px;
+	height: 155px;
+	text-align: center;
+	vertical-align: middle;
+}
+.divSisprof .divResumoTxt {
+  	float: right;
+	width: 200px;
+	height: 155px;
+	overflow: auto;
+	overflow-x: hidden;
+	text-align: justify;;
+	padding: 2px;
+	margin: 2px;
+}

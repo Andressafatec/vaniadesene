@@ -63,10 +63,8 @@ class IndexController extends Controller
            };
         }
        
-        $maiorValor = Imoveis::max('valor');
         
-       
-        return view("site.index", compact('locacoes', 'vendas','imoveis_por_bairro', 'maiorValor'));
+        return view("site.index", compact('locacoes', 'vendas','imoveis_por_bairro'));
     }
     public function contato()
     {

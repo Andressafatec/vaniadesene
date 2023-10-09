@@ -201,6 +201,8 @@ Route::prefix('/')->middleware(['web'])->name('site.')->group(function () {
 
     Route::get('/busca_avancada', [\App\Http\Controllers\Site\IndexController::class, 'busca_avancada'])->name('busca_avancada');
 
+    Route::get('/acesso-administrativo', [\App\Http\Controllers\PaginasController::class, 'administracao'])->name('administracao');
+    
     Route::prefix('locacao')->name('locacao.')->group(function () {
         Route::get('/{locacao}', [LocacaoController::class, 'index'])->name('index');
     });

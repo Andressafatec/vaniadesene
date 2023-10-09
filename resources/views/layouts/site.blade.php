@@ -33,7 +33,7 @@
 
 
   <link rel="stylesheet" href="{{ asset('build/assets/app-34aed2f1.css')}}">
-  <link rel="stylesheet" href="{{ asset('build/assets/app-0782db7b.css')}}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-4c979283.css')}}">
 
   @yield('head')
 
@@ -41,6 +41,19 @@
   #google_translate_element {
         display: none;
     }
+    .container-codigo{
+        position: relative;
+    }
+    #inserirCodigo{
+    position: absolute;
+    top: 12px;
+    right: 12%;
+    padding: 6px 12px;
+    background: none;
+    border: none;
+    color: #fff;
+    }
+  
 </style>
 @include('includes.analyticstracking')
 	
@@ -90,7 +103,7 @@
      <div class="container-fluid">
       <div class="row">
         <div class="col-6">
-          <a href="https://vaniadesene.com.br/administracao/administracao2.html" target="_blank" class="adm">
+          <a href="{{route('site.administracao')}}" target="_blank" class="adm">
             Administração
           </a>
         </div>
@@ -556,6 +569,23 @@ function trocarIdioma(sigla) {
         changeEvent(comboGoogleTradutor);
     }
 }
+
+function validarSearch() {
+    var contrato = document.getElementById('contrato').value;
+    var tipo = document.getElementById('tipo').value;
+    var cidade = document.getElementById('cidade').value;
+    var bairro = document.getElementById('bairro').value;
+    var valor = document.getElementById('valor').value;
+    var valormin = document.getElementById('valormin').value;
+    var valormax = document.getElementById('valormax').value;
+
+    if (contrato === '' && tipo === '' && bairro === '' && cidade === '' && valor === '' && valormin === '' && valormax === '') {
+      alert('Preencha pelo menos um campo');
+      return false;
+    }
+
+    return true;
+  }
 	</script>
 </body>
 </html>
