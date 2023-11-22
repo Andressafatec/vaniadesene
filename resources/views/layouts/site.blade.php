@@ -142,7 +142,7 @@
       <div class="row">
         <div class="col-footer-1">
           <div class="logo-branco"></div>
-          <div class="email d-sm-block d-none">E-mail: <div class="cor">contato@vaneadesene.com.br</div></div>
+          <div class="email d-sm-block d-none">E-mail: <div class="cor">contato@vaniadesene.com.br</div></div>
         </div>
         <div class="col-footer-2">
           <strong>Navegação <br></strong>
@@ -174,7 +174,7 @@
         </div>
         <div class="col-footer-5">
           <div class="texto-laranja">Unidade II</div>
-          <p>Rua Maria Demetria Kfuri, 647
+          <p>Rua Irma Maria Demetria Kfuri, 647
             Jardim Esplanada <br>
             São José dos Campos, SP
           </p>

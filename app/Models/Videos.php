@@ -18,5 +18,16 @@ class Videos extends Model
 		'arquivo'
 		
 	];
+	public function embedVideo(){
+		$video = $this->url;
 
+		$video = str_replace('https://www.youtube.com/watch?v=','',$video);
+	
+		if(strpos($video,'/')){
+			$video = explode('/',$video);
+			$video = end($video);
+		}
+		
+		return 'https://www.youtube.com/embed/'.$video;
+	}
 }
