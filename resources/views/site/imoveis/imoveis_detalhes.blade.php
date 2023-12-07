@@ -10,7 +10,7 @@
 </style>
 @endsection
 @section('content')
-
+@if(count($imovel->fotos) >= 1)
 <div id="carrocelFotosImoveis" class="carousel slide d-sm-block d-none" data-ride="carousel">
   <div class="swiper-container">
   <div class="swiper-wrapper">
@@ -78,13 +78,16 @@
   </a>
   </div>
 </div>
+@else
+<div class="naofotos">Esse imóvel não possui fotos</div>
+@endif
     <div class="container">
         <div class="conteudo">
             <div class="conteudo-left">
                 <div class="d-flex my-3">
                     <div class="botoes-laranja"><a href=""><i class="far fa-image"></i>{{ $imovel->fotos->count()}} fotos</a></div>
                     <div class="botoes-laranja"><a href="#mapa"><i class="fal fa-map-marker-alt"></i>Mapas</a></div>
-                    <div class="botoes-laranja"><a href=""><i class="fal fa-map-marker-alt"></i>Rua</a></div>
+                    <div class="botoes-laranja"><a href="#mapa"><i class="fal fa-map-marker-alt"></i>Rua</a></div>
                 </div>
                 <hr>
                 <div class="titulo-left">
@@ -96,10 +99,10 @@
                 <div class="textolaranja-left">{{$imovel->contrato}}</div>
                 <div class="texto2-left">R${{number_format($imovel->valor, 2, ',','.')}} 
                 @if($imovel->contrato == 'Locação')
-                total/mês @endif</div>
+                /mês @endif</div>
                 <div class="texto3-left"> 
-                    <strong>Condomínio</strong> R${{number_format($imovel->valorcondominio, 2, ',','.')}}
-                    <strong>IPTU</strong> R${{number_format($imovel->valoriptu, 2, ',','.')}} 
+                    <strong>+ Condomínio</strong> R${{number_format($imovel->valorcondominio, 2, ',','.')}}
+                    <strong>+ IPTU</strong> R${{number_format($imovel->valoriptu, 2, ',','.')}} 
                 </div>
                 <div class="quadro1">
                     <div class="icones-quadro">
@@ -277,6 +280,7 @@
                 </div>-->
             </div>
             <div class="conteudo-right">
+            <div class="card-overlay" id="cardOverlay"></div>
                 <div class="card-detalhes">
                     <div class="titulo_card">Fale com o Corretor</div>
                     <p>Preencha os campos abaixo com seus dados a nosso corretor entrará em contato.</p>
@@ -300,13 +304,16 @@
                         <div class="col-6">
                             <div class="detalhes-input">
                                 <label for="">Telefone:</label>
-                                <input type="tel" name="tel" placeholder="(XX) XXXXX-XXXX">
+                                <input type="tel" name="tel" placeholder="(XX) XXXXX-XXXX" class="phoneMask">
                             </div>
                         </div>
                         <div class="col-12">
                             <button type="submit" id="btEnviar" class="bot_laranja">enviar dados</button>
                         </div>
                         </form>
+                        <div id="loadingDiv" style="display:none;">
+                            Carregando...
+                        </div>
                     </div>
                     @if ($corretor)
                     <div class="col-12 d-flex mt-3">
@@ -333,6 +340,7 @@
                     <p class="mt-4 text-center">Esse Imóvel não possui um corretor específico!</p>
                     @endif
                 </div>
+                <div class="card-overlay" id="cardOverlay"></div>
                 <div class="col-12 mt-3">
                     <div class="info">
                         <div class="laranja">Este é um ambiente seguro!</div>
@@ -388,32 +396,41 @@
 
 $("body").on('click','#formcorretor #btEnviar',function(e) {
     e.preventDefault();
-      $(".bot_laranja").attr('disabled',true)
-        e.preventDefault();
-        var url = $("#formcorretor").attr('action'); 
-        $.ajax({
-               type: "POST",
-               url: url,
-               data: $("#formcorretor").serialize(), // serializes the form's elements.
-               success: function(data){
-                   console.log(data)
-                   $(".bot_laranja").attr('disabled',false);
-                    if(data.error != 0){
-                      swal("Atention!", data.msg, "warning");
-                   }else{
-                   swal({
-                      title: "Formulário enviado com sucesso!",
-                      text: data.msg,
-                      icon: "success",
-                      dangerMode: false,
-                    })
-                    }
-               },error:function(data){
-                $(".bot_laranja").attr('disabled',false);
-               }
-             });
-        e.preventDefault();
+    $(".bot_laranja").attr('disabled',true);
+    
+    $('#cardOverlay').show();
+
+    $('#loadingDiv').show();
+
+    var url = $("#formcorretor").attr('action'); 
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: $("#formcorretor").serialize(),
+        success: function(data){
+            console.log(data)
+            $(".bot_laranja").attr('disabled',false);
+            if(data.error != 0){
+                swal("Atenção!", data.msg, "warning");
+            } else {
+                swal({
+                    title: "Formulário enviado com sucesso!",
+                    text: data.msg,
+                    icon: "success",
+                    dangerMode: false,
+                });
+            }
+        },
+        error:function(data){
+            $(".bot_laranja").attr('disabled',false);
+        },
+        complete: function() {
+            $('#cardOverlay').hide();
+            $('#loadingDiv').hide();
+        }
     });
+});
+
 
     document.addEventListener('DOMContentLoaded', function() {
     var toggleButton = document.getElementById('toggle-description');

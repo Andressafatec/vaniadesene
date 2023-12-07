@@ -84,8 +84,7 @@
                             <hr>
                             <p style="text-align: left;">
                                 <a class="categorias" data-toggle="collapse" href="#collapsefinalidade" role="button" aria-expanded="false" aria-controls="collapsefinalidade">
-                                    Finalidade
-                                    <i class="fas fa-chevron-down icon"></i>
+                                    Finalidade <i class="fas fa-chevron-down icon"></i>
                                 </a>
                             </p>
                             <div class="collapse" id="collapsefinalidade">
@@ -142,7 +141,7 @@
                                     @foreach ($bairros as $Kcidade => $vBairros)
                                     @foreach ($vBairros as $bairroimoveis)
                                             <div class="form-check">
-                                                <input class="form-check-input" name="cidade" value="{{ $bairroimoveis['bairro'] }}" type="checkbox" id="flexCheckDefault1">
+                                                <input class="form-check-input" name="bairro" value="{{ $bairroimoveis['bairro'] }}" type="checkbox" id="flexCheckDefault1">
                                                 <label class="form-check-label" for="flexCheckDefault1">
                                                 
                                                 {{ Helper::corrigiAcento($bairroimoveis['bairro'] ) }}
@@ -377,7 +376,7 @@
                             </div>
                         </div>
                         <button type="submit" class="botao_filtro">Aplicar filtro</button>
-                        <a href="{{route('site.imoveis.index')}}" class="filtro"> Limpar filtro</a>
+                        <a href="{{route('site.imoveis.index', ['valor' => '1,00'])}}" class="filtro"> Limpar filtro</a>
                     </div>
                     </form>
                 </div>

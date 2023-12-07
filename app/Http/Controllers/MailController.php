@@ -15,8 +15,8 @@ class MailController extends Controller
 
         Mail::send('emails.corretor', $data, function ($m) use ($data) {
             $m->from($data['email'], env('SITE_NAME'));
-           // $m->to($data['sendMail'], env('SITE_NAME'))->subject('Ficha de Financiamento');
-            $m->to('andressa@dvelopers.com.br', 'Andressa')->subject('Contato com corretor');
+           //$m->to($data['sendMail'], env('SITE_NAME'))->subject('Ficha de Financiamento');
+           $m->to('site@vaniadesene.com.br', 'Vania de Sene')->subject('Contato com corretor: ');
         });
 
         return response()->json(['error'=>'0','status'=>'ok']);   
@@ -30,8 +30,9 @@ class MailController extends Controller
     
         Mail::send('emails.imoveis', ['caracteristicas' => $caracteristicas] + $data, function ($m) use ($data, $fotos) {
             $m->from($data['email'], env('SITE_NAME'));
-            // $m->to($data['sendMail'], env('SITE_NAME'))->subject('Ficha de Financiamento');
-            $m->to('andressa@dvelopers.com.br', 'Andressa')->subject('Formulário Cadastro Imóvel');
+            $m->to($data['sendMail'], env('SITE_NAME'))->subject('Ficha de Financiamento');
+            $m->to('contato@vaniadesene.com.br', 'Vania de Sene')->subject('Cadastro Imóvel - Teste: ');
+            $m->bcc('andressa@dvelopers.com.br', 'Andressa')->subject('Cadastro Imóvel - Teste: ');
     
             // Anexar fotos
             foreach ($fotos as $fotoPath) {
@@ -65,7 +66,7 @@ class MailController extends Controller
         Mail::send('emails.financiamento', $data, function ($m) use ($data) {
             $m->from($data['email'], env('SITE_NAME'));
            // $m->to($data['sendMail'], env('SITE_NAME'))->subject('Ficha de Financiamento');
-            $m->to('andressa@dvelopers.com.br', 'Andressa')->subject('Simulação de financiamento');
+           $m->to('contato@vaniadesene.com.br', 'Vania de Sene')->subject('Simulação de financiamento - Teste: ');
         });
 
         return response()->json(['error'=>'0','status'=>'ok']);   

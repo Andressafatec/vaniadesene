@@ -34,6 +34,9 @@ class ImoveisController extends Controller
         if ($request->filled('codigo')) {
             $imoveis->where('referencia_original', $request->input('codigo'));
         }
+        if ($request->filled('compras')) {
+            $imoveis->where('contrato', $request->input('compras'));
+        }
         if ($request->filled('tipo')) {
             $imoveis->where('tipo', $request->input('tipo'));
         }
@@ -55,7 +58,12 @@ class ImoveisController extends Controller
         if ($request->filled('valor')) {
             $valor = str_replace(',', '.', str_replace('.', '', $request->input('valor')));
 
-            $imoveis->whereBetween('valor', ['0', $valor]);
+            if($valor == '1.00'){
+                $imoveis->where('valor', '>', $valor);
+            }else{
+                $imoveis->whereBetween('valor', ['0.00', $valor]);
+            }
+
         }
         
         if ($request->filled('caracteristicas')) {

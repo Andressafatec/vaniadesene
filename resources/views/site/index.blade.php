@@ -5,19 +5,20 @@
 </style>
 @endsection
 @section('content')
+<div class="card-overlay" id="cardOverlay"></div>
 <section id="banner">
        <div class="fundo">
         <div class="texto">
           Encontre <div class="cor">seu imóvel</div>
         </button>
         </div>
-        <form action="{{ route('site.imoveis.index')}}" method="GET">
+        <form action="{{ route('site.imoveis.index')}}" onsubmit="return validarBusca()" method="GET">
           <div class="search-form wow fadeInUp" data-wow-delay=".7s">
             <div class="row">
                 <div class="col-sm col-12 p-0">
                     <div class="search-input">
-                      <select name="contrato"> 
-                          <option value="" style="padding: 0 25px;"> Compras</option>
+                      <select name="compras" id="compras"> 
+                          <option value=""> Compras</option>
                           @foreach ($contratoimovel as $contratoimoveis)
                               <option value="{{ $contratoimoveis }}"> {{ ucfirst(mb_strtolower($contratoimoveis)) }}</option>
                           @endforeach
@@ -26,7 +27,7 @@
                 </div>
                 <div class="col-sm col-12 p-0">
                     <div class="search-input">
-                        <select name="tipo">
+                        <select name="tipo" id="tipo">
                           <option value="">Tipo Imóvel </option>
                           @foreach($tipos as $k => $tipo)
                           <option value="{{$tipo}}"> {{$tipo}}</option>
@@ -37,8 +38,8 @@
                 <div class="col-sm col-12 p-0">
                     <div class="search-input">
                  
-                      <select name="bairro">
-                          <option value=""> Localização <i class="fas fa-chevron-down"></i></option>
+                      <select name="bairro" id="bairro">
+                          <option value=""> Localização </option>
                           @foreach ($bairros as $cidade => $itemBairros)
                           <optgroup name="cidade" label="{{ ucfirst(mb_strtolower($cidade)) }}">
                             @foreach ($itemBairros as $itemBairro)
@@ -52,7 +53,7 @@
                 </div>
                 <div class="col-sm col-12 p-0">
                   <div class="search-input">
-                    <input type="text" name="valor" placeholder="Digite o valor">
+                    <input type="text" class="moneyMask" name="valor" id="valor" placeholder="Digite o valor">
                   </div>
               </div>
                 <div class="col-sm col-12 p-0">
@@ -62,16 +63,21 @@
                 </div>
             </div>
         </div>
-    
+        </form>
         <!-- End Search Form -->
         <div class="botoes">
-            <input type="text" name="codigo" class="botao2" placeholder="Insira o código">
-           
-            <a class="botao1" href="{{ route('site.imoveis.index', ['valor' => $maiorValor]) }}">Busca avançada</a>
+          <div class="container-codigo" >
+            <form action="{{ route('site.imoveis.index')}}" onsubmit="return validarCodigo()" method="GET">
+                <input type="text" name="codigo" id="codigo" class="botao2" placeholder="Insira o código">
+                <button type="submit" id="inserirCodigo">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+          </div>
+           <a class="botao1" href="{{ route('site.imoveis.index', ['valor' => '1,00']) }}">Busca avançada</a>
         </div>
-        </form>
        </div>
-       <a href="#personalize" class="down"><i class="fas fa-chevron-down"></i></a>
+       <a href="#servicos" class="down"><i class="fas fa-chevron-down"></i></a>
       </section>
       <section id="imoveis">
           <div class="container">
@@ -264,34 +270,67 @@
     window.location.href = "{{route('site.imoveis.index')}}";
   });
 
-  $("body").on('click','#formFinanciamento #btEnviar',function(e) {
+    $("body").on('click','#formFinanciamento #btEnviar',function(e) {
     e.preventDefault();
-      $(".btn").attr('disabled',true)
-        e.preventDefault();
-        var url = $("#formFinanciamento").attr('action'); // the script where you handle the form input.
-        $.ajax({
-               type: "POST",
-               url: url,
-               data: $("#formFinanciamento").serialize(), // serializes the form's elements.
-               success: function(data){
-                   console.log(data)
-                   $(".btn").attr('disabled',false);
-                    if(data.error != 0){
-                      swal("Atention!", data.msg, "warning");
-                   }else{
-                   swal({
-                      title: "Simulação de financiamento enviado com sucesso! Aguarde contato da empresa",
-                      text: data.msg,
-                      icon: "success",
-                      dangerMode: false,
-                    })
-                    }
-               },error:function(data){
-                $(".btn").attr('disabled',false);
-               }
-             });
-        e.preventDefault();
+    $(".btn").attr('disabled',true);
+    
+    $('#cardOverlay').show();
+
+    $('#loadingDiv').show();
+
+    var url = $("#formFinanciamento").attr('action'); 
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: $("#formFinanciamento").serialize(),
+        success: function(data){
+            console.log(data)
+            $(".btn").attr('disabled',false);
+            if(data.error != 0){
+                swal("Atenção!", data.msg, "warning");
+            } else {
+                swal({
+                    title: "Formulário enviado com sucesso!",
+                    text: data.msg,
+                    icon: "success",
+                    dangerMode: false,
+                });
+            }
+        },
+        error:function(data){
+            $(".btn").attr('disabled',false);
+        },
+        complete: function() {
+            $('#cardOverlay').hide();
+            $('#loadingDiv').hide();
+        }
     });
+});
+
+function validarBusca() {
+    var contrato = document.getElementById('compras').value;
+    var tipo = document.getElementById('tipo').value;
+    var bairro = document.getElementById('bairro').value;
+    var valor = document.getElementById('valor').value;
+
+    if (contrato === '' && tipo === '' && bairro === '' && valor === '') {
+      alert('Preencha pelo menos um campo');
+      return false;
+    }
+
+    return true;
+  }
+
+  function validarCodigo() {
+    var codigo = document.getElementById('codigo').value;
+
+    if (codigo ==='') {
+      alert('Preencha pelo menos um campo');
+      return false;
+    }
+
+    return true;
+  }
 
 </script>
 @endsection

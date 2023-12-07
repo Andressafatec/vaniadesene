@@ -64,12 +64,12 @@
         background: none;
         border: none;
     }
-
 </style>
 @endsection
 
 @section('content')
 <div class="container">
+<div class="card-overlay" id="cardOverlay"></div>
     <div class="card-form">
         <form method="POST" action="{{ route('site.sendMailImoveis')}}" accept-charset="UTF-8" class="form-imovel" id="formImoveis" enctype="multipart/form-data"><input name="_token" type="hidden">
         @csrf
@@ -523,6 +523,9 @@
                 <input class="botao_laranja" id="btEnviar" type="submit" value="Enviar">
             </div>		
         </form>
+        <div id="loadingDiv" style="display:none;">
+            Carregando...
+        </div>
     </div>
 </div>
 @endsection
@@ -572,41 +575,10 @@
     });
 });
 
-// Adicionando funcionalidade para excluir uma foto
 $(document).on('click', '.delete-photo', function(e) {
     e.preventDefault();
     $(this).parent('.preview-item').remove();
 });
-
-$("body").on('click','#formImoveis #btEnviar',function(e) {
-    e.preventDefault();
-      $(".botao_laranja").attr('disabled',true)
-        e.preventDefault();
-        var url = $("#formImoveis").attr('action'); // the script where you handle the form input.
-        $.ajax({
-               type: "POST",
-               url: url,
-               data: $("#formImoveis").serialize(), // serializes the form's elements.
-               success: function(data){
-                   console.log(data)
-                   $(".botao_laranja").attr('disabled',false);
-                    if(data.error != 0){
-                      swal("Atention!", data.msg, "warning");
-                   }else{
-                   swal({
-                      title: "Formulário enviado com sucesso!",
-                      text: data.msg,
-                      icon: "success",
-                      dangerMode: false,
-                    })
-                    }
-               },error:function(data){
-                $(".botao_laranja").attr('disabled',false);
-               }
-             });
-        e.preventDefault();
-    });
-
     function buscaCep(cep) {
     $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
         $("input[name='endereco']").val(dados.logradouro)
@@ -630,6 +602,43 @@ function formatarValor(input) {
     valor = (valor / 100).toFixed(2).replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     input.value = valor;
 }
+
+$("body").on('click','#formImoveis #btEnviar',function(e) {
+    e.preventDefault();
+    $(".botao_laranja").attr('disabled',true);
+    
+    $('#cardOverlay').show();
+
+    $('#loadingDiv').show();
+
+    var url = $("#formImoveis").attr('action'); 
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: $("#formImoveis").serialize(),
+        success: function(data){
+            console.log(data)
+            $(".botao_laranja").attr('disabled',false);
+            if(data.error != 0){
+                swal("Atenção!", data.msg, "warning");
+            } else {
+                swal({
+                    title: "Formulário enviado com sucesso!",
+                    text: data.msg,
+                    icon: "success",
+                    dangerMode: false,
+                });
+            }
+        },
+        error:function(data){
+            $(".botao_laranja").attr('disabled',false);
+        },
+        complete: function() {
+            $('#cardOverlay').hide();
+            $('#loadingDiv').hide();
+        }
+    });
+});
 
 
 
