@@ -3,11 +3,7 @@
 @section('head')
 <link rel="stylesheet" href="{{asset('vendor/magnific-popup/dist/magnific-popup.css')}}">
 
-<style>
-  .carousel-control-prev{
-    width: 32px !important;
-  }
-</style>
+
 @endsection
 @section('content')
 @if(count($imovel->fotos) >= 1)
