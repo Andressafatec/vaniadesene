@@ -353,6 +353,16 @@ body.dragging, body.dragging * {
   </ul>
 </li>
 
+<li class="nav-item">
+      <a href="{{route('admin.imoveis.index')}}" class="nav-link @if(strpos(request()->fullUrl(), "imoveis")) active @endif"><i class="far fa-images text-white"></i>
+        <span class="text-white">Imoveis</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{route('admin.corretor.list')}}" class="nav-link @if(strpos(request()->fullUrl(), "corretor")) active @endif"><i class="far fa-images text-white"></i>
+        <span class="text-white">Corretor</span>
+      </a>
+    </li>
  
 </ul>
 </nav>

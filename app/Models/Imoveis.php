@@ -51,7 +51,7 @@ class Imoveis extends Model
         return $this->hasMany(Edificio::class, 'imovel_id');
     }
 	public function fotos(){
-        return $this->hasMany(Fotos::class, 'imovel_id')->orderBy('ordem','asc');
+		return $this->hasMany(Fotos::class, 'imovel_id')->orderByRaw('CAST(ordem AS SIGNED) asc');
     }
 	public function videos(){
         return $this->hasMany(Videos::class, 'imovel_id')->orderBy('ordem','asc');

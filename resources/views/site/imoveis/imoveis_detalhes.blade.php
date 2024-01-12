@@ -55,6 +55,7 @@
     @foreach ($imovel->fotos as $k => $foto)
     <div class="swiper-slide @if($k === 0) active @endif">
       <a href="{{$foto->url}}" class="popup-link">
+      $imovel->$foto->ordem
           <img src="{{$foto->url}}" >
       </a>
     </div>
@@ -93,10 +94,10 @@
                 <div class="textolaranja-left">{{$imovel->contrato}}</div>
                 <div class="texto2-left">R${{number_format($imovel->valor, 2, ',','.')}} 
                 @if($imovel->contrato == 'Locação')
-                total/mês @endif</div>
+                /mês @endif</div>
                 <div class="texto3-left"> 
-                    <strong>Condomínio</strong> R${{number_format($imovel->valorcondominio, 2, ',','.')}}
-                    <strong>IPTU</strong> R${{number_format($imovel->valoriptu, 2, ',','.')}} 
+                    <strong>+ Condomínio</strong> R${{number_format($imovel->valorcondominio, 2, ',','.')}}
+                    <strong>+ IPTU</strong> R${{number_format($imovel->valoriptu, 2, ',','.')}} 
                 </div>
                 <div class="quadro1">
                     <div class="icones-quadro">

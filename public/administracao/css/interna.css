@@ -1,0 +1,69 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*-----------------------------------------------
+ * Developed by luminabrasil.com.br - 2012 
+ * Author Esdras Ribeiro
+ * ---------------------------------------------*/
+
+/*
+ * INTERNAS
+ * ----------------------------------------------*/
+div.topoInterna { width:100%; height:225px; background:url(../imgs/geral/bg-topo.jpg) center top repeat-x; }
+
+div.conteudoInterna { width:100% padding:5px 0 0 0; }
+div.bgFixed { background:url(../imgs/geral/bg-conteudo-interna.jpg) no-repeat bottom; background-attachment:fixed; width:100%; height:850px; }
+div.mioloInterna { width:974px; height:700px; margin:0 auto 0 auto; background:url(../imgs/interna/bg-miolo.png) no-repeat top center; }
+div.mioloInterna h1 { padding:20px 0 10px 25px; }
+div.mioloInterna h2 { padding:0 25px 10px 25px; }
+div.mioloInterna p { margin:0 25px 15px 25px; text-align:justify; font-size:14px; }
+
+/*
+ * QUEM SOMOS
+ * ----------------------------------------------*/
+
+.foto-apresentacao { float:left; margin:0 15px 0 25px; }
+ul.valores { margin-left:25px; font-size:14px; }
+h2.quem-somos { font-size:25px; }
+
+/*
+ * EXIBICAO CORRETOR
+ * ----------------------------------------------*/
+ 
+div.exibe-corretor { margin:0 auto 0 auto; width:920px; }
+
+/*
+ * UNIDADES
+ * ----------------------------------------------*/
+ 
+div.box-unidade { margin:15px 0 0 25px; }
+div.box-unidade img { float:left; border:3px solid #E9E6E1; margin:10px 0 0 0; }
+div.box-unidade iframe { margin:10px 0 0 25px; float:left; border:3px solid #E9E6E1; }
+div.box-unidade h2 { padding-left:0; padding-bottom:0; display:inline; }
+div.box-unidade address { font-style:normal; font-weight:normal; display:inline; font-size:14px; }
+
+/*
+ * SEJA NOSSO CORRETOR
+ * ----------------------------------------------*/
+ 
+div.mioloInternaCorretor { width:974px; margin:0 auto 0 auto; background:url(../imgs/seja-nosso-corretor/bg-miolo.png) no-repeat top center; }
+div.mioloInternaCorretor h1 { padding:20px 0 10px 25px; }
+div.mioloInternaCorretor h2 { padding:0 25px 10px 25px; }
+div.mioloInternaCorretor p { margin:0 25px 15px 25px; text-align:justify; font-size:14px; }
+ 
+div.form-corretor { padding:0 25px 0 25px; }
+div.form-corretor h2 { padding:0; }
+div.form-corretor label { margin:10px 0 0 0; width:95px; display:inline-block; font:14px "Trebuchet MS", Tahoma, Arial; }
+div.form-corretor input[type=text] { width:300px; height:25px; background-color:#ECEEF5; display:inline-block; }
+div.form-corretor select { background-color:#ECEEF5; }
+div.form-corretor div.box-etapa { margin:0 0 20px 0; }
+div.form-corretor .bt-enviar { margin:15px 0 0 200px;  }
+div.form-corretor textarea { width:300px; height:150px; background-color:#ECEEF5; display:inline-block; margin:10px 0 0 0; }
+
+div.form-cadastro-imovel { width:425px; margin:20px 0px 20px 25px; float:left; }
+div.form-cadastro-imovel h2 { padding:0; }
+div.form-cadastro-imovel .select { height:25px; width:272px; display:block; margin-bottom:13px; margin-top:3px; }
+div.form-cadastro-imovel input.fileField { width:260px; color:#000; background-color:#FFF; border:1px solid #7F7F7F; margin:0px; }
+div.form-cadastro-imovel input[type=text] { width:300px; height:25px; background-color:#ECEEF5; display:inline-block; }
+div.form-cadastro-imovel label { margin:10px 0 0 0; width:95px; display:inline-block; font:14px "Trebuchet MS", Tahoma, Arial; }
+div.form-cadastro-imovel select { background-color:#ECEEF5; }

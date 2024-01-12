@@ -14,11 +14,26 @@ use Illuminate\Http\Request;
 class ImoveisController extends Controller
 {
 
-    public function list()
+    public function index()
     {
-        $imoveis = Imoveis::orderBy('id','desc')->get();
-        return view("painel.imoveis.list", compact('imoveis'));
+        $dadosPaginados = Imoveis::paginate(10);
+        return view('painel.imoveis.index', ['imoveis' => $dadosPaginados]);
     }
+
+    public function getLista(Request $request)
+    {
+        $dadosPaginados = Imoveis::query();
+
+        if ($request->filled('codigo')) {
+            $dadosPaginados->where('referencia_original', $request->input('codigo'));
+            $dadosPaginados = $dadosPaginados->get();
+        } else {
+            $dadosPaginados = Imoveis::paginate(10);
+        }
+
+        return view('painel.imoveis._list', ['imoveis' => $dadosPaginados]);
+    }
+
 
     public function novo()
     {

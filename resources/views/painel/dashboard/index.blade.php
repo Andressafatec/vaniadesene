@@ -48,7 +48,7 @@ Home
         </a>
       </li>
       <li class="col-sm-3">
-         <a href="{{route('admin.imoveis.list')}}"  class="bg-gradient-dark" >
+         <a href="{{route('admin.imoveis.index')}}"  class="bg-gradient-dark" >
           <i class="fa fa-home" aria-hidden="true"></i></i>
          Imóveis
         </a>

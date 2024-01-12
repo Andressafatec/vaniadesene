@@ -1,0 +1,1420 @@
+Versão 2.4
+
+Manual para Inclusão dos Sistema CorretorWeb dentro do Site da Empresa
+-----------------------------------------------------------------------
+
+Introdução
+----------
+
+A função do aplicativo CorretorWeb (corweb) é de exibir os dados 
+dos imóveis e suas fotos no site da empresa, ou permitir que estas 
+informações sejam exibidas no site pelo WebDesigner e permitir
+que os internautas se cadastrem como Interessados em Imóveis/Bens,
+e permitir que Proprietários de Imóveis cadastrem seu Imóvel/Bem 
+no site.
+
+
+Notas:
+1) www.seusite.com.br - Significa sua URL (endereço para 
+acessar o SEU SITE/DOMINIO) na Internet, neste caso é 
+apenas um exemplo.
+2) 999.999.999.999 - Significa o NUMERO IP de sua conexão
+ com a Internet, neste caso é apenas um exemplo, acesse o 
+ site www.meuip.com.br para descobrir qual é o seu IP.
+3) online.seusite.com.br é um exemplo de
+entrada de DNS, que aponta para o IP da empresa;
+Todos os endereços acima são fictícios, não existem.
+4) Solicite para o técnico de rede da empresa qual é o DNS ou IP da empresa
+para que você possa configurar o sistema de busca dentro do site
+
+
+Descompacte o arquivo corweb.zip dentro da raíz do site, de
+modo que fique com o endereço http://www.sitedaempresa.com.br/corweb/ 
+
+-----------------------------------------------------------------------
+
+
+1 Objetivo do Sistema de Busca
+------------------------------
+
+O objetivo do sistema é buscar somente os dados dos imóveis, as opções de pesquisa
+tipo de imóvel (Casa, Apartamento, Terreno..etc), as cidades, regiões, faixa de valor,
+os dados dos imóveis e suas fotos utilizando o link de Internet da imobiliária, 
+deixando os scripts, páginas .htm, e imagens no site, pois a velocidade do link deste 
+é bem superior ao link da imobiliária.
+Esta tarefa de buscar os dados do cliente é feita pelos arquivos index.php, index.asp 
+ou index.aspx (de acordo com a tecnologia adotada pelo site) que são os chamados Proxys, 
+pois as páginas do site pedem pra ele a informação e ele busca no servidor da imobiliária
+os dados.
+
+
+2 Como Incluir o Sistema de Busca no Site
+-----------------------------------------
+
+Há duas formas para incluir o sistema de busca no site da empresa, a primeira é 
+utilizando as páginas padrões que permitem modificações em sua aparência através
+do CSS (ver item 2 Páginas para Exibir) já existentes, ou caso a empresa deseje 
+uma aparência diferenciada para o sistema de busca, pode-se fazer as chamadas 
+como um WebService (ver item 8 WebService), recebendo as respostas em XML, assim
+você pode tratar o XML com uma rotina em AJAX por exemplo, e exibir as informações 
+dentro do layout que você criou.
+
+
+O arquivo corweb.zip que deve ser descompactado na raiz do site, formando a pasta \corweb
+conforme o exemplo abaixo:
+www.site.com.br
+               /corweb           -> pasta de scripts
+               /corweb/proxy     -> pasta contendo arquivos config.* onde se indica o endereço (URL ou IP Fixo) do servidor da imobiliária
+               /pesquisa.htm     -> páginas com o sistema de busca
+               /promocoes.htm    -  no mesmo nível da pasta \corweb,
+               /cadimovel.htm    -  na raíz do site
+
+
+Abaixo estão alguns clientes nossos que estão utilizando o formato padrão, conforme 
+fornecemos, sem nenhuma mudança na aparência a não ser a cor:
+http://www.fanelimoveis.com.br
+http://www.lucianofigueiredoimoveis.com.br
+
+Abaixo estão alguns clientes nossos que estão utilizando o formato padrão, mas com 
+CSS alterado(imagens de fundo, bordas diferenciadas):
+http://www.centerimoveis.com.br
+http://www.focalimoveis.com.br
+http://www.grupomatias.com.br
+http://www.geraimoveis.com.br
+
+Abaixo estão alguns clientes nossos que não estão utilizando o formato padrão, mudaram 
+a posição dos campos, a forma como a pesquisa é feita, e como os dados são exibidos, é 
+o formato Customizado(Personalizado para outra aparência diferente do padrão):
+http://www.goncalvesimoveis.com.br
+http://www.adimoveis.com/index.asp?url=pesquisa_venda
+http://www.pinotti.com.br    
+
+
+3 Aparência (CSS)
+------------------
+
+Algumas características das páginas de pesquisa, como
+por exemplo, cor, fonte, podem ser alteradas através do
+arquivo promo.css encontrado na pasta de instalação do 
+CorretorWeb (dentro do servidor na pasta \corweb\ no site).
+
+
+4 Scripts
+---------
+
+
+Para exibir as páginas seguintes são necessárias duas tags seguindo
+os padrões abaixo:
+
+4.1 Adicionar a tag script dentro do header <head></head> informando 
+qual página deseja executar, adicionando os parâmetros: 
+
+url=corweb/						------> Pasta utilizada pelo sistema: valor padrão corweb/
+start=pesquisa						------> Nome da página desejada	(use pesquisa, promocoes ou cadastro)
+proxy=true						------> Use true para utilizar a tag div; false para utilizar iframe 
+								ou para casos em que o site está dentro da empresa 
+proxyType=php						------> Tipo de proxy para busca de dados: use php(recomendado) ou asp
+divsisprof={x:posicaoX,y:posicaoY}			------> Para forçar a posição absoluta em relação a tag pai.
+options={parametro1:valor1:parametro2:valor2...parametroN:valorN}	------> Parâmetros OPCIONAIS;
+
+exemplo:
+<head>
+	<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=promocao&proxy=true&proxyType=php&options={venda:true,locacao:true,empreendimento:false,offset:5}"></script>
+</head>
+
+
+4.2 Adicionar a tag div com id divSisprof no local da página onde
+será exibido o sistema de busca, promoções ou cadastro do imóvel/bem:
+
+exemplo:
+<body>
+	<div id="divSisprof" class="divSisprof"></div>
+</body>
+
+
+
+5 Página de Promoções
+----------------------
+
+Esta página exibe os imóveis/bens em promoção em pequenos
+quadros alternando as referências dos imóveis/bens cadastrads no menu 
+Secretaria -> Anúncios/Promoções -> Incluir Imóvel em Promoções,
+
+5.1 Adicionar a tag script dentro do header <head></head> informando 
+qual página deseja executar, adicionando os parâmetros: 
+
+<head>
+	<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=promocao&proxy=true&options={empre:2,venda:true,locacao:true,empreendimento:false,offset:7}"></script>
+</head>
+
+Detalhes dos Parâmetros
+
+Parâmetro Opcional options: 
+
+Subparâmetro		Valores Possíveis	Descrição
+venda:			true/false		Exibe lista de imóveis/bens para Venda
+locacao:		true/false		Exibe lista de imóveis/bens para Locação
+empreendimento: 	true/false		Exibe lista de imóveis/bens do tipo de contrato Empreendimento/Lançamentos
+offset:			número inteiro		Quandtidade de quadros (thumbs) que devem ser exibidos
+
+
+
+5.2 Adicionar dentro da tag body,a tag div com id divSisprof no local 
+da página aonde será exibido o sistema de busca, promoções ou 
+cadastro do imóvel/bem:
+
+<body>
+	<div id="divSisprof" class="divSisprof"></div>
+</body>
+
+
+Abaixo está um exemplo de página criada seguindo as instruções acima,
+você pode copiar as tags abaixo e salvar em um arquivo exemplo.htm,
+salvar este arquivo na raiz do site e ele exibirá uma página do sistema
+de promoções:
+
+<!-- ------------------------- Exemplo: Copie as Tags Abaixo ------------------------------------- -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
+	<head>
+		<title>Promoções</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+		<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=promocao&proxy=true&proxyType=php&options={empre:1,venda:true,locacao:true,empreendimento:false,offset:5}"></script>		
+	</head>
+	<body>
+		<div id="divSisprof" class="divSisprof" style="width:800px;height:400px;"></div>
+	</body>
+</html>
+<!-- ---------------------------------------- Fim do Exemplo ------------------------------------- -->
+
+
+
+6 Página de Cadastro de Imóveis/Bens
+------------------------------------
+
+Esta página permite que os proprietários de imóveis/bens
+cadastrem seus imóveis/bens no site, e que estes sejam ou 
+não incluídos no sistema após confirmação no menu 
+Secretaria -> Dados Via Internet -> Imóveis, para exibir
+esta página basta acrescentar a tag <script> conforme o
+exemplo abaixo:
+
+
+6.1 Acrescentar a tag script entre as tags <head></head> conforme
+o exemplo abaixo:
+<head>
+	<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=cadastro&proxy=true"></script>
+</head>
+
+6.2 Adicionar dentro da tag body, a tag div com id divSisprof no local da 
+página aonde será exibido o sistema de busca, promoções ou cadastro do 
+imóvel/bem:
+
+<body>
+	<div id="divSisprof" class="divSisprof"></div>
+</body>
+
+Abaixo está um exemplo de página criada seguindo as instruções acima,
+você pode copiar as tags abaixo e salvar em um arquivo exemplo.htm,
+salvar este arquivo na raiz do site e ele exibirá uma página do sistema
+de busca:
+
+<!-- ------------------------- Exemplo: Copie as Tags Abaixo ------------------------------------- -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
+	<head>
+		<title>Promoções</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+		<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=cadastro&proxy=true&proxyType=php&options={empre:1}"></script>
+	</head>
+	<body>
+		<div id="divSisprof" class="divSisprof" style="width:800px;height:400px;"></div>
+	</body>
+</html>
+<!-- ---------------------------------------- Fim do Exemplo ------------------------------------- -->
+
+
+7 Página de Pesquisa
+--------------------
+
+Esta página permitirá que o internauta faça a pesquisa dos imóveis
+da empresa dentro do site. Para adicioná-la ao site deve-se:
+
+7.1 Acrescentar a tag script entre as tags <head></head> conforme
+o exemplo abaixo:
+<head>
+	<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={ctr:1,tipo:'AAP',cidade:1}"></script>
+</head>
+
+7.2 Adicionar dentro da tag body, a tag div com id divSisprof no local 
+da página aonde será exibido o sistema de busca, promoções ou cadastro 
+do imóvel/bem:
+
+<body>	
+	<div id="divSisprof" class="divSisprof"></div>
+</body>
+
+Abaixo está um exemplo de página criada seguindo as instruções acima,
+você pode copiar as tags abaixo e salvar em um arquivo exemplo.htm,
+salvar este arquivo na raiz do site e ele exibirá uma página do sistema
+de busca:
+<!-- ------------------------- Exemplo: Copie as Tags Abaixo ------------------------------------- -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
+	<head>
+		<title>Pesquisa</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+		<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={ctr:1,tipo:'AAP',cidade:'1',faixaValor:13,regiao:'T'}"></script>
+	</head>
+	<body>
+		<div id="divSisprof" class="divSisprof" style="width:800px;height:400px;"></div>
+	</body>
+</html>
+<!-- ---------------------------------------- Fim do Exemplo ------------------------------------- -->
+
+
+Ao carregar as páginas de pesquisa, alguns campos podem 
+ser selecionados automaticamente através dos subparâmetros 
+passados na tag <script> para o parâmetro options, caso 
+você deseje selecionar esses valores padrões, basta utilizá-los, 
+caso contrário, os primeiros valores que o sistema encontrar
+serão exibidos, como Tipo de Imóvel, Tipo de Contrato, Cidade...
+Dessa forma você pode forçar que a página apareça para o internauta
+com o campo Tipo de Contrato tendo o item Locação selecionado, ao
+invés de selecionar o valor Venda, ou então pode forçar que apareça
+o Tipo de Imóvel Casa ao invés de aparecer Apartamento como padrão, etc. 
+
+Abaixo estão os parâmetros para configurar valores padrões,
+que aparecerão para o Internauta assim que ele acessar a página 
+de pesquisa, e os mesmos parâmetros podem ser passados para 
+o WebService do Sistema, estes parâmetros são configurados dentro
+de options={}.
+
+
+7.3 Parâmetro options
+---------------------
+
+7.3.1 Subparâmetro empre
+------------------------
+Este parâmetro pode ser usado em todas as páginas para 
+especificar qual das empresas cadastradas no sistema,
+será pesquisada. Se este valor for omitido será atribuído
+ao parâmetro como valor, o código da primeira empresa 
+na lista de empresas cadastradas. 
+
+Exemplo usando dados da empresa 3:
+<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={empre:3}"></script>
+
+
+7.3.2 Subparâmetro ctr:
+-----------------------
+Permite definir o Tipo de Contrato padrão, sempre que 
+este parâmetro for omitido dos links, o sistema assumirá
+ctr=1, ou seja Tipo de Contrato de Venda:
+
+Possíveis Valores:
+1 para Venda
+2 para Locação
+3 para Lançamentos/Empreendimento
+
+Exemplo configurando imóveis/bens para locação:
+<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={empre:1,ctr:2}"></script>
+
+Também pode-se ver uma lista de possíveis valores 
+acessando o Webservice no endereço abaixo, e assim 
+utilizar como valor o conteúdo da tag <key>:
+http://online.seusite.com.br/corweb/contratos.csp?empre=VALOR
+
+
+7.3.3 Subparâmetro tipo:
+------------------------
+Permite definir o Tipo de Imóvel Padrão, é necessário 
+especificar também o parâmetro do tipo de contrato (ctr).
+
+
+Possíveis Valores:
+Os valores para o parâmetro tipo podem ser encontrados 
+acessando o Sistema CorretorProfissional, no menu 
+Configurações -> Tipo de Imóvel, a lista de possíveis 
+valores está no campo SIGLA.
+
+Também pode-se ver uma lista de possíveis valores 
+acessando o Webservice no endereço abaixo, e assim 
+utilizar como valor o conteúdo da tag <key>.:
+
+Para ver todos os tipos de imóveis que possuem 
+contrato de Venda:
+http://online.seusite.com.br/corweb/tipoimovel.csp?empre=VALOR&ctr=1
+Para ver todos os tipos de imóveis que possuem 
+contrato de Locação:
+http://online.seusite.com.br/corweb/tipoimovel.csp?empre=VALOR&ctr=2
+Para ver todos os tipos de imóveis que possuem 
+contrato de Lançamento/Empreendimento:
+http://online.seusite.com.br/corweb/tipoimovel.csp?empre=VALOR&ctr=3
+
+
+Veja abaixo os exemplos de valor padrão deste campo:
+
+Exemplo para Casa com tipo de contrato de Venda:
+<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={empre:1,ctr:1,tipo:CCA}"></script>
+Exemplo para Apartamento com tipo de contrato Locação:
+<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={empre:1,ctr:2,tipo:AAP}"></script>
+
+
+
+--------------------------------------------------------------------
+Todos os parâmetros abaixo dependem dos parâmetros principais Tipo
+de Contrato e Tipo de Imóvel
+--------------------------------------------------------------------
+
+7.3.4 Subparâmetro cidade:
+--------------------------
+Permite definir a Cidade padrão, sempre que este parâmetro 
+for omitido, o sistema assumirá que a cidade padrão é a 
+primeira cidade que tenha um imóvel com tipo de contrato 
+passado no parâmetro ctr.
+
+Possíveis Valores:
+Os valores para o parâmetro cidade podem ser encontrados
+acessando o Sistema CorretorProfissional, no menu 
+Configurações -> Cidades, Regiões e Bairros, o possível
+valor está no campo código  da cidade. 
+
+Também pode-se ver uma lista de possíveis valores acessando
+o Webservice no endereço abaixo, e assim utilizar como valor
+o conteúdo da tag <key>.:
+http://online.seusite.com.br/corweb/cidade.csp?empre=VALOR
+
+Veja abaixo o exemplo de valor padrão deste campo:
+
+Como exemplo, imagine que a cidade de São Paulo esteja 
+cadastrada no sistema com o código 1, então para deixarmos
+como padrão Tipo de Contrato de Venda, Tipo de Imóvel 
+como Apartamento e Cidade padrão como São Paulo, 
+bastaria usar a seguinte configuração:
+
+<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={empre:1,ctr:1,tipo:AAP,cidade:1}"></script>
+
+
+
+Todos os parâmetros abaixo dependem dos parâmetros principais Tipo
+de Contrato,  Tipo de Imóvel, Cidade, é obrigatório passar estes
+parâmetros caso você deseja utilizar um dos parâmetros abaixo.
+
+
+7.3.5 Subparâmetro regiao:
+-------------------------
+Permite definir a Região padrão
+
+Possíveis Valores:
+Os valores para o parâmetro cidade podem ser encontrados
+acessando o Sistema CorretorProfissional, no menu 
+Configurações -> Cidades, Regiões e Bairros, o possível
+valor está no campo código da região. 
+
+Também pode-se ver uma lista de possíveis valores acessando
+o Webservice no endereço abaixo, e assim utilizar como valor
+o conteúdo da tag <key>.:
+http://online.seusite.com.br/corweb/regiao.csp?empre=VALOR&ctr=VALOR&tipo=VALOR&cidade=VALOR
+
+Veja abaixo o exemplo de valor padrão deste campo:
+
+Como exemplo, imagine que a cidade de São Paulo esteja 
+cadastrada no sistema com o código 2, e a região Morumbi
+esteja cadastrada com código 3, então para deixarmos
+como padrão Tipo de Contrato de Venda, Tipo de Imóvel 
+como Apartamento e Cidade padrão como São Paulo, e 
+Região Morumbi bastaria usar a seguinte URL:
+
+<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={ctr:1,tipo:AAP,cidade:2,regiao:3}"></script>
+
+
+7.3.6 Subparâmetro faixaValor:
+-----------------------------
+Permite definir a Faixa de Valor padrão, como por exemplo,
+de 50.000 a 80.000, de 200.000 a 500.000, etc...  
+Caso este subparâmetro não seja definido o sistema irá utilizar
+o parâmetro definido pela empresa no CorretorProfissional, na
+tela de Parâmetros da Empresa, guia Relatório Semanais.
+
+
+Também pode-se ver uma lista de possíveis valores 
+acessando o Webservice no endereço abaixo, e assim 
+utilizar como valor o conteúdo da tag <key>.:
+http://online.seusite.com.br/corweb/faixavalor.csp?empre=VALOR&ctr=VALOR&tipo=VALOR&cidade=VALOR. 
+
+Veja abaixo o exemplo de valor padrão deste campo: 
+
+Exemplo para definir a Faixa de Valor padrão para 
+imóveis de Tipo de Contrato de Locação, Tipo de 
+Imóvel Casa, na Cidade de São Paulo, bastaria usar a 
+seguinte URL:
+<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={ctr:2,tipo:CCA,cidade:2,faixaValor:22}"></script>
+
+
+7.3.7 Subparâmetro selecione:
+----------------------------
+Permite preencher os campos de filtro para pesquisa com o texto Selecione...
+deixando que o usuário escolha cidade, tipo de contrato, tipo de imóvel se
+estes não forem enviados como um subparâmetro dentro do parâmetro options
+
+por exemplo:
+<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={empre:1;selecione:1}"></script>
+
+
+7.3.8 Subparâmetro junto:
+-------------------------
+Permite exibir em divs diferentes, mas dentro da mesma página, o sistema de 
+busca e o sistema de promoções. Neste caso serão criadas duas divs, uma para 
+a função de busca, e outra para a exibir as promoções com os ids divSisprof
+e divSisprof1
+
+
+por exemplo:
+<head>
+	<script type="text/javascript" language="JavaScript" charset="ISO-8859-1" src="corweb/js/inicio.js?url=corweb/&start=pesquisa&proxy=true&proxyType=php&options={empre=1;ctr:1,tipo:'AAP',cidade:'1',faixaValor:13,regiao:'T',venda:true,locacao:true,empreendimento:false,offset:5,junto:true}"></script>
+</head>
+<body>
+	<div id="divSisprof" class="divSisprof" style="width:800px;height:400px;"></div>
+	<div id="divSisprof1" class="divSisprof" style="width:800px;"></div>
+</body>
+
+
+
+8 Webservice
+-------------
+
+Para realizar as chamadas em modo WebService, deve-se antes de tudo utilizar um
+sistema de proxy utilizando sua linguagem de script (ASP.NET, ASP, PHP...etc), 
+para realizar as chamadas assim como os arquivos encontrados na pasta \corweb\proxy\
+(index.php,index.asp,index.aspx) onde as chamadas são centralizadas, pois é necessário 
+repassar a cada requisição o Cookie CSPSESSIONID, encontrada no Cookie da 
+requisição/resposta. Esta variável é enviada pelo servidor a cada chamada feita 
+para uma página .csp e deve ser armazenada pelo sistema de proxy, pois a cada 
+requisição que você fizer ela deverá ser enviada novamente, para que o servidor
+indentifique que trata-se de uma mesma sessão já estabelecida.
+
+Através desta variável CSPSESSIONID o servidor identifica cada conexão realizada 
+e mantém a Sessão com o Servidor,  se esta variável for omitida ou informada com 
+um valor incorreto, o servidor entenderá que trata-se de uma nova conexão, e criará 
+uma nova sessão para realizar a busca na página .csp requisitada.
+
+Se a variável CSPSESSIONID não for informada, e várias conexões forem realizadas
+o servidor acumulará muitas conexões e poderá travar o serviço de busca.
+
+
+               1a Requisição (sem CSPSESSIONID)
+-------------  <-------------------------------    -------------
+|  Servidor |                                      |           |
+|     da    |                                      |   proxy   |
+|  Empresa  |  1a Resposta (CSPSESSIONID=12345)    |           |
+-------------   ------------------------------->   -------------
+
+
+               2a Requisição (CSPSESSIONID=12345)
+-------------  <-------------------------------    -------------
+|  Servidor |                                      |           |
+|     da    |                                      |   proxy   |
+|  Empresa  |  2a Resposta (CSPSESSIONID=67890)    |           |
+-------------  -------------------------------->   -------------
+
+
+
+               3a Requisição (CSPSESSIONID=67890)
+-------------  <-------------------------------    -------------
+|  Servidor |                                      |           |
+|     da    |                                      |   proxy   |
+|  Empresa  |  3a Resposta (CSPSESSIONID=32165)    |           |
+-------------  -------------------------------->   -------------
+
+Para utilizar um dos proxys já criados pela Sistemas Profissionais,
+que já controlam a variável CSPSESSIONID, primeiramente deve-se 
+configurar o arquivo configurar o endereço onde está o webservice da
+empresa, dentro da pasta \corweb\proxy\ no arquivo config.php, 
+config.asp ou config.aspx, de acordo com a tecnologia que você 
+selecionar, indicando os campos:
+
+Campo		Descrição												Exemplo de Valor
+servidor	Endereço do Webservice, onde estão os dados da empresa	online.suaempresa.com.br ou 999.999.999.999
+porta 		Porta utilizada pelo serviço do webservice na empresa	80 (padrão, use quando não souber) ou 8080 ou 900
+aplicacao	Nome da aplicação que está utilizando o proxy			corweb	(utilize sempre o valor corweb para o aplicativo CorretorWeb)
+
+Depois basta que seus scripts façam as chamadas para a página  index.* 
+indicando o arquivo desejado através do parâmetro url, conforme os 
+exemplos abaixo:
+EM PHP:
+Lista de Cidades:
+http://www.seusite.com.br/corweb/proxy/index.php?url=cidade.csp&empre=2
+Em ASP:
+Lista de Tipo de Contratos:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=contratos.csp&empre=1
+EM ASP.NET
+Lista de Faixas de Valores:
+http://www.seusite.com.br/corweb/proxy/index.aspx?url=faixavalor.csp?empre=1&ctr=2&tipo=12&cidade=3. 
+
+Se você utilizar um sistema de proxy próprio, ele deverá fazer as chamadas conforme
+o exemplo abaixo, lembrando que você deve controlar a variável CSPSESSIONID
+que vem e também deve ir no Cookie da requisição:
+
+EM PHP:
+Lista de Cidades:
+http://online.seusite.com.br/corweb/cidade.csp&empre=2&tipo=TER
+Em ASP:
+Lista de Tipo de Contratos:
+http://online.seusite.com.br/corweb/contratos.csp&empre=1
+EM ASP.NET
+Lista de Faixas de Valores:
+http://online.seusite.com.br/corweb/faixavalor.csp?empre=1&ctr=2&tipo=AAP&cidade=3. 
+
+O resultado da requisição será um XML que que você poderá tratar e exibir 
+da melhor maneira possível.
+Sugerimos que as tags xml que apresentarem a subtag <padrao>1</padrao> devem
+ser utilizadas para exibir ao Internauta, pois trata-se da opção padrão indicada
+ou pelo usuário do sistema CorretorProfissional ou opção padrão indicada pela
+Sistemas Profissionais.
+
+Por padrão deve-se utilizar como VALOR para fazer requisições o conteúdo da tag <key> 
+nos parâmetros da URL do Webservice a ser chamada, e exibir para o Internauta o 
+conteúdo da tag <descricao>,<nome>:
+
+Deve-se substituir os caracteres especiais com o padrão de caracteres para URLs
+conforme especificação da W3C onde @ (arroba) = %40 e " "(espaço) = %20 , 
+"," (vírgula) = %2C caso não utilize um framework para enviar as informações
+(JQuery, Prototype, etc)
+
+
+8.0 Parâmetros Para Pesquisa de Imóveis
+-------------------------------------
+
+Estes parâmetros são utilizados para fazer a pesquisa de imóveis no WebService,
+nem todos são obrigatórios porém, quanto mais parâmetros forem passados mais
+rápida será a pesquisa, pois assim o sistema não pesquisará por todos os imóveis
+da base de dados. 
+É importante lembrar que as faixas dos campos Faixa Valor, Dormitóriso, Suites,
+Garagens são alterados conforme os itens do filtro são selecionados, por isso
+sugerimos que quando um item do filtro for selecionado, como por exemplo, 
+Faixa Valor, que sejam feitas novas chamadas para o WebService para as 
+páginas dormitorios.csp, suites.csp, garagens.csp, assim você sempre exibirá 
+para o internauta as faixas de Dormitórios, Suites, Garagens, onde ealmente há imóveis.
+
+
+
+8.0.1 Tipos de Contrato
+-----------------------
+
+Para obter o XML que possui a lista de Tipos de Contrato (Venda, Locação, 
+Empreendimento/Lançamento) que é utilizado no filtro, basta fazer uma 
+requisição para a página contratos.csp conforme o exemplo abaixo.  
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=contratos.csp?empre=1
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/contratos.csp?empre=1
+
+Para fazer uma requisição utilizando o tipo de contrato desejado que
+você recuperou no XML, basta enviar como parâmetro na URL para o 
+Webservice a variável ctr o conteúdo da tag <key> conforme a sintaxe  
+do item 8.0.2.
+
+
+
+8.0.2 Tipos de Imóvel
+---------------------
+
+Para obter o XML que possui a lista de Tipos de Imóvel (Apartamento, 
+Casa, Galpão, Terreno) que é utilizado no filtro, basta fazer uma 
+requisição para a página tipoimovel.csp conforme o exemplo abaixo. 
+
+Caso o parâmetro ctr (Tipo de Contrato) seja utilizado, serão enviados 
+somente os tipos de imóvel que existem para aquele tipo de contrato, 
+ou seja, se a empresa possui Apartamento e Casa para venda, e Galpão 
+para locação, quando o parâmetro ctr for indicado para venda, no XML 
+constarão somente os tipos de imóvel Apartamento e Casa. Se o parâmetro 
+não for especificado todos os tipos de imóvel serão exibidos.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.aspx?url=tipoimovel.csp?empre=VALOR&ctr=VALOR
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/tipoimovel.csp?empre=VALOR&ctr=VALOR
+
+Para fazer uma requisição utilizando o tipo de imovel desejado, que
+você recuperou no XML, basta enviar como parâmetro na URL para o 
+Webservice a variável tipo o conteúdo da tag <key> conforme o exemplo 
+do item 8.0.3.
+
+
+
+8.0.3 Campos do Tipo de Imóvel
+----------------------------
+
+Os campos do imóvel variam de acordo com o tipo de imóvel selecionado,
+por exemplo, um Terreno não possui o campo Dormitórios. Para identificar 
+os campos fixos e os campos variáveis do tipo de imóvel do tipo de imóvel
+selecionado, os títulos para cada campo e a lista de opções
+que pode ser selecionada para os devidos campos, basta fazer uma 
+requisição para a página carregatipoimovel.csp conforme o exemplo abaixo. 
+
+Alguns campos são configuráveis pelo usuário do sistema, por exemplo, 
+acessando o Sistema CorretorProfissional, no menu Configurações -> 
+Tipo de Imóvel, o usuário pode alterar o título deste campo de 
+Dormitórios para Área do Terreno, para imóveis do tipo Terreno, 
+e assim armazenar outro tipo de informação. 
+Alguns destes campos apresentam uma lista de valores que também pode 
+ser alterada pelo usuário, por exemplo, o campo Classe do Negócio, 
+possui os valores Ótimo, Bom, Normal, Ruim, mas pode ser alterado 
+pelo usuário para Perfeito, Razoável, Médio, Péssimo. 
+Cada campo e cada valor possui sua tag <key> e os campos com valores 
+configuráveis pelo usuário são identificados pela tag <opcionais>, 
+assim quando você ver um campo dentro da tag <opcionais> saberá que 
+este é um campo que pode ter tido o título  alterado pelo usuário. 
+Os valores configuráveis apresentam uma tag <padrao> para identificar 
+qual dos valores é o valor padrão exibido para o usuário do sistema 
+CorretorProfissional, asssim você poderá exibir o campo com uma opção 
+já selecionada. 
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=carregatipoimovel.csp?empre=2&tipo=TER
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/carregatipoimovel.csp?&empre=1&tipo=AAP
+
+
+
+8.0.4 Cidades
+-------------
+
+Para obter o XML que possui a lista de Cidades (São Paulo, Belém, 
+São Bernardo do Campo) que é utilizado no filtro, basta fazer uma 
+requisição para a página cidade.csp conforme o exemplo abaixo. 
+
+Caso o parâmetro ctr (Tipo de Contrato) e o parâmetro tipo (Tipo de
+Imóvel) sejam utilizados na URL, você receberá somente as Cidades que 
+existem para aquele tipo de contrato e/ou aquele tipo de imóvel, 
+ou seja, se a empresa possui Apartamento para Venda, Casa para Locação
+todos na cidade de São Paulo, e um Galpão em São Bernardo do Campo, 
+quando os parâmetros tipo e ctr forem indicados para tipo de imóvel 
+apartamento e contrato de venda, você receberá um XML contendo somente 
+a cidade de São Paulo.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=cidade.csp?empre=2&ctr=1&tipo=AAP
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/cidade.csp?&empre=1&ctr=2&tipo=CSA
+
+Para fazer uma requisição utilizando a cidade desejada, basta enviar 
+como parâmetro na URL para o Webservice a variável cidade o conteúdo 
+da tag <key> conforme o exemplo do item faixavalor
+
+
+
+8.0.5 Regiões
+-------------
+
+Para obter o XML que possui a lista de Regiões da cidade selecionada
+e que é utilizado no filtro, basta fazer uma requisição para a página 
+regioes.csp conforme o exemplo abaixo. 
+
+Caso o parâmetro ctr (Tipo de Contrato) e/ou o parâmetro tipo (Tipo de
+Imóvel)  e/ou o parâmetro cidade e/ou o parâmetro faixaValor (Faixa de Valor) 
+sejam utilizados na URL, você receberá somente as Regiões onde há imóveis
+para aquele tipo de contrato e/ou aquele tipo de imóvel e/ou dentro da faixa
+de valor.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=regiao.csp&cidade=1&ctr=1&faixaValor=13&tipo=AAP
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/regiao.csp?cidade=2&ctr=1&faixaValor=13&tipo=AAP
+
+Para indicar na pesquisa mais de uma região quando o internauta marcar mais
+de uma região basta passar os valores para a variável regiao separados por
+vírgula ou pela notação de URL %2C conforme o exemplo abaixo, onde são
+pesquisadas faixas de valores de imóveis dentro das regiões 33, 3 e 27. 
+Deve-se substituir os caracteres especiais com o padrão de caracteres para URLs
+conforme especificação da W3C onde @ (arroba) = %40 e " "(espaço) = %20
+caso não utilize um framework para enviar as informações (JQuery, Prototype, etc)
+
+faixavalor.csp?cidade=1&ctr=1&dormitorios=0&faixaValor=12&garagens=0&regiao=33,3,27&suites=0&tipo=CSA
+faixavalor.csp?cidade=1&ctr=1&dormitorios=0&faixaValor=12&garagens=0&regiao=33%2C3%2C27&suites=0&tipo=CSA
+
+
+8.0.6 Bairros
+-------------
+Para obter um XML com a lista de bairros cadastrados dentro da região, 
+basta fazer uma requisição para o Webservice conforme o exemplo abaixo.
+Os bairros serão apenas exibidos par o internauta, não é possível
+fazer a pesquisa de imóveis por bairro.
+
+Caso o parâmetro ctr (Tipo de Contrato) e/ou o parâmetro tipo (Tipo de
+Imóvel)  e/ou o parâmetro cidade e/ou o parâmetro regiao sejam utilizados 
+na URL, você receberá somente os bairros onde há imóveis para aquele 
+tipo de contrato e/ou aquele tipo de imóvel e/ou dentro da cidade 
+e/ou dentro região indicada.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=bairro.csp?cidade=1&ctr=1&regiao=1&tipo=CSA
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/bairro.csp?cidade=1&ctr=1&regiao=1&tipo=CSA
+
+
+
+8.0.7 Faixa de Valor
+--------------------
+
+Para obter o XML que possui a lista de Faixas de Valores 
+(De R$ 50.000 a R$ 150.000, De R$ 150.000 a 200.000, etc)
+que é utilizado no filtro, basta fazer uma requisição para 
+a página faixavalor.csp conforme o exemplo abaixo. As faixas
+de valores serão exibidas conforme os parâmetros passados,
+dessa forma você o Webservice informará as faixas de valores
+disponíveis, se houverem imóveis que satisfaçam as condições 
+como por exemplo, faixa de valor para imóvel do tipo apartamento,
+para venda, com 3 dormitórios, 2 suítes e 1 garagem, se não houver
+faixa que satisfaça a a condição o sistema exibirá a faixa única
+de 0 a 999.9999.999.999.  
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=faixavalor.csp?empre=2&ctr=1&tipo=AAP&dormitorios=3&suites=2&garagens=1
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/faixavalor.csp?&empre=1&ctr=2&tipo=CSA
+
+Embora o XML retorne as faixas de valores, quando uma pesquisa é feita,
+o conteúdo da tag <key> da faixa não é utilizada, mas sim o conteúdo das 
+tags <valorminimo> e <valormaximo>, dessa forma você pode utilizar textos 
+diferentes para exibir para o internauta, por exemplo, ao invés de exibir na
+caixa de seleção o o texto "De R$ 50.000 a R$ 150.000" você poderia exibir
+"A Partir de R$ 50.000 até R$ 150.000", e enviar na URL para o Webservice os 
+parâmetros valorminimo=50000 e valormaximo=150000 para buscar os imóveis
+desta faixa de valor, conforme o exemplo do item Pesquisar
+
+Quando há centavos deve-se incluir 
+o caracter . (ponto) como separador de decimal:
+
+valormaximo=1201.25
+
+
+Quando não há centavos não é necessário incluir 
+o caracter . (ponto) como separador de decimal:
+
+valorminimo=500
+
+
+8.0.8 Campos Configuráveis: Dormitórios, Suítes e Garagens 
+-----------------------------------------------------------
+
+Estes são campos configuráveis pelo usuário do sistema, por exemplo, 
+acessando o Sistema CorretorProfissional, no menu Configurações -> 
+Tipo de Imóvel, o usuário pode alterar o título deste campo de 
+Dormitórios para Área do Terreno, para imóveis do tipo Terreno por 
+exemplo, e assim armazenar outro tipo de informação. No filtro
+de pesquisa são utilizados os campos Dormitórios (Sigla: DOR), 
+Suítes (Silga: SUI) e Garagens(Sigla: GAR), embora as descrições
+mudem, as siglas estão sempre associadas aos parâmetros passados na
+URL para o WebService. Por exemplo, o tipo de imóvel Terreno, que 
+não possui o campo Dormitórios, possuirá o campo com a sigla DOR,
+porém a sua descrição será diferente, como Metragem.
+
+Dessa forma temos as associações:
+Parâmetro da URL	Campo no XML
+dormitorios 		DOR
+suites				SUI
+garagens			GAR
+
+Para obter o XML que possui a lista de possíveis valores para os 
+campos variáveis do filtro de pesquisa, Dormitórios , Suítes e
+Garagens, basta fazer uma requisição para a página dormitorios.csp
+suites.csp, garagens.csp conforme os exemplos abaixo. 
+
+Caso o parâmetro ctr (Tipo de Contrato) e/ou o parâmetro tipo (Tipo de
+Imóvel)  e/ou o parâmetro cidade e/ou p parâmetro regiao e/ou os parâmetros 
+valorminimo e/ou valormaximo(Faixa de Valor) sejam utilizados na URL, 
+você receberá somente as faixas onde há imóveis para aquele tipo de 
+contrato e/ou aquele tipo de imóvel e/ou aquela cidade e/ou aquela região
+e/ou dentro da faixa de valor indicados.
+
+
+Campo Dormitórios	
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=dormitorios.csp?empre=1&ctr=1&cidade=1&tipo=AP&valorminimo=150000&valormaximo=300000
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/dormitorios.csp?empre=1&ctr=2&cidade=3&tipo=AP&valorminimo=250000&valormaximo=400000
+
+Campo Suítes
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=suites.csp?empre=1&ctr=1&cidade=1&tipo=AP&valorminimo=150000&valormaximo=300000
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/suites.csp?empre=1&ctr=2&cidade=3&tipo=AP&valorminimo=250000&valormaximo=400000
+
+Campo Garagens
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.aspx?url=garagens.csp?empre=1&ctr=1&cidade=1&tipo=AP&valorminimo=150000&valormaximo=300000
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/garagens.csp?empre=1&ctr=2&cidade=3&tipo=AP&valorminimo=250000&valormaximo=400000
+
+
+
+8.0.9 Filtro Avançado
+---------------------
+
+O filtro avançado permite especificar parâmetros na pesquisa, para
+filtrar melhor os imóveis, de acordo com as características do tipo
+de imóvel selecionado, dessa forma o internauta poderá pesquisar 
+por Apartamentos que tenham Salão de Festas, Salão de Jogos e 
+Playground, ou Casas com Piscina. Os parâmetros do filtro avançado
+são todos booleanos (1 = Verdadeiro ou 0 = Falso) e não obrigatórios,
+ou seja, se o internauta não marcou/selecionou a opção, você não
+precisa enviar o parâmetro e o sistema entenderá que o valor é 0.
+
+Ao realizar a pesquisa, devem ser passadas na URL para o WebService
+as siglas dos campos que forem marcados/selecionados pelo internauta,
+sendo que estas siglas aparecem na subtag <key> do campo dentro do
+XML que exibe os Campos do Tipo de Imóvel (item 8.0.3). No exemplo
+abaixo são passados os parâmetros ARC,ESQ,INT,PIS,PLA.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=pesquisar.csp?ARC=1&ESQ=1&INT=1&PIS=1&PLA=1&cidade=1&ctr=1&dormitorios=0&garagens=0&regiao=33%2C3%2C27&suites=0&tipo=AP&valormaximo=500000&valorminimo=100000
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/pesquisar.csp?ARC=1&ESQ=1&INT=1&PIS=1&PLA=1&cidade=1&ctr=1&dormitorios=0&garagens=0&regiao=33%2C3%2C27&suites=0&tipo=AP&valormaximo=999999999999&valorminimo=0
+
+
+
+8.0.10 Pesquisar por Valor do Pacote
+------------------------------------
+
+Este campo quando verdadeiro (pacote=1) permite que a pesquisa considere 
+como valor do imóvel a soma dos campos Valor do Imóvel + Valor do IPTU + 
+Valor do Condomínio, esta opção é útil para os imóveis para Locação. 
+Por padrão este campo tem como valor 0 (falso) e a pesquisa é feita 
+somente pelo Valor do Imóvel.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=pesquisar.csp&cidade=1&ctr=2&dormitorios=3&garagens=1&suites=0&tipo=AP&valormaximo=500&valorminimo=1000&pacote=1
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/pesquisar.csp?cidade=1&ctr=1&dormitorios=2&garagens=0&suites=0&tipo=AP&valormaximo=100000&valorminimo=250000&pacote=0
+
+
+
+
+8.1 Pesquisa
+------------
+
+Agora que todos os filtros são conhecidos basta realizar a pesquisa
+dos imóveis para receber um XML contendo os imóveis e seus dados, 
+passando os parâmetros já conhecidos para a página pesquisa.csp, 
+conforme o exemplo abaixo.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=pesquisar.csp?empre=1&ctr=1&tipo=AAP&cidade=1&regiao=2&dormitorios=2&valorminimo=80000.01&valormaximo=150000&faixaValor=13&PLA=1&PIS=1&pagina=2&offset=10&ordem=referencia&pacote=0
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/pesquisar.csp?empre=1&ctr=2&tipo=AAP&cidade=1&regiao=2&dormitorios=2&valorminimo=500.01&valormaximo=1000&faixaValor=13&PLA=1&PIS=1&pagina=2&offset=10&ordem=referencia&pacote=1
+
+
+
+8.1.1 Ordenando o Resultado da Pesquisa
+---------------------------------------
+
+É possível ordenar o resultado da pesquisa através do parâmetro ordem,
+em forma crescente ou decrescente, utilizando o nome das tags encontradas 
+na tag <campos> no resultado enviado pela página pesquisar.csp do WebService,
+dessa forma o XML recebido já virá organizado pelo servidor.
+
+<campos>
+	<referencia>Ref.</referencia>
+	<cidade>Cidade</cidade>
+	<regiao>Região</regiao>
+	<bairro>Bairro</bairro>
+	<tipoimovel>Tipo</tipoimovel>
+	<dormitorio>Dormitorios</dormitorio>
+	<suite>Suites</suite>
+	<garagem>Garagens</garagem>
+	<valor>Valor</valor>
+	<condominio>Condo.</condominio>
+	<iptu>IPTU</iptu>
+	<foto>Fotos</foto>
+</campos>
+
+Exemplo em Ordem Decrescente
+Neste caso utiliza-se o sinal de subtração antes do nome do campo:
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=pesquisar.csp?empre=1&ctr=1&tipo=AAP&cidade=1&regiao=2&valorminimo=80000.01&valormaximo=150000&ordem=-referencia
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/pesquisar.csp?empre=1&ctr=1&tipo=AAP&cidade=1&regiao=2&valorminimo=80000.01&valormaximo=150000&ordem=-referencia
+
+Exemplo em Ordem Crescente:
+Basta especificar apenas o nome do campo sem sinais:
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.aspx?url=pesquisar.csp?empre=1&ctr=1&tipo=AAP&cidade=1&regiao=2&valorminimo=80000.01&valormaximo=150000&ordem=valor
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/pesquisar.csp?empre=1&ctr=1&tipo=AAP&cidade=1&regiao=2&valorminimo=80000.01&valormaximo=150000&ordem=valor
+
+
+
+8.1.2 Limitando o Número de Imóveis na Resposta do WebService
+-------------------------------------------------------------
+
+É possível limitar a quantidade de imóveis informados pelo Webservice
+como resultado de uma pesquisa, permitindo que as requisições sejam
+enviadas com maior rapidez no caso de servidores com baixa velocidade
+de resposta devido ao tipo de link da imobiliária. Para limitar o 
+número de imóveis no XML de resposta do Webservice basta usar o parâmetro
+offset, indicando a quantidade de imóveis por página conforme o exemplo
+abaixo que limita em 15 o número de imóveis, assim serão geradas páginas
+com 15 imóveis cada uma.
+
+Como haverá várias páginas para acessar cada uma das páginas geradas pelo
+servidor deve-se utiliar o parâmetro pagina, conforme o exemplo abaixo
+que recupera os 15 imóveis da terceira página gerada pelo servidor.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=pesquisar.csp?empre=1&ctr=1&tipo=AAP&cidade=1&regiao=2&valorminimo=80000.01&valormaximo=150000&pagina=3&offset=15
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/pesquisar.csp?empre=1&ctr=1&tipo=AAP&cidade=1&regiao=2&valorminimo=80000.01&valormaximo=150000&pagina=3&offset=15
+
+
+
+9 Visualizando os dados da Referência
+------------------------------------------
+
+Para obter o XML com os dados de um Imóvel/Bem utilizando a referência 
+do imóvel basta fazer uma chamada para a página imovel.csp especificando
+a referência desejada:
+
+Por exemplo, para consultar o imóvel número 548:
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=imovel.csp?ref=548
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/imovel.csp?ref=548
+
+
+
+9.1 Visualizar Dados Restritos do Imóvel
+-------------------------------------------
+
+Para visualizar o endereço, dados do contato e informações restritadas
+como se o internauta fosse um usuário/corretor participante da imobiliária, pode-se 
+utilizar a sigla(usuário) e a senha do usuário no sistema, como se o corretor
+estivesse dentro da empresa acessando o sistema CorretorProfissional. Esta função
+pode ser utilizada como uma sessão restrita, onde somente os funcionários da empresas
+poderão ver as informações restritas de acordo com suas permissões no sistema, como
+nome do Edifício, proprietário, e endereço do imóvel.
+
+Para isso deve-se fazer a autenticação do usuário através da página de login:
+http://online.seusite.com.br/corweb/login.csp?usuario=JOSE&senha=123456
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=login.csp?usuario=COR15&senha=12345
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/login.csp?usuario=COR15&senha=12345
+
+
+Em caso de sucesso o sistema irá retornar um XML com a sigla do usuário e o nome
+do mesmo dentro do sistema, caso contrário será informada a tag <erro> com
+a descrição do erro.
+
+Após feito o login, todos os imóveis que forem visualizados apresentarão os
+dados restritos caso seja permitido pelo acesso do usuário. Para realizar o
+logoff do usuário basta fazer uma requisção para a página logout:
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=logout.csp
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/logout.csp
+
+
+
+9.2 Mapa do Imóvel
+------------------
+
+É possível obter a chave do Google Maps habilitada para a empresa
+(caso já tenha sido criada pela empresa) para a exibição do mapa
+da região onde está o imóvel, fazendo uma requisição para a página
+googlemaps.csp do WebService. A chave estará dentro da tag <key>.
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=googlemaps.csp
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/googlemaps.csp
+
+
+
+
+10 Identificando e Repassando para o WebService Dados do Internauta Interessado
+--------------------------------------------------------------------------------
+
+É possível repassar para o WebService os dados de cadastro do internauta,
+assim o sistema CorretorProfissional indicará que há novos Interessados
+Cadastrados Via Internet através da página de identificação. Deve-se
+substituir os caracteres especiais com o padrão de caracteres para URLs
+conforme especificação da W3C onde @ (arroba) = %40 e " "(espaço) = %20
+caso não utilize um framework para enviar as informações (JQuery, Prototype, etc)
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.aspx?url=identificar.csp?email=abc%40email.com&ignorapesquisa=0&nome=Jose%20da%20Silva&tel=(11)%201234-4567&tipoVis=0
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/identificar.csp?email=abc%40email.com&ignorapesquisa=0&nome=Jose%20da%20Silva&tel=(11)%201234-4567&tipoVis=0
+
+Como resultado da requisição para identificar o internauta no WebService 
+você receberá um XML contendo o resultado da identificação, para que sejam
+utilizados nos itens abaixo.
+
+Tag				Descrição
+preinteressado  identifica se o internauta é um pré interessado (caso 
+				seja a primeira vez que ele se identifica no site)				
+
+interessado		caso ele já esteja cadastrado no sistema.
+key				código de pre-interessado ou interessado gerado pelo sistema
+
+
+Os itens abaixo só podem ser executados caso o internauta tenha
+se identificado no site, caso contrário não exiba o link para as
+operações abaixo.
+
+
+
+10.1 Enviando Mensagem do Internauta Interessado
+------------------------------------------------
+
+Para enviar uma mensagem digitada pelo internauta basta fazer uma requisição
+para a página mensagem.csp, passando os parâmetros ref (Referência do Imóvel
+clicado), tipo (identificador que permite o WebService saber se o
+internauta já está cadastrado no sistema como interessado, ou se é a primeira
+vez que ele se identifica, na dúvida sempre envie tipo=preinteressado), 
+e o parâmetro mensagem (texto digitado pelo internauta), conforme o exemplo
+abaixo:
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.aspx?url=mensagem.csp?interessado=14019&mensagem=Gostei%20deste%20imovel&ref=10541&tipo=preinteressado
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/mensagem.csp?interessado=14019&mensagem=Gostei%20deste%20imovel&ref=10541&tipo=preinteressado
+
+
+
+10.2 Marcando Visita para o Internauta Interessado
+--------------------------------------------------
+
+Para enviar uma mensagem digitada pelo internauta basta fazer uma requisição
+para a página mensagem.csp, passando os parâmetros ref (Referência do Imóvel
+clicado), tipoCliente (identificador que permite o WebService saber se o
+internauta já está cadastrado no sistema como interessado, ou se é a primeira
+vez que ele se identifica, na dúvida sempre envie tipoCliente=preinteressado), 
+o parâmetro interessado (código do internauta gerado após identificação) e 
+o parâmetro mensagem (texto digitado pelo internauta), conforme o exemplo
+abaixo:
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=agendarvisita.csp?interessado=14019&ref=10541&tipoCliente=preinteressado
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/agendarvisita.csp?interessado=14019&ref=10541&tipoCliente=preinteressado
+
+
+
+10.3 Enviando uma Proposta do Internauta Interessado para Imobiliária
+---------------------------------------------------------------------
+
+Para exibir para o internauta o texto de proposta cadastrado no sistema pela 
+empresa basta fazer uma requisição para a página contratoproposta.csp, informando
+o tipo de contrato do imóvel clicado (Venda, Locação, Empreendimento) conforme
+o exemplo abaixo:
+
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.aspx?url=contratoproposta.csp?contrato=Venda
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/contratoproposta.csp?contrato=Locação
+
+
+Se o internauta concordar com os termos da proposta informado pela empresa
+então você pode enviar como parâmetro para a página registrarproposta.csp 
+do Webservice os tipos de bens que ele possui através do parâmetro tipobem, 
+o valor do bem oferecio através do parâmetro bemvalor, a descrição do bem
+através do parâmetro desc, o valor que o internauta oferece no imóvel através 
+do parâmetro valor, e o valor do FGTS Disponível através do parâmetro fgts, 
+devendo enviar também os dados de identificação do internauta através do 
+parâmetro interessado (código do internauta gerado após identificação) e
+tipoCliente, com o valor interessado (para indicar que o internauta já está
+cadastrado no sistema) ou com o valor preinteressado (para indicar que 
+ele acabou de se cadastrar no site) conforme resultado da página identificar.csp
+(ver item 10).
+
+Os códigos para o parâmetro tipobem (Bem que o internauta pode enviar) são:
+Código	Descrição do Bem
+1		Automóvel
+2		Imóvel
+3		Outros
+
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=registrarproposta.csp?bemvalor=1212&desc=Casebre&fgts=67890&interessado=14019&ref=10541&tipoCliente=preinteressado&tipobem=2&valor=12345
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/contratoproposta.csp?registrarproposta.csp?bemvalor=1212&desc=Casebre&fgts=67890&interessado=14019&ref=10541&tipoCliente=preinteressado&tipobem=2&valor=12345
+
+
+
+10.4 Indicando Imóvel para Amigo
+--------------------------------
+O internauta pode indicar para uma pessoa conhecida um imóvel que viu no site da 
+empresa. Para realizar a chamada para o servidor enviar e-mail é necessário passar
+3 parâmetros na URL para a página indiqueamigo.csp:
+Parâmetro     	Descrição
+nomeindicador 	Nome da pessoa que está indicando o imóvel
+emailindicado	Endereço de E-mail da pessoa que receberá a mensagem indicando o imóvel.
+ref		Referência do Imóvel Indicado
+
+
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=indiqueamigo.csp?ref=43817&nomeindicador=Eduardo&emailindicado=desenvolvimento@sistemasprofissionais.com.br
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/indiqueamigo.csp?ref=43817&nomeindicador=Cristiane&emailindicado=suporte@sistemasprofissionais.com.br
+
+
+
+11 Página de Promoções
+------------------------
+
+Para obter o XML contendo os imóveis em promoção basta fazer a requisição
+para o Webservice para a pagina promocoes.csp, utilizando a URL conforme 
+o exemplo abaixo, podendo informar o tipo de contrato e/ou o tipo de imóvel.
+Também é possível limitar a quantidade de imóveis recuperada pelo WebService
+a cada requisição através do parâmetro offset, e navegar entre as páginas do
+resultado gerado com o parâmetro página. Também é possível limitar a quantidade
+total de imóveis recuperados pelo servidor através do parâmetro limite. 
+O parâmetro ciclico, se especificado permite que criar uma lista onde, após o 
+último imóvel ser colocado no XML, o servidor preenche o restante da página
+com o primeiro imóvel da lista, sempre completando o total de imóveis especificados
+pelo parâmetro offset, por exemplo, se for solicitada uma lista para o Webservice
+com offset=5 mas há somente 9 imóveis em promoção, serão geradas duas páginas de 
+resultado, e após a última referência (chamemos esta de referência 9) a décima
+referência do resultado será o imóvel referência 1, fazendo com que a segunda
+página tenha 5 imóveis, conforme o parâmetro offset.
+
+
+Para exibir as Promoções de Venda basta utilizar a seguinte URL:
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.aspx?url=promocoes.csp?empre=1&ctr=1&offset=6&limite=50
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/promocoes.csp?empre=1&ctr=1&offset=6&limite=50
+
+Para exibir as Promoções de Locação basta utilizar a seguinte URL:
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.asp?url=promocoes.csp?empre=2&ctr=2&offset=10
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/promocoes.csp?empre=1&ctr=2&offset=6
+
+Para exibir as Promoções de Empreendimento/Lançamentos basta 
+utilizar a seguinte URL:
+Exemplo com proxy da Sistemas Profissionais:
+http://www.seusite.com.br/corweb/proxy/index.php?url=promocoes.csp?empre=1&ctr=3&offset=15&ciclico=1
+Exemplo com proxy próprio:
+http://online.seusite.com.br/corweb/promocoes.csp?empre=1&ctr=3&offset=15&ciclico=1
+
+
+
+
+12 Página de Cadastro de Imóveis
+---------------------------------
+
+Esta página permite que os proprietários de imóveis 
+cadastrem seus imóveis no site, e que estes imóveis
+sejam ou não incluídos no sistema após confirmação
+no menu Secretaria -> Dados Via Internet -> Imóveis.
+
+O cadastramento destes imóveis também pode ser feito
+através do WebService, neste caso as informações do
+imóvel podem ser passadas pelos parâmetros.
+
+São 3 os tipos de dados enviados:
+
+Sigla 	Descrição 	Exemplo
+T	Texto			Sistemas Profissionais
+N	Números   		120 ou 120.12
+B	Booleanos 		1 ou 0
+
+
+Primeiramente é necessário identificar o proprietário
+do Imóvel, enviando os parâmetros para a página no 
+endereço abaixo:
+http://online.seusite.com.br/corweb/identificarpro.csp
+
+
+Para esta página serão passados os parâmetros abaixo:
+
+Parâmetro			Descrição do Campo 	Tipo	Obrigatório
+nome				Nome Completo		T	Sim
+tel				Telefone		N	Sim
+email				E-mail			T	Sim
+cpf				CPF			N	
+uf				Estado			T
+cid				Cidade			T
+tiplog				Tipo de Logradouro	T
+ende				Endereço		T
+num				Número			N
+compl				Complemento		T
+bai				Bairro			T
+cep				CEP			N
+ignorapesquisa			Não identificar 	B
+
+
+O parâmetro ignorapesquisa se possuir valor 1, 
+fará com que o proprietário seja cadastrado diretamente
+no sistema, sem verficar se já existe, podendo causar
+assim uma duplicação das informações.
+
+Caso não seja enviado o parâmetro ignorapesquisa,
+o WebService irá procurar pelo proprietário nos 
+cadastros do sistema, e o identificará, caso ele
+já esteja cadastrado, retornando um XML com os dados
+do Proprietário, e informando se ele já consta como
+Destinatário da Mala Direta, Interessado ou 
+Proprietário de Imóvel
+
+Exemplo:
+http://online.seusite.com.br/corweb/identificarpro.csp?nome=Eduardo&tel=43393880&email=desenvolvimento@sistemasprofissionais.com.br&cpf=12036400808&uf=SP&cid=SAO BERNARDO DO CAMPO&tiplog=R&ende=JOSE COPPINI&num=149&compl=AP.23&bai=JD SAO LUIS&cep=09715270&ignorapesquisa=0
+
+O resultado dessa página será o XML contendo as informações
+do proprietário, que posteriormente serão passadas ao cadastro
+do imóvel como uma estrutura JSON no parâmetro proprietário.
+
+Estrutura do parâmetro proprietario
+
+Trata-se de uma estrutura do padrão JSON
+retornada pelo WebService após cadastrar/identificar 
+o proprietário do imóvel no sistema CorretorProfissional.
+Nessa estrutura estão os seguintes campos:
+
+Parâmetro	Descrição do campo
+key   		Código no Cadastro
+nome		Nome Completo
+telefone	Telefone no formato (NNN)NNNN-NNNN
+cpf		CPF no formato NNN.NNN.NNN-NN
+mala		Código de Destinatário atribuído ao proprietário
+tipo		Se o proprietário foi encontrado como destinatário, proprietário, interessado
+
+Exemplo
+proprietario={"key": "17551", "nome": "Joaquim Manoel", "telefone": "(333)4444-4444", "cpf": "222.222.222-22", "mala": "17551", "tipo": "destinatario" }
+
+
+Após cadastrar os dados do proprietário, basta invocar o
+WebService para cadastramento de imóveis, passando os 
+parâmetros com dados do imóvel:
+http://online.seusite.com.br/corweb/cadimovel.csp
+
+
+Parâmetro		Descrição do Campo Original	Campo Configurável	Obrigatório	Tipo	Possíveis Valores
+tipo 			Tipo de Imóvel						Sim		T
+ctr			Tipo de Contrato					Sim		N
+uf			UF (Estado)						Sim		T
+cidade			Cidade							Sim 		T
+bairro			Bairro							Sim		T
+end			Endereço						Sim 		T
+tiplog			Tipo de Logradouro							T
+num			Número do Imóvel 					Sim		N
+apt			Número do Apartamento					Sim		N
+blc			Identificação do Bloco do Apto				Sim		T
+cep			CEP							Sim		T
+ptoref			Ponto de Referência							T
+obslocal		Observação Sobre o Local						T
+pad			Padrão de Negócio							N
+fin			Finalidade						Sim		N
+dor			Quantidade de Dormitórios				Sim		N
+dop			Quantidade de Suítes					Sim		N
+dorobs			Observação sobre os Dormitórios						T
+gar			Quantidade de Garangens					Sim		N
+garobs			Observações sobre as Garagens						T
+sal			Descrição da Sala					Sim		T
+coz			Descrição da Cozinha					Sim		T
+ban			Descrição do Banheiro					Sim		T
+ars			Descrição da Área de Serviço				Sim		T
+aru			Área Útil						Sim		N
+art			Área do Terreno						Sim 	  	N
+aco			Área Construída						Sim		N
+dim			Dimensões						Sim		T
+apr			Aparência						Sim		N
+fac			Face							Sim		N
+ida			Idade							Sim		T
+and			Andares							Sim		N	
+ele			Elevadores						Sim		N
+apa			Aptos por Andar						Sim		N
+ocu			Ocupação								N	0 = Vago 1 = Proprietário 2 = Outros
+desocu			Data da Desocupação							D
+vis			Horário de Visitação							T
+cha			Chaves							Sim		T
+obsimo			Observações do Imóvel							T	
+agu			Agua Quente						Sim		B
+arc			Ar Condicionado						Sim		B
+con			Conjunto Habitacional					Sim		B
+esq			Esquina							Sim		B
+int			Interfone						Sim		B
+iso			Isolada							Sim		B
+lar			Lareira			    				Sim		B
+lat			Entrada Lateral						Sim		B
+pis			Piscina			  	  			Sim		B
+pla			Playground						Sim		B
+por			Portaria		   				Sim		B
+qnt			Quintal							Sim		B
+val			Valor do Imóvel						Sim		N
+cond			Condomínio								N
+iptu			Valor do IPTU								N
+saldo			Possui Saldo Devedor							B
+saldoval		Valor do Saldo Devedor							N
+saldotmp		Tempo Restante do Saldo							T
+saldoag			Instituição Financeira do Saldo						T	
+saldoprest		Valor da Prestação do Saldo						N
+saldoper		Período de Reajuste do Saldo						N	0 = Mensal 1 = Bimestral 2 = Trimestral 3 = Quadrimestral 4 = Semestral 5 = Anual
+saldomes		Mês de Reajuste								T
+proprietario  		Ver Estrutura do Proprietário						Estrutura JSON de Proprietário
+
+
+
+Exemplo:
+http://online.seusite.com.br/corweb/cadimovel.csp?empre=1&tipo=AP&ctr=1&uf=SP&cidade=1&bairro=Centro&end=Machado de Assis&tiplog=R&num=12
+&apt=&blc=&cep=09783-010&ptoref=&obslocal=&pad=0&fin=1&dor=0&dop=0&dorobs=&gar=0&garobs=&sal=&coz=&ban
+=&ars=&aru=0&art=&aco=&dim=&apr=0&fac=0&ida=&and=&ele=&apa=&ocu=0&desocu=&vis=&cha=prop&obsimo=&agu=0
+&arc=0&con=0&esq=0&int=0&iso=0&lar=0&lat=0&pis=0&pla=0&por=0&qnt=0&val=100000&cond=0&iptu=0&
+proprietario={"key": "17551", "nome": "Joaquim Manoel", "telefone": "(333)4444-4444", "cpf": "222.222.222-22", "mala": "17551", "tipo": "destinatario" }
+
+
+
+******************************************************
+*                       Atenção                      *
+******************************************************
+
+O CorretorWeb é suportado pelos navegadores Internet
+Explorer 7 e superiores, e Firefox 2.6 e superiores. 
+O sistema de pesquisa CorretorWeb possui uma outra
+interface de busca para navegadores com versão abaixo
+da especificada acima. Para os navegadores com versões
+mais antigas pode-se usar o aplicativo Pesquisa conforme
+as configurações abaixo.
+
+Para identificar a versão do navegador do cliente, e 
+então redirecionar o cliente para a página mais
+apropriada, você pode utilizar como exemplo a página 
+/corweb/index.htm, que já possui um exemplo de como 
+fazer esta tarefa.
+
+******************************************************
+
+
+
+
+
+Teste de Acesso:
+----------------
+
+Para verificar se o sistema web está funcionando acesse o
+endereço do CorretorWeb http://999.999.999.9999/corweb/ ou
+se a entrada de DNS já tiver sido criada http://online.suaempresa.com.br/corweb/
+de fora da empresa (através da Internet).
+Se as páginas não aparecerem, entre em contato com a imobiliária
+e solicite que um funcionário da empresa faça um teste, utilizando 
+uma estação de trabalho da rede, ele deve acessar um dos endereços 
+abaixo, se o usuário conseguir acessar as páginas, então peça para 
+que ele contacte o técnico de rede para verificar a causa do problema.
+
+CorretorWeb: http://nomedoservidorweb/corweb/ ou http://ipdoservidorweb/corweb/
+através da sua rede interna e consulte PELA REFERÊNCIA 
+o imóvel nº 1 incluído unicamente para testes do seu 
+sistema, faça uma pesquisa. 
+Este imóvel NÃO É ACESSÍVEL VIA PESQUISA DE IMÓVEIS por
+medida de segurança.

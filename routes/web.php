@@ -115,7 +115,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     });
 
     Route::prefix('imoveis')->name('imoveis.')->group(function () {
-        Route::get('/', [ImoveisController::class, 'list'])->name('list');
+        Route::get('/', [ImoveisController::class, 'index'])->name('index');
         Route::get('novo', [ImoveisController::class, 'novo'])->name('novo');
         Route::post('store', [ImoveisController::class, 'store'])->name('store');
         Route::post('upload', [ImoveisController::class, 'upload'])->name('upload');
@@ -123,6 +123,8 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
         Route::get('edit/{id}', [ImoveisController::class, 'edit'])->name('edit');
         Route::put('update/{id}', [ImoveisController::class, 'update'])->name('update');
         Route::get('delete/{id}', [ImoveisController::class, 'delete'])->name('delete');
+        Route::get('delete/{id}', [ImoveisController::class, 'delete'])->name('delete');
+        Route::get('/getLista', [ImoveisController::class, 'getLista'])->name('getLista');
     });
     Route::prefix('corretor')->name('corretor.')->group(function () {
         Route::get('/', [CorretorController::class, 'list'])->name('list');
@@ -201,6 +203,8 @@ Route::prefix('/')->middleware(['web'])->name('site.')->group(function () {
 
     Route::get('/busca_avancada', [\App\Http\Controllers\Site\IndexController::class, 'busca_avancada'])->name('busca_avancada');
 
+    Route::get('/acesso-administrativo', [\App\Http\Controllers\PaginasController::class, 'administracao'])->name('administracao');
+    
     Route::prefix('locacao')->name('locacao.')->group(function () {
         Route::get('/{locacao}', [LocacaoController::class, 'index'])->name('index');
     });
