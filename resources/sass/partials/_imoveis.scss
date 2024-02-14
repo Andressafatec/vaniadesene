@@ -144,11 +144,6 @@
         @include mq(boot-md,max){
             width: 80% !important;
         }
-
-        &:hover{
-          background-color: #0D3F85;
-          color:#fff;
-        }
     }
 }
 
@@ -161,7 +156,6 @@
             img{
                 height: 300px;
                 display: inline-block;
-                object-fit: cover;
             }
         }
     }
@@ -176,7 +170,6 @@
           img{
               height: 300px;
               display: inline-block;
-              object-fit: cover;
           }
       }
   }

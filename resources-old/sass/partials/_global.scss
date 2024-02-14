@@ -1,0 +1,116 @@
+//=======================================================
+// -Global style start
+//=======================================================
+
+// Default style start
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  font-family: $font-primary;
+  min-height: 100vh;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  
+
+    // Media Query max width Usage
+    @include mq("md", max) {
+      font-size: 14px;
+    }
+
+    // Media Query min max width Usmdage
+    @include mq-only("md", "xl") {
+      font-size: 15px;
+    }
+
+    // Media Query min width Usage
+    @include mq("xl", min) {
+      font-size: 16px;
+    }
+  }
+
+  // Make images easier to work with
+  img {
+    max-width: 100%;
+    display: inline-block;
+    @include mq("phone-wide", max) {
+      margin-right: 0;
+      margin-left: 0;
+  }
+}
+
+  // Remove list styles on ul, ol elements with a class attribute
+  ul[class],
+  ol[class] {
+    list-style: none;
+  }
+
+  %headings {
+    font-weight: 700;
+
+    line-height: 1;
+    margin-top: 0;
+  }
+
+  @for $i from 1 through 6 {
+
+    h#{$i},
+    .h#{$i} {
+      @extend %headings;
+    }
+  }
+
+  //=======================================================
+  // -Global style  end
+  //=======================================================
+
+
+  main {
+color: $text-color;
+  }
+
+  .clearfix {
+    clear: both;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .card{
+    border: none !important;
+    border-radius: 25px !important;
+  }

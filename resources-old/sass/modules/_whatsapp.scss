@@ -1,0 +1,64 @@
+.containerWhatsApp{
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    height: 50px;
+    width: 50px;
+    z-index: 99999;
+    display: flex;
+        align-items: flex-end;
+justify-content: flex-end;
+}
+@media  (min-width:768px){
+    .containerWhatsApp:hover{
+    height: 174px;
+    width: 241px;
+}
+.containerWhatsApp:hover .floatNumbers{
+    display: block;
+}
+}
+
+.controleWhats{
+    position: relative;
+    width: 50px;
+        height: 50px;
+}
+.floatNumbers{
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1.2em;
+    gap: 11px;
+    box-shadow: 4px 3px 3px #aeaeae;
+    display: none;
+}
+.floatNumbers a{
+    color: #fff;
+    background: #007630;
+    display: block;
+    padding: 5px 8px;
+    border-radius: 8px;
+    margin: 5px 0;
+}
+.btnOpenWhats{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 50%;
+    background: #007630;
+    color: #fff;
+    border: none;
+    right: 0;
+    bottom: 0;
+    font-size: 33px;
+    line-height: 33px;
+}

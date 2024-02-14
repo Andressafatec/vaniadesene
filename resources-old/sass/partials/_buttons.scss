@@ -1,0 +1,20 @@
+//===========================================
+// -Buttons start
+//===========================================
+
+.btn {
+  cursor: pointer;
+  border-radius: 50px;
+  &[disabled],
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+.btn-brand{
+  background: $rosa;
+  color: #fff;
+}
+//===========================================
+// -Buttons end
+//===========================================
+   
