@@ -9,6 +9,17 @@
                 <div class="">
 
                     <div class="row">
+                    <div class="col-12 mt-2">
+                    <h4>Código</h4>
+                    <div class="container-codigo" >
+                        <form action="{{ route('site.imoveis.index')}}" onsubmit="return validarCodigo()" method="GET">
+                            <input type="text" name="codigo" id="codigo" class="form-control form-control-lg" placeholder="Insira o código">
+                            <button type="submit" id="inserirCodigo" style="color:#eb9839; right: 5%; padding: 0;">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                      </div>
+                    </div>
                       <div class="col-12 col-sm-6 mt-2 selectSearch">
                         <h4>Modalidade</h4>
                         <div class="d-flex justify-content-around">

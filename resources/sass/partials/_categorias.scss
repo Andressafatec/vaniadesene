@@ -42,8 +42,6 @@
             font-weight: 700 !important;
             color: #0D3F85;
             text-decoration: none;
-            width: 100%;
-            display: block;
 
             .icon{
                 font-size: 20px;
@@ -147,11 +145,6 @@
         display: block;
         text-decoration: none;
         border: none;
-
-        &:hover{
-        background-color: #0D3F85;
-        color:#fff;
-        }
     }
 }
 .col_categoria_1{

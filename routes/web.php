@@ -198,6 +198,8 @@ Route::prefix('/')->middleware(['web'])->name('site.')->group(function () {
   
     Route::prefix('imoveis')->name('imoveis.')->group(function () {
         Route::get('/{contrato?}', [\App\Http\Controllers\Site\ImoveisController::class, 'index'])->name('index');
+        Route::get('/localizando/{ref}', [\App\Http\Controllers\Site\ImoveisController::class, 'localizando'])->name('localizando');
+        Route::get('/cadastraImovel/{ref}', [\App\Http\Controllers\Site\ImoveisController::class, 'cadastraImovel'])->name('cadastraImovel');
         Route::get('/detalhes/{referencia_original}', [\App\Http\Controllers\Site\ImoveisController::class, 'detalhes'])->name('detalhes');
     });
 

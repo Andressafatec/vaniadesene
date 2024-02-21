@@ -568,7 +568,7 @@ getinitEditor()
         left: '-100%',
       },500)
     })
-    $(".btn-destroy").click(function(e){
+    $("body").on("click", ".btn-destroy", function(e){
       var url = $(this).attr('href');
       e.preventDefault();
       $(this).closest('tr').addClass("remove-row");

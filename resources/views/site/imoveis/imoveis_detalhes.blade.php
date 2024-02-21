@@ -3,9 +3,7 @@
 @section('head')
 <link rel="stylesheet" href="{{asset('vendor/magnific-popup/dist/magnific-popup.css')}}">
 
-<style>
 
-</style>
 @endsection
 @section('content')
 @if(count($imovel->fotos) >= 1)
@@ -13,10 +11,13 @@
   <div class="swiper-container">
   <div class="swiper-wrapper">
   @foreach ($imovel->videos as $k => $video)
+
     <div class="swiper-slide @if($k === 0) active @endif">
-        <a href="{{$video->url}}" class="popup-link">
-          <iframe width="auto" height="295" src="{{$video->url}}" frameborder="0"></iframe>
-        </a>
+        
+
+          <iframe width="100%" height="295" src="{{$video->embedVideo()}}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+   
     </div>
    
     @endforeach
@@ -45,9 +46,10 @@
   <div class="swiper-container-mobile">
   <div class="swiper-wrapper">
   @foreach ($imovel->videos as $k => $video)
+
     <div class="swiper-slide @if($k === 0) active @endif">
         <a href="{{$video->url}}" class="popup-link">
-          <iframe width="auto" height="295" src="{{$video->url}}" frameborder="0"></iframe>
+        <iframe width="100%" height="295" src="{{$video->embedVideo()}}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </a>
     </div>
    

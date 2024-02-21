@@ -1,0 +1,25 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-408f3d12.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/images/foto_sjc.png": {
+    "file": "assets/foto_sjc-b6fdcfe1.png",
+    "src": "resources/images/foto_sjc.png"
+  },
+  "resources/images/pin.svg": {
+    "file": "assets/pin-91af72f0.svg",
+    "src": "resources/images/pin.svg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-5032be1f.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-4c979283.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
+  }
+}
